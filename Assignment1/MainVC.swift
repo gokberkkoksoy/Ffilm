@@ -12,11 +12,12 @@ class MainVC: UIViewController {
     private let addItemTextField = GKTextField()
     private let tableView = UITableView()
     private let button = GKButton(backgroundColor: .red, title: "SUBMIT")
-    private var items = ["asdf","dsfg", "wey", "786854"]
+    private var items = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemPink
+        items = Storage.get(for: Storage.key) as? [String] ?? []
         configureTextField()
         createDismissKeyboardTapGesture()
         configureButton()
@@ -62,6 +63,7 @@ class MainVC: UIViewController {
             items.append(item!)
         }
         DispatchQueue.main.async { self.tableView.reloadData() }
+        Storage.store(items: items, key: Storage.key)
     }
     
     private func configureButton() {
@@ -94,8 +96,6 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return items.count
     }
     
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -111,6 +111,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         items.remove(at: indexPath.row)
+        Storage.store(items: items, key: Storage.key)
         tableView.deleteRows(at: [indexPath], with: .left)
     }
 }

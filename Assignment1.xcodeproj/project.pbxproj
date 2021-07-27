@@ -10,6 +10,7 @@
 		5ECA07C326B0428300A24AAF /* GKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07C226B0428300A24AAF /* GKTextField.swift */; };
 		5ECA07C926B0553D00A24AAF /* GKTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07C826B0553D00A24AAF /* GKTableViewCell.swift */; };
 		5ECA07CB26B09C2B00A24AAF /* GKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07CA26B09C2B00A24AAF /* GKButton.swift */; };
+		5ECA07CD26B0A21300A24AAF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07CC26B0A21300A24AAF /* Storage.swift */; };
 		5EEA5FC926B0375F00FFC678 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA5FC826B0375F00FFC678 /* AppDelegate.swift */; };
 		5EEA5FCB26B0375F00FFC678 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA5FCA26B0375F00FFC678 /* SceneDelegate.swift */; };
 		5EEA5FCD26B0375F00FFC678 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA5FCC26B0375F00FFC678 /* MainVC.swift */; };
@@ -21,6 +22,7 @@
 		5ECA07C226B0428300A24AAF /* GKTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKTextField.swift; sourceTree = "<group>"; };
 		5ECA07C826B0553D00A24AAF /* GKTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKTableViewCell.swift; sourceTree = "<group>"; };
 		5ECA07CA26B09C2B00A24AAF /* GKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKButton.swift; sourceTree = "<group>"; };
+		5ECA07CC26B0A21300A24AAF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		5EEA5FC526B0375F00FFC678 /* Assignment1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EEA5FC826B0375F00FFC678 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EEA5FCA26B0375F00FFC678 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				5ECA07C226B0428300A24AAF /* GKTextField.swift */,
 				5ECA07C826B0553D00A24AAF /* GKTableViewCell.swift */,
 				5ECA07CA26B09C2B00A24AAF /* GKButton.swift */,
+				5ECA07CC26B0A21300A24AAF /* Storage.swift */,
 			);
 			path = Assignment1;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EEA5FCD26B0375F00FFC678 /* MainVC.swift in Sources */,
+				5ECA07CD26B0A21300A24AAF /* Storage.swift in Sources */,
 				5EEA5FC926B0375F00FFC678 /* AppDelegate.swift in Sources */,
 				5EEA5FCB26B0375F00FFC678 /* SceneDelegate.swift in Sources */,
 				5ECA07C926B0553D00A24AAF /* GKTableViewCell.swift in Sources */,
