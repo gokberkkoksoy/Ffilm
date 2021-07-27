@@ -11,6 +11,7 @@ class MainVC: UIViewController {
     
     private let addItemTextField = GKTextField()
     private let tableView = UITableView()
+    private let button = GKButton(backgroundColor: .red, title: "SUBMIT")
     private var items = ["asdf","dsfg", "wey", "786854"]
     
     override func viewDidLoad() {
@@ -18,6 +19,7 @@ class MainVC: UIViewController {
         view.backgroundColor = .systemPink
         configureTextField()
         createDismissKeyboardTapGesture()
+        configureButton()
         configureTableView()
     }
     
@@ -51,22 +53,37 @@ class MainVC: UIViewController {
             tableView.topAnchor.constraint(equalTo: addItemTextField.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: button.topAnchor)
         ])
     }
     
-    func addItem(item: String){
-        items.append(item)
+    func addItem(item: String?){
+        if item != nil {
+            items.append(item!)
+        }
         DispatchQueue.main.async { self.tableView.reloadData() }
+    }
+    
+    private func configureButton() {
+        view.addSubview(button)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            button.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
+            button.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            button.heightAnchor.constraint(equalToConstant: 35)
+        ])
+    }
+    
+    @objc private func buttonTapped() {
+        addItem(item: addItemTextField.text)
     }
     
 }
 
 extension MainVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text != nil {
-            addItem(item: textField.text!)
-        }
+        addItem(item: textField.text)
         textField.resignFirstResponder()
         return true
     }
@@ -79,9 +96,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath.section, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GKTableViewCell.reuseID) as! GKTableViewCell
