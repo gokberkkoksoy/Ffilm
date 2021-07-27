@@ -25,7 +25,7 @@ class GKTableViewCell: UITableViewCell {
         itemLabel.textAlignment = .natural
         itemLabel.textColor = .label
         itemLabel.adjustsFontSizeToFitWidth = true
-        itemLabel.minimumScaleFactor = 0.9
+        itemLabel.minimumScaleFactor = 0.9 // for very large texts, font size can decrease by 10%
         itemLabel.lineBreakMode = .byTruncatingTail
         itemLabel.translatesAutoresizingMaskIntoConstraints = false
         itemLabel.font = UIFont.systemFont(ofSize: 45)

@@ -106,8 +106,6 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         items.remove(at: indexPath.row)
@@ -115,4 +113,3 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deleteRows(at: [indexPath], with: .left)
     }
 }
-
