@@ -11,12 +11,12 @@ class MainVC: UIViewController {
     
     private let addItemTextField = GKTextField()
     private let tableView = UITableView()
-    private let button = GKButton(backgroundColor: .red, title: "SUBMIT")
+    private let button = GKButton(backgroundColor: UIColor(red: 0.17, green: 0.37, blue: 0.47, alpha: 1.00), title: "SUBMIT")
     private var items = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+        view.backgroundColor = UIColor(red: 0.52, green: 0.61, blue: 0.67, alpha: 1.00)
         items = Storage.get(for: Storage.key) as? [String] ?? []
         configureTextField()
         createDismissKeyboardTapGesture()
@@ -48,12 +48,13 @@ class MainVC: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: .zero)
         tableView.backgroundColor = .none
+        tableView.tintColor = UIColor(red: 0.20, green: 0.39, blue: 0.52, alpha: 1.00)
         tableView.register(GKTableViewCell.self, forCellReuseIdentifier: GKTableViewCell.reuseID)
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: addItemTextField.bottomAnchor, constant: 10),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: button.topAnchor)
         ])
     }

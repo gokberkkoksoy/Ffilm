@@ -29,14 +29,14 @@ class GKTextField: UITextField {
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: frame.height))
         leftViewMode = .always
         
-        textColor = .label // adjusts itself to the light-dark mode
-        tintColor = .label
+        textColor = .black
+        tintColor = UIColor(red: 0.13, green: 0.66, blue: 0.88, alpha: 1.00)
         textAlignment = .natural
         font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         
-        backgroundColor = .systemGray6
+        backgroundColor = UIColor(red: 0.79, green: 0.86, blue: 0.89, alpha: 1.00)
         autocorrectionType = .no
         returnKeyType = .done
         clearButtonMode = .whileEditing
