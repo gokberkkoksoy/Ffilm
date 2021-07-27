@@ -1,0 +1,46 @@
+//
+//  GKTextField.swift
+//  Assignment1
+//
+//  Created by Gökberk Köksoy on 27.07.2021.
+//
+
+import UIKit
+
+class GKTextField: UITextField {
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        layer.cornerRadius = 10
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.systemGray4.cgColor
+        
+        // next 2 lines are used to add padding to the placeholder. otherwise the cursor is not shown
+        leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: frame.height))
+        leftViewMode = .always
+        
+        textColor = .label // adjusts itself to the light-dark mode
+        tintColor = .label
+        textAlignment = .natural
+        font = UIFont.preferredFont(forTextStyle: .body)
+        adjustsFontSizeToFitWidth = true
+        minimumFontSize = 12
+        
+        backgroundColor = .systemGray6
+        autocorrectionType = .no
+        returnKeyType = .done
+        clearButtonMode = .whileEditing
+        placeholder = "Enter your item"
+    }
+    
+}
