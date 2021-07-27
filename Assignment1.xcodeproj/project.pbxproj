@@ -11,6 +11,9 @@
 		5ECA07C926B0553D00A24AAF /* GKTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07C826B0553D00A24AAF /* GKTableViewCell.swift */; };
 		5ECA07CB26B09C2B00A24AAF /* GKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07CA26B09C2B00A24AAF /* GKButton.swift */; };
 		5ECA07CD26B0A21300A24AAF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07CC26B0A21300A24AAF /* Storage.swift */; };
+		5ECA07F326B0B8BB00A24AAF /* GKTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07F226B0B8BB00A24AAF /* GKTableView.swift */; };
+		5ECA07F526B0BBFC00A24AAF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07F426B0BBFC00A24AAF /* Constants.swift */; };
+		5ECA07F726B0BCBC00A24AAF /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECA07F626B0BCBC00A24AAF /* UIView+Ext.swift */; };
 		5EEA5FC926B0375F00FFC678 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA5FC826B0375F00FFC678 /* AppDelegate.swift */; };
 		5EEA5FCB26B0375F00FFC678 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA5FCA26B0375F00FFC678 /* SceneDelegate.swift */; };
 		5EEA5FCD26B0375F00FFC678 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA5FCC26B0375F00FFC678 /* MainVC.swift */; };
@@ -23,6 +26,9 @@
 		5ECA07C826B0553D00A24AAF /* GKTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKTableViewCell.swift; sourceTree = "<group>"; };
 		5ECA07CA26B09C2B00A24AAF /* GKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKButton.swift; sourceTree = "<group>"; };
 		5ECA07CC26B0A21300A24AAF /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		5ECA07F226B0B8BB00A24AAF /* GKTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKTableView.swift; sourceTree = "<group>"; };
+		5ECA07F426B0BBFC00A24AAF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5ECA07F626B0BCBC00A24AAF /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		5EEA5FC526B0375F00FFC678 /* Assignment1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EEA5FC826B0375F00FFC678 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EEA5FCA26B0375F00FFC678 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +69,16 @@
 			path = "Custom Components";
 			sourceTree = "<group>";
 		};
+		5ECA07F826B0BFB300A24AAF /* Utilities-Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5ECA07F626B0BCBC00A24AAF /* UIView+Ext.swift */,
+				5ECA07F426B0BBFC00A24AAF /* Constants.swift */,
+				5ECA07CC26B0A21300A24AAF /* Storage.swift */,
+			);
+			path = "Utilities-Extensions";
+			sourceTree = "<group>";
+		};
 		5EEA5FBC26B0375F00FFC678 = {
 			isa = PBXGroup;
 			children = (
@@ -82,12 +98,13 @@
 		5EEA5FC726B0375F00FFC678 /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				5ECA07F826B0BFB300A24AAF /* Utilities-Extensions */,
 				5ECA07EF26B0B82E00A24AAF /* Custom Components */,
 				5ECA07EE26B0B51200A24AAF /* Support */,
 				5EEA5FCC26B0375F00FFC678 /* MainVC.swift */,
 				5EEA5FD326B0376300FFC678 /* LaunchScreen.storyboard */,
 				5EEA5FD626B0376300FFC678 /* Info.plist */,
-				5ECA07CC26B0A21300A24AAF /* Storage.swift */,
+				5ECA07F226B0B8BB00A24AAF /* GKTableView.swift */,
 			);
 			path = Assignment1;
 			sourceTree = "<group>";
@@ -162,12 +179,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EEA5FCD26B0375F00FFC678 /* MainVC.swift in Sources */,
+				5ECA07F326B0B8BB00A24AAF /* GKTableView.swift in Sources */,
+				5ECA07F726B0BCBC00A24AAF /* UIView+Ext.swift in Sources */,
 				5ECA07CD26B0A21300A24AAF /* Storage.swift in Sources */,
 				5EEA5FC926B0375F00FFC678 /* AppDelegate.swift in Sources */,
 				5EEA5FCB26B0375F00FFC678 /* SceneDelegate.swift in Sources */,
 				5ECA07C926B0553D00A24AAF /* GKTableViewCell.swift in Sources */,
 				5ECA07C326B0428300A24AAF /* GKTextField.swift in Sources */,
 				5ECA07CB26B09C2B00A24AAF /* GKButton.swift in Sources */,
+				5ECA07F526B0BBFC00A24AAF /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

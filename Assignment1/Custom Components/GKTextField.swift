@@ -30,13 +30,13 @@ class GKTextField: UITextField {
         leftViewMode = .always
         
         textColor = .black
-        tintColor = UIColor(red: 0.13, green: 0.66, blue: 0.88, alpha: 1.00)
+        tintColor = Colors.textfieldTint
         textAlignment = .natural
         font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         
-        backgroundColor = UIColor(red: 0.79, green: 0.86, blue: 0.89, alpha: 1.00)
+        backgroundColor = Colors.textFieldBackground
         autocorrectionType = .no
         returnKeyType = .done
         clearButtonMode = .whileEditing
