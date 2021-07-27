@@ -23,7 +23,7 @@ class GKTextField: UITextField {
         
         layer.cornerRadius = 10
         layer.borderWidth = 2
-        layer.borderColor = UIColor.systemGray4.cgColor
+        layer.borderColor = Colors.textFieldLayerBorder
         
         // next 2 lines are used to add padding to the placeholder. otherwise the cursor is not shown
         leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: frame.height))
@@ -36,11 +36,11 @@ class GKTextField: UITextField {
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         
-        backgroundColor = Colors.textFieldBackground
+        backgroundColor = Colors.mainScreenBackground
         autocorrectionType = .no
         returnKeyType = .done
         clearButtonMode = .whileEditing
-        placeholder = "Enter your item"
+        attributedPlaceholder = NSAttributedString(string: "Enter your item", attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightText])
     }
     
 }

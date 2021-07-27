@@ -53,7 +53,7 @@ class MainVC: UIViewController {
         ])
     }
     
-    func addItem(item: String?){
+    private func addItem(item: String?){
         if item != nil {
             items.append(item!)
         }
