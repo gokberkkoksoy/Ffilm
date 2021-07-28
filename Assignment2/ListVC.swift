@@ -58,9 +58,9 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? NameTableViewCell {
             cell.toggleCheckmark()
+        } else if let _ = tableView.cellForRow(at: indexPath) as? CityTableViewCell {
+            navigationController?.pushViewController(CityVC(), animated: true)
         }
-        
     }
-    
     
 }
