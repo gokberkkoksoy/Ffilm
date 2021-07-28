@@ -9,7 +9,6 @@ import UIKit
 
 class CityTableViewCell: UITableViewCell {
 
-    static let reuseID = "CityTableViewCell"
     let cityLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,7 +24,7 @@ class CityTableViewCell: UITableViewCell {
         cityLabel.textAlignment = .natural
         cityLabel.textColor = .black
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
-        cityLabel.font = UIFont.systemFont(ofSize: 45)
+        cityLabel.font = UIFont.systemFont(ofSize: Constants.cellFontSize)
     }
     
     private func configure() {
@@ -35,10 +34,10 @@ class CityTableViewCell: UITableViewCell {
         contentView.addSubview(cityLabel)
         
         NSLayoutConstraint.activate([
-                cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-                cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.padding),
+            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.doublePadding),
                 cityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                cityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            cityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.negativePadding)
         ])
     }
 
