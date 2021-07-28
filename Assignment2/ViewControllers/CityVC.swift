@@ -38,18 +38,16 @@ class CityVC: UIViewController {
     private func configureToolbar() {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        let back = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: webView, action: #selector(webView.goBack))
-        let forward = UIBarButtonItem(image: UIImage(systemName: "chevron.forward"), style: .plain, target: webView, action: #selector(webView.goForward))
+        let back = UIBarButtonItem(image: UIImage(systemName: Constants.wkBackward), style: .plain, target: webView, action: #selector(webView.goBack))
+        let forward = UIBarButtonItem(image: UIImage(systemName: Constants.wkForward), style: .plain, target: webView, action: #selector(webView.goForward))
         toolbarItems = [back,forward, spacer, refresh]
         navigationController?.isToolbarHidden = false
     }
     
     private func loadPage() {
         if var urlCity = cityName {
-            if urlCity.contains(" ") {
-                urlCity = urlCity.replacingOccurrences(of: " ", with: "_")
-            }
-            webView.load(URLRequest(url: URL(string: "https://en.wikipedia.org/wiki/\(urlCity)")!))
+            urlCity = urlCity.makeURLReady()
+            webView.load(URLRequest(url: URL(string: Constants.baseURL + urlCity)!))
         }
     }
 }

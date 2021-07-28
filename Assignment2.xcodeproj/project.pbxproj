@@ -18,6 +18,7 @@
 		5EE4450926B1DFE8007E9AF7 /* Datas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4450826B1DFE8007E9AF7 /* Datas.swift */; };
 		5EE4450C26B1E168007E9AF7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4450B26B1E168007E9AF7 /* Constants.swift */; };
 		5EE4450E26B1E340007E9AF7 /* CityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4450D26B1E340007E9AF7 /* CityVC.swift */; };
+		5EE4451326B1FE1B007E9AF7 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4451226B1FE1B007E9AF7 /* String+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		5EE4450826B1DFE8007E9AF7 /* Datas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datas.swift; sourceTree = "<group>"; };
 		5EE4450B26B1E168007E9AF7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5EE4450D26B1E340007E9AF7 /* CityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityVC.swift; sourceTree = "<group>"; };
+		5EE4451226B1FE1B007E9AF7 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			children = (
 				5EE4450826B1DFE8007E9AF7 /* Datas.swift */,
 				5EE4450B26B1E168007E9AF7 /* Constants.swift */,
+				5EE4451226B1FE1B007E9AF7 /* String+Ext.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EE4451326B1FE1B007E9AF7 /* String+Ext.swift in Sources */,
 				5EE444F526B1A0A8007E9AF7 /* ListVC.swift in Sources */,
 				5EE4450E26B1E340007E9AF7 /* CityVC.swift in Sources */,
 				5EE4450926B1DFE8007E9AF7 /* Datas.swift in Sources */,

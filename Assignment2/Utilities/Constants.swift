@@ -15,4 +15,9 @@ struct Constants {
     
     static let cityCellID = "CityTableViewCell"
     static let nameCellID = "NameTableViewCell"
+    
+    static let baseURL = "https://en.wikipedia.org/wiki/"
+    
+    static let wkBackward = "chevron.backward"
+    static let wkForward = "chevron.forward"
 }
