@@ -36,7 +36,7 @@ class CityVC: UIViewController {
     private func configureToolbar() {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let testSpacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        testSpacer.width = 30
+        testSpacer.width = Constants.toolbarSpacerWidth
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         let back = UIBarButtonItem(image: UIImage(systemName: Constants.wkBackward), style: .plain, target: webView, action: #selector(webView.goBack))
         let forward = UIBarButtonItem(image: UIImage(systemName: Constants.wkForward), style: .plain, target: webView, action: #selector(webView.goForward))
