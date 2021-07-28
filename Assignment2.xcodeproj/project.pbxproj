@@ -14,6 +14,7 @@
 		5EE444FA26B1A0AA007E9AF7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EE444F926B1A0AA007E9AF7 /* Assets.xcassets */; };
 		5EE444FD26B1A0AA007E9AF7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EE444FB26B1A0AA007E9AF7 /* LaunchScreen.storyboard */; };
 		5EE4450526B1D3DD007E9AF7 /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4450426B1D3DD007E9AF7 /* NameTableViewCell.swift */; };
+		5EE4450726B1DC51007E9AF7 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4450626B1DC51007E9AF7 /* CityTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5EE444FC26B1A0AA007E9AF7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EE444FE26B1A0AA007E9AF7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EE4450426B1D3DD007E9AF7 /* NameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
+		5EE4450626B1DC51007E9AF7 /* CityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				5EE444FB26B1A0AA007E9AF7 /* LaunchScreen.storyboard */,
 				5EE444FE26B1A0AA007E9AF7 /* Info.plist */,
 				5EE4450426B1D3DD007E9AF7 /* NameTableViewCell.swift */,
+				5EE4450626B1DC51007E9AF7 /* CityTableViewCell.swift */,
 			);
 			path = Assignment2;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				5EE444F526B1A0A8007E9AF7 /* ListVC.swift in Sources */,
 				5EE444F126B1A0A8007E9AF7 /* AppDelegate.swift in Sources */,
+				5EE4450726B1DC51007E9AF7 /* CityTableViewCell.swift in Sources */,
 				5EE4450526B1D3DD007E9AF7 /* NameTableViewCell.swift in Sources */,
 				5EE444F326B1A0A8007E9AF7 /* SceneDelegate.swift in Sources */,
 			);
