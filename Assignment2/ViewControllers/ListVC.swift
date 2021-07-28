@@ -10,7 +10,10 @@ import UIKit
 class ListVC: UIViewController {
     
     @IBOutlet var tableView: UITableView! {
-        didSet { tableView.tintColor = .red }
+        didSet {
+            tableView.tintColor = Colors.tint
+            tableView.backgroundColor = Colors.background
+        }
     }
     
     override func viewDidLoad() {

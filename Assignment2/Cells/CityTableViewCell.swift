@@ -22,7 +22,7 @@ class CityTableViewCell: UITableViewCell {
     
     private func configureLabel() {
         cityLabel.textAlignment = .natural
-        cityLabel.textColor = .black
+        cityLabel.textColor = Colors.text
         cityLabel.translatesAutoresizingMaskIntoConstraints = false
         cityLabel.font = UIFont.systemFont(ofSize: Constants.cellFontSize)
     }

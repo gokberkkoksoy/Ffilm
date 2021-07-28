@@ -22,7 +22,7 @@ class NameTableViewCell: UITableViewCell {
     
     private func configureLabel() {
         nameLabel.textAlignment = .natural
-        nameLabel.textColor = .black
+        nameLabel.textColor = Colors.text
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont.systemFont(ofSize: Constants.cellFontSize)
     }
@@ -44,8 +44,10 @@ class NameTableViewCell: UITableViewCell {
     func toggleCheckmark() {
         if accessoryType == .none {
             accessoryType = .checkmark
+            backgroundColor = Colors.selectedBackground
         } else if accessoryType == .checkmark {
             accessoryType = .none
+            backgroundColor = .none
         }
     }
 }
