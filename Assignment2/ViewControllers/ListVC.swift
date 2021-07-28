@@ -45,7 +45,7 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int { return 2 }
+    func numberOfSections(in tableView: UITableView) -> Int { return Constants.sections }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { return "Section \(section)" }
     

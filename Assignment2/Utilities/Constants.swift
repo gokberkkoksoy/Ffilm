@@ -13,6 +13,7 @@ struct Constants {
     static let doublePadding: CGFloat = 16
     static let cellFontSize: CGFloat = 48
     static let toolbarSpacerWidth: CGFloat = 40
+    static let sections = 2
     
     static let cityCellID = "CityTableViewCell"
     static let nameCellID = "NameTableViewCell"
