@@ -22,9 +22,7 @@ class CityVC: UIViewController {
         loadPage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
-    }
+    override func viewWillAppear(_ animated: Bool) { navigationController?.showBars() }
     
     private func setTitle() {
         if let city = cityName { title = city }
