@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
     func makeURLReady() -> String {
-        var urlReadyString = ""
+        var urlReadyString = self
         if self.contains(" ") {
             urlReadyString = self.replacingOccurrences(of: " ", with: "_")
         }
