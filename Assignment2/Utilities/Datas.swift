@@ -8,6 +8,6 @@
 import Foundation
 
 struct Datas {
-    static let names = [1,2,3,4,45,56,76,8,8,4543,54,765,4,457,657,68,76,65,7568,678]
-    static let cities = ["prag", "bükreş", "ist", "ankara", "london", "ny", "nj", "ca", "tx", "il", "roma", "paris"]
+    static let names = ["Megadeth", "Slipknot", "Iron Maiden", "Nightwish", "Sabaton", "Stratovarius", "Rammstein", "Epica", "Pink Floyd", "Deep Purple", "Queen"]
+    static let cities = ["Prague", "Bucharest", "Istanbul", "Ankara", "London", "Manchester", "Rome", "Paris", "Moscow", "New Delhi", "Beijing", "Stockholm", "Copenhagen"]
 }

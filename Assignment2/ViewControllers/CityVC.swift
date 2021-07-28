@@ -10,23 +10,46 @@ import WebKit
 
 class CityVC: UIViewController {
     
-    
-    @IBOutlet var webView: WKWebView!
+    @IBOutlet private var webView: WKWebView!
+    var cityName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-        
-        webView.load(URLRequest(url: URL(string: "https://en.wikipedia.org/wiki/London")!))
+        setTitle()
+        configureWebView()
+        configureToolbar()
+        loadPage()
     }
-
-}
-
-extension CityVC: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        title = webView.title
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    private func setTitle() {
+        if let city = cityName { title = city }
+    }
+    
+    private func configureWebView() {
+        webView = WKWebView()
+        view = webView
+    }
+    
+    private func configureToolbar() {
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        let back = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: webView, action: #selector(webView.goBack))
+        let forward = UIBarButtonItem(image: UIImage(systemName: "chevron.forward"), style: .plain, target: webView, action: #selector(webView.goForward))
+        toolbarItems = [back,forward, spacer, refresh]
+        navigationController?.isToolbarHidden = false
+    }
+    
+    private func loadPage() {
+        if var urlCity = cityName {
+            if urlCity.contains(" ") {
+                urlCity = urlCity.replacingOccurrences(of: " ", with: "_")
+            }
+            webView.load(URLRequest(url: URL(string: "https://en.wikipedia.org/wiki/\(urlCity)")!))
+        }
     }
 }

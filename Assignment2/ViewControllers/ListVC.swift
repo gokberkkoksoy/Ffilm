@@ -18,6 +18,10 @@ class ListVC: UIViewController {
         configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -45,11 +49,11 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.nameCellID, for: indexPath) as! NameTableViewCell
-            cell.nameLabel.text = "\(Datas.names[indexPath.row])"
+            cell.nameLabel.text = Datas.names[indexPath.row]
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cityCellID, for: indexPath) as! CityTableViewCell
-            cell.cityLabel.text = "\(Datas.cities[indexPath.row])"
+            cell.cityLabel.text = Datas.cities[indexPath.row]
             return cell
         }
     }
@@ -58,8 +62,10 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? NameTableViewCell {
             cell.toggleCheckmark()
-        } else if let _ = tableView.cellForRow(at: indexPath) as? CityTableViewCell {
-            navigationController?.pushViewController(CityVC(), animated: true)
+        } else if let cell = tableView.cellForRow(at: indexPath) as? CityTableViewCell {
+            let cityVC = CityVC()
+            cityVC.cityName = cell.cityLabel.text
+            navigationController?.pushViewController(cityVC, animated: true)
         }
     }
     
