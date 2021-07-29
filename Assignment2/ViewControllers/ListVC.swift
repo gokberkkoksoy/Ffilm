@@ -18,12 +18,16 @@ class ListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = Colors.tint
-        navigationController?.toolbar.tintColor = Colors.tint
+        configureNavigationController()
         configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) { navigationController?.hideBars() }
+    
+    private func configureNavigationController() {
+        navigationController?.navigationBar.tintColor = Colors.tint
+        navigationController?.toolbar.tintColor = Colors.tint
+    }
     
     private func configureTableView() {
         tableView.delegate = self
