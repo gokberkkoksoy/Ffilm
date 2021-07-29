@@ -11,7 +11,7 @@ class TeamCell: UICollectionViewCell {
     @IBOutlet var teamNameLabel: UILabel! {
         didSet {
             teamNameLabel.textAlignment = .center
-            teamNameLabel.textColor = .systemPink
+            teamNameLabel.textColor = .white
         }
     }
     @IBOutlet var teamBadgeImageView: UIImageView!

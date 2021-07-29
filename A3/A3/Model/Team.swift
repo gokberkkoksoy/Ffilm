@@ -15,11 +15,7 @@ struct Team: Codable {
     let strStadium: String?
     let strStadiumLocation: String?
     
-    func showInfo(on vc: TeamListVC) {
-        let infoStr = "Founded: \(intFormedYear ?? "-")\nGround: \(strStadium ?? "-")\nLocation: \(strStadiumLocation ?? "-")"
-        let ac = UIAlertController(title: strTeam, message: infoStr, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        ac.addAction(UIAlertAction(title: "Visit Webpage", style: .default, handler: nil))
-        vc.present(ac, animated: true)
+    func getInfo() -> String {
+        "Founded: \(intFormedYear ?? "-")\nGround: \(strStadium ?? "-")\nLocation: \(strStadiumLocation ?? "-")"
     }
 }
