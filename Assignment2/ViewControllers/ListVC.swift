@@ -37,7 +37,7 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return Datas.names.count
+            return Datas.bands.count
         case 1:
             return Datas.cities.count
         default:
@@ -52,7 +52,7 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.nameCellID, for: indexPath) as! NameTableViewCell
-            cell.nameLabel.text = Datas.names[indexPath.row]
+            cell.nameLabel.text = Datas.bands[indexPath.row]
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cityCellID, for: indexPath) as! CityTableViewCell
