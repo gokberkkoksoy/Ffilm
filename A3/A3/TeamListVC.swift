@@ -32,7 +32,6 @@ class TeamListVC: UIViewController {
             switch response {
             case .success(let teams):
                 self.teamInfo.setTeams(with: teams)
-                print(teams)
                 DispatchQueue.main.async { self.collectionView.reloadData() }
             case .failure(let error):
                 print(error)
@@ -46,18 +45,18 @@ extension TeamListVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return teamInfo.teams.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as? TeamCell else {
-            fatalError("unable to generate cell")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellReuseID, for: indexPath) as? TeamCell else {
+            print(Constants.errorMessage)
+            return UICollectionViewCell()
         }
         cell.teamNameLabel.text = teamInfo.teams[indexPath.item].strTeam ?? ""
-        cell.teamNameLabel.textColor = .systemPink
-        cell.teamBadgeImageView.kf.setImage(with: URL(string: teamInfo.teams[indexPath.item].strTeamBadge!))
+        cell.teamBadgeImageView.kf.setImage(with: URL(string: teamInfo.teams[indexPath.item].strTeamBadge ?? ""))
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+        teamInfo.teams[indexPath.item].showInfo(on: self)
     }
 }
 

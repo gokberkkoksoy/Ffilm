@@ -8,7 +8,12 @@
 import UIKit
 
 class TeamCell: UICollectionViewCell {
-    @IBOutlet var teamNameLabel: UILabel!
+    @IBOutlet var teamNameLabel: UILabel! {
+        didSet {
+            teamNameLabel.textAlignment = .center
+            teamNameLabel.textColor = .systemPink
+        }
+    }
     @IBOutlet var teamBadgeImageView: UIImageView!
     
 }
