@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TeamListVC: UIViewController {
     
@@ -50,7 +51,7 @@ extension TeamListVC: UICollectionViewDataSource, UICollectionViewDelegate {
         }
         cell.teamNameLabel.text = teamInfo.teams[indexPath.item].strTeam ?? ""
         cell.teamNameLabel.textColor = .systemPink
-        cell.teamBadgeImageView.image = UIImage(named: "unnamed.png")
+        cell.teamBadgeImageView.kf.setImage(with: URL(string: teamInfo.teams[indexPath.item].strTeamBadge!))
         
         return cell
     }
