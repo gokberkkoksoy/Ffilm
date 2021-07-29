@@ -14,6 +14,11 @@
 		5E7911A526B3139400EDDF51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E7911A426B3139400EDDF51 /* Assets.xcassets */; };
 		5E7911A826B3139400EDDF51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E7911A626B3139400EDDF51 /* LaunchScreen.storyboard */; };
 		5E7911B026B31A7900EDDF51 /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7911AF26B31A7900EDDF51 /* TeamCell.swift */; };
+		5E7911B226B31FF500EDDF51 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7911B126B31FF500EDDF51 /* Network.swift */; };
+		5E7911B426B321AA00EDDF51 /* Teams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7911B326B321AA00EDDF51 /* Teams.swift */; };
+		5E7911B626B321C000EDDF51 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7911B526B321C000EDDF51 /* Team.swift */; };
+		5E7911B826B33FF500EDDF51 /* TeamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7911B726B33FF500EDDF51 /* TeamInfo.swift */; };
+		5E7911BB26B342B300EDDF51 /* UICollectionView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7911BA26B342B300EDDF51 /* UICollectionView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		5E7911A726B3139400EDDF51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E7911A926B3139400EDDF51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E7911AF26B31A7900EDDF51 /* TeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
+		5E7911B126B31FF500EDDF51 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		5E7911B326B321AA00EDDF51 /* Teams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teams.swift; sourceTree = "<group>"; };
+		5E7911B526B321C000EDDF51 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		5E7911B726B33FF500EDDF51 /* TeamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamInfo.swift; sourceTree = "<group>"; };
+		5E7911BA26B342B300EDDF51 /* UICollectionView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +68,37 @@
 		5E79119A26B3139400EDDF51 /* A3 */ = {
 			isa = PBXGroup;
 			children = (
-				5E79119B26B3139400EDDF51 /* AppDelegate.swift */,
-				5E79119D26B3139400EDDF51 /* SceneDelegate.swift */,
+				5E7911BC26B3442E00EDDF51 /* Extensions */,
+				5E7911B926B340D600EDDF51 /* Support */,
 				5E79119F26B3139400EDDF51 /* TeamListVC.swift */,
 				5E7911A126B3139400EDDF51 /* Main.storyboard */,
-				5E7911A426B3139400EDDF51 /* Assets.xcassets */,
-				5E7911A626B3139400EDDF51 /* LaunchScreen.storyboard */,
 				5E7911A926B3139400EDDF51 /* Info.plist */,
 				5E7911AF26B31A7900EDDF51 /* TeamCell.swift */,
+				5E7911B126B31FF500EDDF51 /* Network.swift */,
+				5E7911B326B321AA00EDDF51 /* Teams.swift */,
+				5E7911B526B321C000EDDF51 /* Team.swift */,
+				5E7911B726B33FF500EDDF51 /* TeamInfo.swift */,
 			);
 			path = A3;
+			sourceTree = "<group>";
+		};
+		5E7911B926B340D600EDDF51 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				5E79119B26B3139400EDDF51 /* AppDelegate.swift */,
+				5E79119D26B3139400EDDF51 /* SceneDelegate.swift */,
+				5E7911A426B3139400EDDF51 /* Assets.xcassets */,
+				5E7911A626B3139400EDDF51 /* LaunchScreen.storyboard */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		5E7911BC26B3442E00EDDF51 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5E7911BA26B342B300EDDF51 /* UICollectionView+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +171,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E7911B426B321AA00EDDF51 /* Teams.swift in Sources */,
+				5E7911B226B31FF500EDDF51 /* Network.swift in Sources */,
+				5E7911B626B321C000EDDF51 /* Team.swift in Sources */,
 				5E7911B026B31A7900EDDF51 /* TeamCell.swift in Sources */,
+				5E7911B826B33FF500EDDF51 /* TeamInfo.swift in Sources */,
 				5E7911A026B3139400EDDF51 /* TeamListVC.swift in Sources */,
 				5E79119C26B3139400EDDF51 /* AppDelegate.swift in Sources */,
+				5E7911BB26B342B300EDDF51 /* UICollectionView+Ext.swift in Sources */,
 				5E79119E26B3139400EDDF51 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

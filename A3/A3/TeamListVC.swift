@@ -10,35 +10,53 @@ import UIKit
 class TeamListVC: UIViewController {
     
     @IBOutlet var collectionView: UICollectionView!
-    var test = [1,2,3,4,5,56,6,7,89,0,65,45,34665,84,754,436,]
+    
+    var teamInfo = TeamInfo()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureCollectionView()
+    }
+    
+    private func configureCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
-        // Do any additional setup after loading the view.
+        collectionView.setDoubleItemLayout(in: view)
+        getTeams()
     }
-
-
+    
+    private func getTeams() {
+        Network.shared.getNames { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let teams):
+                self.teamInfo.setTeams(with: teams)
+                print(teams)
+                DispatchQueue.main.async { self.collectionView.reloadData() }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
 }
 
 extension TeamListVC: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return test.count
-    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { return teamInfo.teams.count }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TeamCell", for: indexPath) as? TeamCell else {
             fatalError("unable to generate cell")
         }
-        cell.teamNameLabel.text = "\(test[indexPath.item])"
+        cell.teamNameLabel.text = teamInfo.teams[indexPath.item].strTeam ?? ""
         cell.teamNameLabel.textColor = .systemPink
         cell.teamBadgeImageView.image = UIImage(named: "unnamed.png")
         
         return cell
-        
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
+    }
 }
 
