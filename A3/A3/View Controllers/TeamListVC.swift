@@ -41,8 +41,8 @@ class TeamListVC: UIViewController {
             case .success(let teams):
                 self.teamInfo.setTeams(with: teams)
                 DispatchQueue.main.async { self.collectionView.reloadData() }
-            case .failure(let error):
-                print(error)
+            case .failure(_):
+                #warning("Show an error message")
             }
         }
     }

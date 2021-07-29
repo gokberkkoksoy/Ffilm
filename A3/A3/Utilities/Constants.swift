@@ -16,4 +16,8 @@ enum Constants {
     static let dismiss = "Dismiss"
     static let visit = "Visit Webpage"
     static let backgroundColor = UIColor(red: 0.20, green: 0.00, blue: 0.23, alpha: 1.00)
+    
+    static let padding: CGFloat = 16
+    static let height: CGFloat = 48
+    static let spaceBetweenItems: CGFloat = 16
 }
