@@ -14,6 +14,7 @@
 		5E415F4326B591EE00F7FF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E415F4126B591EE00F7FF55 /* LaunchScreen.storyboard */; };
 		5E415F4B26B599EE00F7FF55 /* FFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */; };
 		5E415F4D26B5A0EB00F7FF55 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */; };
+		5E415F4F26B5A6B400F7FF55 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5E415F4426B591EE00F7FF55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTabBarController.swift; sourceTree = "<group>"; };
 		5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
+		5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				5E415F4426B591EE00F7FF55 /* Info.plist */,
 				5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */,
 				5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */,
+				5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */,
 			);
 			path = Ffilm;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			files = (
 				5E415F4D26B5A0EB00F7FF55 /* FavoritesVC.swift in Sources */,
 				5E415F3B26B591EB00F7FF55 /* ViewController.swift in Sources */,
+				5E415F4F26B5A6B400F7FF55 /* MovieCell.swift in Sources */,
 				5E415F3726B591EB00F7FF55 /* AppDelegate.swift in Sources */,
 				5E415F3926B591EB00F7FF55 /* SceneDelegate.swift in Sources */,
 				5E415F4B26B599EE00F7FF55 /* FFTabBarController.swift in Sources */,
