@@ -6,20 +6,37 @@
 //
 
 import UIKit
+import Kingfisher
 
-class MoviesVC: UIViewController {
+
+class MoviesVC: UIViewController, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+    
     
     var collectionView: UICollectionView! // cannot initialize here because view is not initialized yet
-    var mockArray = ["123","645", "34543", "sdvdfb", "1dfvfd", "dfbdfbmlşflg", "sdmkvdmlşvd"]
+    var mockArray = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .purple
+        configureSearchController()
         configureCollectionView()
+        Network.shared.getNames { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let array):
+                self.mockArray = array
+                DispatchQueue.main.async { self.collectionView.reloadData() }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func configureCollectionView() {
@@ -28,7 +45,7 @@ class MoviesVC: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.dataSource = self
         collectionView.delegate = self
-        // will get the items with diffable data source 
+        // will get the items with diffable data source
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
     }
     
@@ -41,9 +58,17 @@ class MoviesVC: UIViewController {
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 60)
+        flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 80)
         
         return flowLayout
+    }
+    
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a username"
+        searchController.obscuresBackgroundDuringPresentation = false // true -> faints the screen a little bit
+        navigationItem.searchController = searchController
     }
     
 }
@@ -55,12 +80,14 @@ extension MoviesVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
-        cell.movieLabel.text = mockArray[indexPath.item]
-        cell.movieImageView.image = UIImage(named: "placeholder.png")
+        cell.movieLabel.text = mockArray[indexPath.item].title
+        let url = URL(string: "https://image.tmdb.org/t/p/w500/" + mockArray[indexPath.item].poster_path!)
+        cell.movieImageView.kf.setImage(with: url!)
         return cell
         
     }
     
     
 }
+
 
