@@ -25,15 +25,18 @@ class MovieCell: UICollectionViewCell {
     private func configure() {
         addSubview(movieImageView)
         addSubview(movieLabel)
+        movieImageView.translatesAutoresizingMaskIntoConstraints = false
+        movieLabel.translatesAutoresizingMaskIntoConstraints = false
+        movieLabel.textAlignment = .center
         let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            movieLabel.heightAnchor.constraint(equalTo: movieLabel.widthAnchor, multiplier: 30),
+            movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor),
             
-            movieLabel.topAnchor.constraint(equalTo: movieLabel.bottomAnchor, constant: 2 * padding),
+            movieLabel.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 2 * padding),
             movieLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             movieLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
         ])
