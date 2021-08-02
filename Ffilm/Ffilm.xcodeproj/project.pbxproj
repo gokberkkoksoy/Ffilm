@@ -77,17 +77,13 @@
 		5E415F3526B591EB00F7FF55 /* Ffilm */ = {
 			isa = PBXGroup;
 			children = (
+				5E415F5E26B7F90000F7FF55 /* CustomViews */,
+				5E415F5D26B7F8E600F7FF55 /* ViewControllers */,
 				5E415F5A26B719FD00F7FF55 /* Utilities */,
 				5E415F5726B7111C00F7FF55 /* Model */,
 				5E415F5626B7110A00F7FF55 /* Support */,
-				5E415F3A26B591EB00F7FF55 /* MoviesVC.swift */,
-				5E415F4126B591EE00F7FF55 /* LaunchScreen.storyboard */,
 				5E415F4426B591EE00F7FF55 /* Info.plist */,
-				5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */,
-				5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */,
-				5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */,
 				5E415F5026B7063900F7FF55 /* Network.swift */,
-				5E415F5B26B7F27300F7FF55 /* Constants.swift */,
 			);
 			path = Ffilm;
 			sourceTree = "<group>";
@@ -114,9 +110,53 @@
 		5E415F5A26B719FD00F7FF55 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5E415F5B26B7F27300F7FF55 /* Constants.swift */,
 				5E415F5826B718C900F7FF55 /* UIHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5E415F5D26B7F8E600F7FF55 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F3A26B591EB00F7FF55 /* MoviesVC.swift */,
+				5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5E415F5E26B7F90000F7FF55 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F6126B7F95900F7FF55 /* TabBar */,
+				5E415F6026B7F95200F7FF55 /* Cells */,
+				5E415F5F26B7F91800F7FF55 /* LaunchScreen */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		5E415F5F26B7F91800F7FF55 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F4126B591EE00F7FF55 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		5E415F6026B7F95200F7FF55 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		5E415F6126B7F95900F7FF55 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		B0E89F8525A61F7776FBA185 /* Pods */ = {

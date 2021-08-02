@@ -10,4 +10,11 @@ import Foundation
 struct GlobalMovies: Codable {
     var page: Int?
     var results: [Movie]?
+    var totalPages: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case page
+        case results
+        case totalPages = "total_pages"
+    }
 }

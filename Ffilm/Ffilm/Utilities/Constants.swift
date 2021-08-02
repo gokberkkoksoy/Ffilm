@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Constants {
+struct NetworkConstants {
     static let basePopularURL = "https://api.themoviedb.org/3/movie/popular?api_key=e5ca8cf8b860272cdc4691ae12d306cf&language=en-US&page="
     static let upcomingURL = "https://api.themoviedb.org/3/movie/upcoming?api_key=e5ca8cf8b860272cdc4691ae12d306cf&language=en-US&page="
     static let topRatedURL = "https://api.themoviedb.org/3/movie/top_rated?api_key=e5ca8cf8b860272cdc4691ae12d306cf&language=en-US&page="

@@ -11,12 +11,17 @@ import Kingfisher
 
 class MoviesVC: UIViewController {
     #warning("PRESENT ERROR MESSAGES")
+    #warning("Handle force unwraps")
     
     enum Section { case main }
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
     var mockArray = [Movie]()
     var filteredMovies = [Movie]()
+    var page = 1
+    var totalPage = 0
+    var hasMorePages = true
+    var isNotLoadingMovies = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,24 +29,19 @@ class MoviesVC: UIViewController {
         configureSearchController()
         configureCollectionView()
         configureDataSource()
-        getGlobalMovies()
+        getMovies(of: NetworkConstants.basePopularURL, from: page)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    func getGlobalMovies() {
-        Network.shared.getNames(from: Constants.basePopularURL, in: 1) { [weak self] response in
-            guard let self = self else { return }
-            switch response {
-            case .success(let array):
-                self.mockArray = array
-                self.updateData(on: self.mockArray)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search for a movie..."
+        searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
+        navigationItem.searchController = searchController
     }
     
     private func configureCollectionView() {
@@ -56,10 +56,33 @@ class MoviesVC: UIViewController {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
             cell.movieLabel.text = movie.title
-            let url = URL(string: Constants.baseImageURL + movie.posterPath!) // fix "!"
+            let url = URL(string: NetworkConstants.baseImageURL + movie.posterPath!) // fix "!"
             cell.movieImageView.kf.setImage(with: url!)
             return cell
         })
+    }
+    
+    func getMovies(of category: String, from page: Int) {
+        isNotLoadingMovies = false
+        Network.shared.getNames(from: NetworkConstants.basePopularURL, in: page) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                self.totalPage = result.totalPages!
+                self.updateUI(with: result.results!)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            self.isNotLoadingMovies = true
+        }
+        
+    }
+    
+    func updateUI(with movies: [Movie]) {
+        hasMorePages = page < totalPage ? true : false
+        self.mockArray.append(contentsOf: movies)
+        #warning("Error message here if empty array returns")
+        updateData(on: self.mockArray)
     }
     
     func updateData(on movies: [Movie]) {
@@ -67,14 +90,6 @@ class MoviesVC: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(movies)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
-    }
-    
-    private func configureSearchController() {
-        let searchController = UISearchController()
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a movie..."
-        searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
-        navigationItem.searchController = searchController
     }
     
 }
@@ -96,6 +111,15 @@ extension MoviesVC: UICollectionViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard hasMorePages, isNotLoadingMovies else { return }
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+
+        if offsetY > contentHeight - height && page < totalPage {
+            page += 1
+            getMovies(of: NetworkConstants.basePopularURL, from: page)
+        }
         
     }
     

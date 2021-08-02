@@ -11,8 +11,7 @@ struct Network {
     
     static let shared = Network()
     
-    func getNames(from url: String ,in page: Int, completion: @escaping (Result<[Movie], Error>) -> Void) {
-        
+    func getNames(from url: String ,in page: Int, completion: @escaping (Result<GlobalMovies, Error>) -> Void) {
         
         let urlRequest = URLRequest(url: URL(string: url + String(page))!)
         
@@ -23,7 +22,7 @@ struct Network {
                 do {
                     let result = try JSONDecoder().decode(GlobalMovies.self, from: data)
                     print(result)
-                    completion(.success(result.results ?? []))
+                    completion(.success(result))
                 } catch {
                     completion(.failure(error))
                 }
