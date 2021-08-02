@@ -11,7 +11,6 @@ class MovieCell: UICollectionViewCell {
     static let reuseID = UIConstants.movieCellReuseID
     
     let movieImageView = UIImageView(frame: .zero)
-    let movieLabel = UILabel(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

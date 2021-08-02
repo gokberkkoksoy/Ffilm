@@ -11,7 +11,7 @@ import Kingfisher
 
 class MoviesVC: UIViewController {
     #warning("PRESENT ERROR MESSAGES")
-    #warning("Handle force unwraps")
+    #warning("search bar does not show when scrolling")
     
     enum Section { case main }
     var collectionView: UICollectionView!
@@ -55,21 +55,22 @@ class MoviesVC: UIViewController {
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
-            cell.movieLabel.text = movie.title
-            let url = URL(string: NetworkConstants.baseImageURL + movie.posterPath!) // fix "!"
-            cell.movieImageView.kf.setImage(with: url!)
+            if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
+                cell.movieImageView.kf.setImage(with: url)
+            }
             return cell
         })
     }
     
     func getMovies(of category: String, from page: Int) {
         isNotLoadingMovies = false
-        Network.shared.getNames(from: NetworkConstants.basePopularURL, in: page) { [weak self] response in
+        Network.shared.getMovies(from: NetworkConstants.basePopularURL, in: page) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
-                self.totalPage = result.totalPages!
-                self.updateUI(with: result.results!)
+                guard let pageNum = result.totalPages, let results = result.results else { return }
+                self.totalPage = pageNum
+                self.updateUI(with: results)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -107,8 +108,9 @@ extension MoviesVC: UISearchResultsUpdating {
 
 extension MoviesVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let movie = dataSource.itemIdentifier(for: indexPath) else { return }
-        let destVC = FavoritesVC()
+        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath), let id = selectedMovie.id else { return }
+        let destVC = MovieDetailVC()
+        destVC.movieID = id
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
     }
@@ -123,9 +125,6 @@ extension MoviesVC: UICollectionViewDelegate {
             page += 1
             getMovies(of: NetworkConstants.basePopularURL, from: page)
         }
-        
     }
-    
-    
 }
 
