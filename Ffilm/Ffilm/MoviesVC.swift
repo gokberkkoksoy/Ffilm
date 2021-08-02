@@ -10,11 +10,13 @@ import Kingfisher
 
 
 class MoviesVC: UIViewController {
+    #warning("PRESENT ERROR MESSAGES")
     
     enum Section { case main }
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
     var mockArray = [Movie]()
+    var filteredMovies = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,7 @@ class MoviesVC: UIViewController {
             switch response {
             case .success(let array):
                 self.mockArray = array
-                self.updateData()
+                self.updateData(on: self.mockArray)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -59,18 +61,18 @@ class MoviesVC: UIViewController {
         })
     }
     
-    func updateData() {
+    func updateData(on movies: [Movie]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(mockArray)
+        snapshot.appendItems(movies)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
     
     private func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a username"
-        searchController.obscuresBackgroundDuringPresentation = false // true -> faints the screen a little bit
+        searchController.searchBar.placeholder = "Search for a movie..."
+        searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
         navigationItem.searchController = searchController
     }
     
@@ -78,7 +80,12 @@ class MoviesVC: UIViewController {
 
 extension MoviesVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            updateData(on: mockArray)
+            return
+        }
+        filteredMovies = mockArray.filter { ($0.title?.lowercased().contains(filter.lowercased()))! }
+        updateData(on: filteredMovies)
     }
 }
 
