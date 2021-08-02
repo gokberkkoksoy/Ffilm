@@ -18,6 +18,7 @@ class FFTabBarController: UITabBarController {
     
     func createMoviesNC() -> UINavigationController {
         let moviesVC = MoviesVC()
+        moviesVC.title = "Popular Movies Globally"
         moviesVC.tabBarItem =  UITabBarItem(title: "Popular", image: UIImage(systemName: "video"), selectedImage: UIImage(systemName: "video.fill"))
         moviesVC.tabBarItem.tag = 0
         return UINavigationController(rootViewController: moviesVC)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Codable {
+struct Movie: Codable, Hashable {
     var poster_path: String?
     var overview: String?
     var release_date: String?
