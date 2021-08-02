@@ -8,7 +8,7 @@
 import UIKit
 
 class MovieCell: UICollectionViewCell {
-    static let reuseID = "MovieCell"
+    static let reuseID = UIConstants.movieCellReuseID
     
     let movieImageView = UIImageView(frame: .zero)
     let movieLabel = UILabel(frame: .zero)
@@ -28,7 +28,8 @@ class MovieCell: UICollectionViewCell {
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
         movieLabel.translatesAutoresizingMaskIntoConstraints = false
         movieLabel.textAlignment = .center
-        movieLabel.numberOfLines = 0
+        movieLabel.numberOfLines = 3
+        movieLabel.lineBreakMode = .byTruncatingTail
         let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([

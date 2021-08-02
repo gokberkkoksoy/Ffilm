@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MoviesVC.swift
 //  Ffilm
 //
 //  Created by Gökberk Köksoy on 31.07.2021.
@@ -39,7 +39,7 @@ class MoviesVC: UIViewController {
     private func configureSearchController() {
         let searchController = UISearchController()
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a movie..."
+        searchController.searchBar.placeholder = UIConstants.searchBarPlaceholder
         searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
         navigationItem.searchController = searchController
     }
@@ -107,7 +107,10 @@ extension MoviesVC: UISearchResultsUpdating {
 
 extension MoviesVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        guard let movie = dataSource.itemIdentifier(for: indexPath) else { return }
+        let destVC = FavoritesVC()
+        let navController = UINavigationController(rootViewController: destVC)
+        present(navController, animated: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

@@ -14,3 +14,8 @@ struct NetworkConstants {
     static let apiKey = "e5ca8cf8b860272cdc4691ae12d306cf"
     static let baseImageURL = "https://image.tmdb.org/t/p/w500/"
 }
+
+struct UIConstants {
+    static let movieCellReuseID = "MovieCell"
+    static let searchBarPlaceholder = "Search for a movie..."
+}
