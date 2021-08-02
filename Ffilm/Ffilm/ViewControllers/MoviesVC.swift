@@ -64,7 +64,7 @@ class MoviesVC: UIViewController {
     
     func getMovies(of category: String, from page: Int) {
         isNotLoadingMovies = false
-        Network.shared.getMovies(from: NetworkConstants.basePopularURL, in: page) { [weak self] response in
+        Network.shared.getMovies(from: category, in: page) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):

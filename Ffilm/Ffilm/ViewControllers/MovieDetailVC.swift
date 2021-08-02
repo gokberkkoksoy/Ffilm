@@ -10,6 +10,8 @@ import UIKit
 class MovieDetailVC: UIViewController {
     
     var movieID: Int?
+    let backdropImageView = UIImageView(frame: .zero)
+    let titleLabel = UILabel(frame: .zero)
 
     override func viewDidLoad() {
         super.viewDidLoad()

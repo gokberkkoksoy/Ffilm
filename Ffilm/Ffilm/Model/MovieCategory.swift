@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GlobalMovies: Codable {
+struct MovieCategory: Codable {
     var page: Int?
     var results: [Movie]?
     var totalPages: Int?
