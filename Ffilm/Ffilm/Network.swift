@@ -11,8 +11,10 @@ struct Network {
     
     static let shared = Network()
     
-    func getNames(completion: @escaping (Result<[Movie], Error>) -> Void) {
-        let urlRequest = URLRequest(url: URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=e5ca8cf8b860272cdc4691ae12d306cf&language=en-US&page=1")!)
+    func getNames(from url: String ,in page: Int, completion: @escaping (Result<[Movie], Error>) -> Void) {
+        
+        
+        let urlRequest = URLRequest(url: URL(string: url + String(page))!)
         
         let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error { completion(.failure(error)) }

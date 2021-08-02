@@ -20,6 +20,7 @@
 		5E415F5326B7099400F7FF55 /* GlobalMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F5226B7099400F7FF55 /* GlobalMovies.swift */; };
 		5E415F5526B70B3100F7FF55 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F5426B70B3100F7FF55 /* Movie.swift */; };
 		5E415F5926B718C900F7FF55 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F5826B718C900F7FF55 /* UIHelper.swift */; };
+		5E415F5C26B7F27300F7FF55 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F5B26B7F27300F7FF55 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		5E415F5226B7099400F7FF55 /* GlobalMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalMovies.swift; sourceTree = "<group>"; };
 		5E415F5426B70B3100F7FF55 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		5E415F5826B718C900F7FF55 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
+		5E415F5B26B7F27300F7FF55 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BBFCCB371573591ECB29A631 /* Pods-Ffilm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ffilm.debug.xcconfig"; path = "Target Support Files/Pods-Ffilm/Pods-Ffilm.debug.xcconfig"; sourceTree = "<group>"; };
 		BF105871FC57ECB55C0596A9 /* Pods-Ffilm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ffilm.release.xcconfig"; path = "Target Support Files/Pods-Ffilm/Pods-Ffilm.release.xcconfig"; sourceTree = "<group>"; };
 		EE7A80195A1A81B9888D9300 /* Pods_Ffilm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ffilm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 				5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */,
 				5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */,
 				5E415F5026B7063900F7FF55 /* Network.swift */,
+				5E415F5B26B7F27300F7FF55 /* Constants.swift */,
 			);
 			path = Ffilm;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E415F4D26B5A0EB00F7FF55 /* FavoritesVC.swift in Sources */,
+				5E415F5C26B7F27300F7FF55 /* Constants.swift in Sources */,
 				5E415F3B26B591EB00F7FF55 /* MoviesVC.swift in Sources */,
 				5E415F5526B70B3100F7FF55 /* Movie.swift in Sources */,
 				5E415F5926B718C900F7FF55 /* UIHelper.swift in Sources */,

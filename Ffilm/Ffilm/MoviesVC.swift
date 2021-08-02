@@ -32,7 +32,7 @@ class MoviesVC: UIViewController {
     }
     
     func getGlobalMovies() {
-        Network.shared.getNames { [weak self] response in
+        Network.shared.getNames(from: Constants.basePopularURL, in: 1) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let array):
@@ -47,6 +47,7 @@ class MoviesVC: UIViewController {
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.getThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
     }
@@ -55,7 +56,7 @@ class MoviesVC: UIViewController {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
             cell.movieLabel.text = movie.title
-            let url = URL(string: "https://image.tmdb.org/t/p/w500/" + movie.poster_path!)
+            let url = URL(string: Constants.baseImageURL + movie.posterPath!) // fix "!"
             cell.movieImageView.kf.setImage(with: url!)
             return cell
         })
@@ -87,5 +88,17 @@ extension MoviesVC: UISearchResultsUpdating {
         filteredMovies = mockArray.filter { ($0.title?.lowercased().contains(filter.lowercased()))! }
         updateData(on: filteredMovies)
     }
+}
+
+extension MoviesVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+    }
+    
+    
 }
 
