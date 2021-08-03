@@ -13,6 +13,7 @@ class MovieDetailView: UIView {
     let backdropImageView = UIImageView(frame: .zero)
     let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
     let movieInfoLabel = FFBodyLabel(textAlignment: .left)
+    let movieGenreLabel = FFBodyLabel(textAlignment: .left)
     let taglineLabel = FFBodyLabel(textAlignment: .left)
     let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
     let overviewLabel = FFBodyLabel(textAlignment: .left)
@@ -43,14 +44,15 @@ class MovieDetailView: UIView {
             }
         }
         
-        movieInfoLabel.text = movie.releaseDate! + " • " + genreStr + " • " + (movie.runtime?.convertToHourAndMinuteString())!
+        movieInfoLabel.text = movie.releaseDate! + " • " + (movie.runtime?.convertToHourAndMinuteString())!
+        movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
         overviewTitleLabel.text = "Overview"
         overviewLabel.text = movie.overview
     }
     
     func configure() {
-        addSubviews(backdropImageView, titleLabel, movieInfoLabel, taglineLabel, overviewTitleLabel, overviewLabel)
+        addSubviews(backdropImageView, titleLabel, movieInfoLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
         NSLayoutConstraint.activate([
             backdropImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
@@ -65,7 +67,11 @@ class MovieDetailView: UIView {
             movieInfoLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             movieInfoLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             
-            taglineLabel.topAnchor.constraint(equalTo: movieInfoLabel.bottomAnchor,constant: 16),
+            movieGenreLabel.topAnchor.constraint(equalTo: movieInfoLabel.bottomAnchor, constant: 8),
+            movieGenreLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            movieGenreLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            
+            taglineLabel.topAnchor.constraint(equalTo: movieGenreLabel.bottomAnchor,constant: 16),
             taglineLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             taglineLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             

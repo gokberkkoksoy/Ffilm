@@ -25,7 +25,7 @@ class FFBodyLabel: UILabel {
     
     private func configure() {
         textColor = .secondaryLabel
-        font = UIFont.preferredFont(forTextStyle: .body)
+        font = UIFont.preferredFont(forTextStyle: .callout)
         adjustsFontForContentSizeCategory = true
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0
