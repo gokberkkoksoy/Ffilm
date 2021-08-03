@@ -22,6 +22,11 @@
 		5E415F5926B718C900F7FF55 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F5826B718C900F7FF55 /* UIHelper.swift */; };
 		5E415F5C26B7F27300F7FF55 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F5B26B7F27300F7FF55 /* Constants.swift */; };
 		5E415F6326B843FC00F7FF55 /* MovieDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6226B843FC00F7FF55 /* MovieDetailVC.swift */; };
+		5E415F6626B899FF00F7FF55 /* FFTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6526B899FF00F7FF55 /* FFTitleLabel.swift */; };
+		5E415F6926B9305F00F7FF55 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6826B9305F00F7FF55 /* MovieDetailView.swift */; };
+		5E415F6B26B9317100F7FF55 /* FFBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6A26B9317100F7FF55 /* FFBodyLabel.swift */; };
+		5E415F6E26B9370E00F7FF55 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6D26B9370D00F7FF55 /* UIView+Ext.swift */; };
+		5E415F7026B938A100F7FF55 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6F26B938A100F7FF55 /* Int+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +46,11 @@
 		5E415F5826B718C900F7FF55 /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 		5E415F5B26B7F27300F7FF55 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5E415F6226B843FC00F7FF55 /* MovieDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
+		5E415F6526B899FF00F7FF55 /* FFTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTitleLabel.swift; sourceTree = "<group>"; };
+		5E415F6826B9305F00F7FF55 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		5E415F6A26B9317100F7FF55 /* FFBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFBodyLabel.swift; sourceTree = "<group>"; };
+		5E415F6D26B9370D00F7FF55 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		5E415F6F26B938A100F7FF55 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		BBFCCB371573591ECB29A631 /* Pods-Ffilm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ffilm.debug.xcconfig"; path = "Target Support Files/Pods-Ffilm/Pods-Ffilm.debug.xcconfig"; sourceTree = "<group>"; };
 		BF105871FC57ECB55C0596A9 /* Pods-Ffilm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ffilm.release.xcconfig"; path = "Target Support Files/Pods-Ffilm/Pods-Ffilm.release.xcconfig"; sourceTree = "<group>"; };
 		EE7A80195A1A81B9888D9300 /* Pods_Ffilm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ffilm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +89,7 @@
 		5E415F3526B591EB00F7FF55 /* Ffilm */ = {
 			isa = PBXGroup;
 			children = (
+				5E415F6C26B936FE00F7FF55 /* Extensions */,
 				5E415F5E26B7F90000F7FF55 /* CustomViews */,
 				5E415F5D26B7F8E600F7FF55 /* ViewControllers */,
 				5E415F5A26B719FD00F7FF55 /* Utilities */,
@@ -131,6 +142,8 @@
 		5E415F5E26B7F90000F7FF55 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				5E415F6726B9304800F7FF55 /* View */,
+				5E415F6426B899EB00F7FF55 /* Labels */,
 				5E415F6126B7F95900F7FF55 /* TabBar */,
 				5E415F6026B7F95200F7FF55 /* Cells */,
 				5E415F5F26B7F91800F7FF55 /* LaunchScreen */,
@@ -160,6 +173,32 @@
 				5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		5E415F6426B899EB00F7FF55 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F6526B899FF00F7FF55 /* FFTitleLabel.swift */,
+				5E415F6A26B9317100F7FF55 /* FFBodyLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		5E415F6726B9304800F7FF55 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F6826B9305F00F7FF55 /* MovieDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5E415F6C26B936FE00F7FF55 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5E415F6D26B9370D00F7FF55 /* UIView+Ext.swift */,
+				5E415F6F26B938A100F7FF55 /* Int+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B0E89F8525A61F7776FBA185 /* Pods */ = {
@@ -292,16 +331,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E415F6E26B9370E00F7FF55 /* UIView+Ext.swift in Sources */,
 				5E415F4D26B5A0EB00F7FF55 /* FavoritesVC.swift in Sources */,
 				5E415F5C26B7F27300F7FF55 /* Constants.swift in Sources */,
+				5E415F7026B938A100F7FF55 /* Int+Ext.swift in Sources */,
 				5E415F3B26B591EB00F7FF55 /* MoviesVC.swift in Sources */,
 				5E415F5526B70B3100F7FF55 /* Movie.swift in Sources */,
 				5E415F5926B718C900F7FF55 /* UIHelper.swift in Sources */,
+				5E415F6626B899FF00F7FF55 /* FFTitleLabel.swift in Sources */,
+				5E415F6926B9305F00F7FF55 /* MovieDetailView.swift in Sources */,
 				5E415F5326B7099400F7FF55 /* MovieCategory.swift in Sources */,
 				5E415F4F26B5A6B400F7FF55 /* MovieCell.swift in Sources */,
 				5E415F3726B591EB00F7FF55 /* AppDelegate.swift in Sources */,
 				5E415F3926B591EB00F7FF55 /* SceneDelegate.swift in Sources */,
 				5E415F5126B7063900F7FF55 /* Network.swift in Sources */,
+				5E415F6B26B9317100F7FF55 /* FFBodyLabel.swift in Sources */,
 				5E415F6326B843FC00F7FF55 /* MovieDetailVC.swift in Sources */,
 				5E415F4B26B599EE00F7FF55 /* FFTabBarController.swift in Sources */,
 			);

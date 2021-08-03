@@ -26,8 +26,8 @@ class MovieCell: UICollectionViewCell {
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
 //        movieImageView.layer.cornerRadius = 5
 
-        self.layer.cornerRadius = 5
-        self.layer.masksToBounds = true
+        movieImageView.layer.cornerRadius = 5
+        movieImageView.layer.masksToBounds = true
         let heightConstant: CGFloat = 100
         
         NSLayoutConstraint.activate([
