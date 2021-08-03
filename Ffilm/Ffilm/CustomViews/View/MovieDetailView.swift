@@ -14,10 +14,10 @@ class MovieDetailView: UIView {
     let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
     let movieInfoLabel = FFBodyLabel(textAlignment: .left)
     let taglineLabel = FFBodyLabel(textAlignment: .left)
-    let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
+    let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
     let overviewLabel = FFBodyLabel(textAlignment: .left)
     
-    var movieDetail: MovieDetail?
+    var genreStr = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,19 @@ class MovieDetailView: UIView {
     func set(to movie: MovieDetail) {
         backdropImageView.kf.setImage(with: URL(string: NetworkConstants.backdropURL + movie.backdropPath!))
         titleLabel.text = movie.title
-        movieInfoLabel.text = movie.releaseDate! + " " + (movie.runtime?.convertToHourAndMinuteString())!
+        if let genres = movie.genres {
+            for (index,genre) in genres.enumerated() {
+                if let name = genre.name {
+                    if index < genres.count-1 {
+                        genreStr += "\(name), "
+                    } else {
+                        genreStr += "\(name)"
+                    }
+                }
+            }
+        }
+        
+        movieInfoLabel.text = movie.releaseDate! + " • " + genreStr + " • " + (movie.runtime?.convertToHourAndMinuteString())!
         taglineLabel.text = movie.tagline
         overviewTitleLabel.text = "Overview"
         overviewLabel.text = movie.overview
@@ -48,17 +60,14 @@ class MovieDetailView: UIView {
             titleLabel.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            titleLabel.heightAnchor.constraint(equalToConstant: 30),
             
             movieInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             movieInfoLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             movieInfoLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            movieInfoLabel.heightAnchor.constraint(equalToConstant: 12),
             
             taglineLabel.topAnchor.constraint(equalTo: movieInfoLabel.bottomAnchor,constant: 16),
             taglineLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             taglineLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            taglineLabel.heightAnchor.constraint(equalToConstant: 12),
             
             overviewTitleLabel.topAnchor.constraint(equalTo: taglineLabel.bottomAnchor, constant: 16),
             overviewTitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -67,7 +76,6 @@ class MovieDetailView: UIView {
             overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: 8),
             overviewLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             overviewLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)
-            
         ])
 
     }

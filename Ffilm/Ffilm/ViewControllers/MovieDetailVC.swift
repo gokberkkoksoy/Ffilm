@@ -16,6 +16,7 @@ class MovieDetailVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .orange
         configureMovieDetailView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         if let id = movieID {
             Network.shared.getMovieDetail(of: id) { response in
                 switch response {
@@ -32,17 +33,11 @@ class MovieDetailVC: UIViewController {
 
     }
     
-    func configureMovieDetailView(){
+    @objc private func donePressed() { navigationController?.dismiss(animated: true) }
+    
+    private func configureMovieDetailView(){
         view.addSubview(movieDetailView)
-        movieDetailView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            movieDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            movieDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            movieDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            movieDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
-        ])
-
+        movieDetailView.pinToEdges(of: view)
     }
 
 }

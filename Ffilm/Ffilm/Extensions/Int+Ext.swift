@@ -9,6 +9,16 @@ import UIKit
 
 extension Int {
     func convertToHourAndMinuteString() -> String {
-        return "\(self / 60)h \(self % 60)m"
+        let hour = self / 60
+        let minute = self % 60
+        if hour != 0 && minute != 0{
+            return "\(hour)h \(minute)m"
+        } else if hour != 0 && minute == 0 {
+            return "\(hour)h"
+        } else if hour == 0 && minute != 0 {
+            return "\(minute)h"
+        } else {
+            return ""
+        }
     }
 }
