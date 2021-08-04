@@ -16,12 +16,14 @@ class MoviesVC: UIViewController {
     enum Section { case main }
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
-    var mockArray = [Movie]()
+    var movies = [Movie]()
     var filteredMovies = [Movie]()
     var page = 1
     var totalPage = 0
     var hasMorePages = true
     var isNotLoadingMovies = true
+    var isSearching = false
+    var searchFilter = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,9 +83,9 @@ class MoviesVC: UIViewController {
     
     func updateUI(with movies: [Movie]) {
         hasMorePages = page < totalPage ? true : false
-        self.mockArray.append(contentsOf: movies)
+        self.movies.append(contentsOf: movies)
         #warning("Error message here if empty array returns")
-        updateData(on: self.mockArray)
+        updateData(on: self.movies)
     }
     
     func updateData(on movies: [Movie]) {
@@ -98,11 +100,26 @@ class MoviesVC: UIViewController {
 extension MoviesVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {
-            updateData(on: mockArray)
+            isSearching = false
+            searchFilter = ""
+            updateData(on: movies)
             return
         }
-        filteredMovies = mockArray.filter { ($0.title?.lowercased().contains(filter.lowercased()))! }
-        updateData(on: filteredMovies)
+        isSearching = true
+        searchFilter = filter
+        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replacingOccurrences(of: " ", with: "-"))", in: page) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                guard let pageNum = result.totalPages, let results = result.results else { return }
+                self.totalPage = pageNum
+                self.updateData(on: results)
+            case.failure(let error):
+                print(error)
+            }
+        }
+//        filteredMovies = mockArray.filter { ($0.title?.lowercased().contains(filter.lowercased()))! }
+//        updateData(on: filteredMovies)
     }
 }
 
@@ -123,7 +140,22 @@ extension MoviesVC: UICollectionViewDelegate {
 
         if offsetY > contentHeight - height && page < totalPage {
             page += 1
-            getMovies(of: NetworkConstants.basePopularURL, from: page)
+            if isSearching {
+                Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replacingOccurrences(of: " ", with: "-"))", in: page) { [weak self] response in
+                    guard let self = self else { return }
+                    switch response {
+                    case .success(let result):
+                        guard let pageNum = result.totalPages, let results = result.results else { return }
+                        print(results)
+                        self.totalPage = pageNum
+                        self.updateData(on: results)
+                    case.failure(let error):
+                        print(error)
+                    }
+                }
+            } else {
+                getMovies(of: NetworkConstants.basePopularURL, from: page)
+            }
         }
     }
 }
