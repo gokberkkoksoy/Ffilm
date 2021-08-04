@@ -10,7 +10,7 @@ import UIKit
 class MovieCell: UICollectionViewCell {
     static let reuseID = UIConstants.movieCellReuseID
     
-    let movieImageView = UIImageView(frame: .zero)
+    let movieImageView = FFImageView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,8 +24,6 @@ class MovieCell: UICollectionViewCell {
     private func configure() {
         addSubview(movieImageView)
         movieImageView.translatesAutoresizingMaskIntoConstraints = false
-//        movieImageView.layer.cornerRadius = 5
-
         movieImageView.layer.cornerRadius = 5
         movieImageView.layer.masksToBounds = true
         let heightConstant: CGFloat = 100

@@ -10,7 +10,7 @@ import Kingfisher
 
 class MovieDetailView: UIView {
 
-    let backdropImageView = UIImageView(frame: .zero)
+    let backdropImageView = FFImageView(frame: .zero)
     let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
     let movieInfoLabel = FFBodyLabel(textAlignment: .left)
     let movieGenreLabel = FFBodyLabel(textAlignment: .left)
@@ -30,7 +30,7 @@ class MovieDetailView: UIView {
     }
     
     func set(to movie: MovieDetail) {
-        backdropImageView.kf.setImage(with: URL(string: NetworkConstants.backdropURL + movie.backdropPath!))
+        backdropImageView.setImage(url: URL(string: NetworkConstants.backdropURL + (movie.backdropPath ?? "")))
         titleLabel.text = movie.title
         if let genres = movie.genres {
             for (index,genre) in genres.enumerated() {

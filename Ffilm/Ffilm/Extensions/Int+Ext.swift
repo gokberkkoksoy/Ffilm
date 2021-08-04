@@ -16,7 +16,7 @@ extension Int {
         } else if hour != 0 && minute == 0 {
             return "\(hour)h"
         } else if hour == 0 && minute != 0 {
-            return "\(minute)h"
+            return "\(minute)m"
         } else {
             return ""
         }
