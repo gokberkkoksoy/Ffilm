@@ -46,10 +46,31 @@ class MovieDetailVC: FFDataLoaderVC {
     
     @objc private func unfavPressed() {
         navigationItem.leftBarButtonItem = favButton
+        print("unfav")
     }
     
     @objc private func favPressed() {
         navigationItem.leftBarButtonItem = unfavButton
+        if let id = movieID {
+            Network.shared.getMovieDetail(of: id) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case.success(let movie):
+                    let favorite = Movie(posterPath: movie.posterPath, title: movie.title, id: id)
+                    PersistenceManager.updateWith(movie: favorite, actionType: .add) { [weak self] error in
+                        guard let self = self else { return }
+                        guard let error = error else {
+                            print("success!")
+                            return
+                        }
+                        print(error)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
     }
     
     private func configureMovieDetailView(){

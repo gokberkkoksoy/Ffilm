@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct MovieDetail: Codable {
+struct MovieDetail: Codable, Equatable {
+    static func == (lhs: MovieDetail, rhs: MovieDetail) -> Bool {
+        return true
+    }
+    
     
     var backdropPath: String?
     var overview: String?
@@ -18,6 +22,7 @@ struct MovieDetail: Codable {
     var runtime: Int?
     var voteAverage: Double?
     var tagline: String?
+    var posterPath: String?
     
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
@@ -29,6 +34,7 @@ struct MovieDetail: Codable {
         case runtime
         case voteAverage = "vote_average"
         case tagline
+        case posterPath = "poster_path"
         
         
     }
