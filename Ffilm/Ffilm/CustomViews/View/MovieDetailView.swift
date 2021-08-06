@@ -44,7 +44,7 @@ class MovieDetailView: UIView {
             }
         }
         
-        movieInfoLabel.text = movie.releaseDate! + " • " + (movie.runtime?.convertToHourAndMinuteString())!
+        movieInfoLabel.text = (movie.releaseDate ?? "") + " • " + (movie.runtime?.convertToHourAndMinuteString() ?? "")
         movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
         overviewTitleLabel.text = "Overview"

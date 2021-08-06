@@ -21,6 +21,7 @@ class MoviesVC: UIViewController {
     var page = 1
     var searchPage = 1
     var totalPage = 0
+    var searchTotalPage = 0
     var hasMorePages = true
     var isNotLoadingMovies = true
     var isSearching = false
@@ -60,6 +61,8 @@ class MoviesVC: UIViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
             if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
                 cell.movieImageView.setImage(url: url)
+            } else {
+                cell.movieImageView.image = UIImage(named: "placeholder.png")
             }
             return cell
         })
@@ -116,14 +119,14 @@ extension MoviesVC: UISearchResultsUpdating {
         isSearching = true
         searchPage = 1
         searchFilter = filter
-        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replacingOccurrences(of: " ", with: "-"))", in: searchPage) { [weak self] response in
+        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replaceSpecialCharacters())", in: searchPage) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
                 self.searchedMovies.removeAll()
                 guard let pageNum = result.totalPages, let results = result.results else { return }
                 print(results)
-                self.totalPage = pageNum
+                self.searchTotalPage = pageNum
                 self.updateSearchUI(with: results)
             case.failure(let error):
                 print(error)
@@ -147,24 +150,28 @@ extension MoviesVC: UICollectionViewDelegate {
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
 
-        if offsetY > contentHeight - height && page < totalPage {
+        if offsetY > contentHeight - height {
             if isSearching {
-                searchPage += 1
-                Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replacingOccurrences(of: " ", with: "-"))", in: searchPage) { [weak self] response in
-                    guard let self = self else { return }
-                    switch response {
-                    case .success(let result):
-                        guard let pageNum = result.totalPages, let results = result.results else { return }
-                        print(results)
-                        self.totalPage = pageNum
-                        self.updateSearchUI(with: results)
-                    case.failure(let error):
-                        print(error)
+                if searchPage < searchTotalPage {
+                    searchPage += 1
+                    Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replaceSpecialCharacters())", in: searchPage) { [weak self] response in
+                        guard let self = self else { return }
+                        switch response {
+                        case .success(let result):
+                            guard let pageNum = result.totalPages, let results = result.results else { return }
+                            print(results)
+                            self.searchTotalPage = pageNum
+                            self.updateSearchUI(with: results)
+                        case.failure(let error):
+                            print(error)
+                        }
                     }
                 }
             } else {
-                page += 1
-                getMovies(of: NetworkConstants.basePopularURL, from: page)
+                if page < totalPage {
+                    page += 1
+                    getMovies(of: NetworkConstants.basePopularURL, from: page)
+                }
             }
         }
     }
