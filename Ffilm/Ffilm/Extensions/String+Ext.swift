@@ -25,4 +25,26 @@ extension String  {
         result = result.replacingOccurrences(of: " ", with: "-")
         return result
     }
+    
+    func convertToDate() -> String {
+        var result = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: self)
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        result = dateFormatter.string(from: date ?? Date())
+        return result
+    }
+    
+    func getDateYear() -> String {
+        var result = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: self)
+        dateFormatter.dateFormat = "yyyy"
+        result = dateFormatter.string(from: date ?? Date())
+        return result
+    }
 }

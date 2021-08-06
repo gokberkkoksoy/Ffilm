@@ -31,20 +31,18 @@ class MovieDetailView: UIView {
     
     func set(to movie: MovieDetail) {
         backdropImageView.setImage(url: URL(string: NetworkConstants.backdropURL + (movie.backdropPath ?? "")))
-        titleLabel.text = movie.title
+        if let releaseDate = movie.releaseDate , let title = movie.title {
+            titleLabel.text = title + " (\(releaseDate.getDateYear()))"
+        }
         if let genres = movie.genres {
             for (index,genre) in genres.enumerated() {
                 if let name = genre.name {
-                    if index < genres.count-1 {
-                        genreStr += "\(name), "
-                    } else {
-                        genreStr += "\(name)"
-                    }
+                    genreStr += index < genres.count - 1 ? "\(name), " : "\(name)"
                 }
             }
         }
         
-        movieInfoLabel.text = (movie.releaseDate ?? "") + " • " + (movie.runtime?.convertToHourAndMinuteString() ?? "")
+        movieInfoLabel.text = (movie.releaseDate?.convertToDate() ?? "") + " • " + (movie.runtime?.convertToHourAndMinuteString() ?? "")
         movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
         overviewTitleLabel.text = "Overview"

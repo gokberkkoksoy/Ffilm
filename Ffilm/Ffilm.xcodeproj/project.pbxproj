@@ -28,6 +28,7 @@
 		5E415F6E26B9370E00F7FF55 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6D26B9370D00F7FF55 /* UIView+Ext.swift */; };
 		5E415F7026B938A100F7FF55 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F6F26B938A100F7FF55 /* Int+Ext.swift */; };
 		5E7D3A0026BD1DE000A221F8 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7D39FF26BD1DE000A221F8 /* String+Ext.swift */; };
+		5E7D3A0226BD20E600A221F8 /* FFDataLoaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7D3A0126BD20E600A221F8 /* FFDataLoaderVC.swift */; };
 		5E95C2F726BA66DF00CA4959 /* FFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95C2F626BA66DF00CA4959 /* FFImageView.swift */; };
 		5E95C2FA26BA68B300CA4959 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95C2F926BA68B300CA4959 /* Genre.swift */; };
 		5E95C2FC26BA68D400CA4959 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95C2FB26BA68D400CA4959 /* MovieDetail.swift */; };
@@ -56,6 +57,7 @@
 		5E415F6D26B9370D00F7FF55 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		5E415F6F26B938A100F7FF55 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		5E7D39FF26BD1DE000A221F8 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		5E7D3A0126BD20E600A221F8 /* FFDataLoaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFDataLoaderVC.swift; sourceTree = "<group>"; };
 		5E95C2F626BA66DF00CA4959 /* FFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFImageView.swift; sourceTree = "<group>"; };
 		5E95C2F926BA68B300CA4959 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		5E95C2FB26BA68D400CA4959 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				5E415F6126B7F95900F7FF55 /* TabBar */,
 				5E415F6026B7F95200F7FF55 /* Cells */,
 				5E415F5F26B7F91800F7FF55 /* LaunchScreen */,
+				5E7D3A0126BD20E600A221F8 /* FFDataLoaderVC.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				5E415F5C26B7F27300F7FF55 /* Constants.swift in Sources */,
 				5E415F7026B938A100F7FF55 /* Int+Ext.swift in Sources */,
 				5E415F3B26B591EB00F7FF55 /* MoviesVC.swift in Sources */,
+				5E7D3A0226BD20E600A221F8 /* FFDataLoaderVC.swift in Sources */,
 				5E415F5526B70B3100F7FF55 /* Movie.swift in Sources */,
 				5E415F5926B718C900F7FF55 /* UIHelper.swift in Sources */,
 				5E95C2FC26BA68D400CA4959 /* MovieDetail.swift in Sources */,
@@ -514,6 +518,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Q2J9HXP73;
 				INFOPLIST_FILE = Ffilm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -534,6 +539,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Q2J9HXP73;
 				INFOPLIST_FILE = Ffilm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -57,7 +57,7 @@ class MoviesVC: UIViewController {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, movie in
+        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
             if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
                 cell.movieImageView.setImage(url: url)
@@ -65,7 +65,7 @@ class MoviesVC: UIViewController {
                 cell.movieImageView.image = UIImage(named: "placeholder.png")
             }
             return cell
-        })
+        }
     }
     
     func getMovies(of category: String, from page: Int) {

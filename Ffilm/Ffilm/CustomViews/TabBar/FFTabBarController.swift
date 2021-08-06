@@ -11,7 +11,6 @@ class FFTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().tintColor = .orange
         viewControllers = [createMoviesNC(), createFavoritesNC()]
         UITabBar.appearance().barStyle = .default //  .black gives a darker tone
     }

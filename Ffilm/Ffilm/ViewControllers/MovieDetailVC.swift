@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieDetailVC: UIViewController {
+class MovieDetailVC: FFDataLoaderVC {
     
     var movieID: Int?
     let movieDetailView = MovieDetailView(frame: .zero)
@@ -22,7 +22,9 @@ class MovieDetailVC: UIViewController {
         favButton = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(favPressed))
         unfavButton = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(unfavPressed))
         navigationItem.leftBarButtonItem = favButton
+        showLoadingView()
         getMovieDetails()
+        dismissLoadingView()
 
     }
     
