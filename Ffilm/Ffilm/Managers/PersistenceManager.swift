@@ -23,15 +23,20 @@ enum PersistenceManager {
         retrieveFavorites { result in
             switch result {
             case .success(let movies):
+                var ids = [Int]()
+                for id in movies {
+                    ids.append(id.id!)
+                }
                 var retrievedMovies = movies
                 
                 switch actionType {
                 case .add:
-                    guard !retrievedMovies.contains(movie) else {
+                    if ids.contains(movie.id!){
                         completed(.alreadyInFavorites)
-                        return
+                    } else {
+                        retrievedMovies.append(movie)
                     }
-                    retrievedMovies.append(movie)
+                    
                 case .remove:
                     retrievedMovies.removeAll { $0.id == movie.id }
                 }

@@ -33,7 +33,6 @@ class MovieDetailVC: FFDataLoaderVC {
             Network.shared.getMovieDetail(of: id) { response in
                 switch response {
                 case.success(let detail):
-                    print(detail)
                     DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
                 case.failure(let error):
                     print(error)
@@ -56,6 +55,7 @@ class MovieDetailVC: FFDataLoaderVC {
                 guard let self = self else { return }
                 switch result {
                 case.success(let movie):
+                    print("success")
                     let favorite = MovieDetail(id: id, title: movie.title, posterPath: movie.posterPath)
                     PersistenceManager.updateWith(movie: favorite, actionType: .add) { [weak self] error in
                         guard let self = self else { return }
