@@ -60,13 +60,13 @@ class MovieDetailVC: FFDataLoaderVC {
                     PersistenceManager.updateWith(movie: favorite, actionType: .add) { [weak self] error in
                         guard let self = self else { return }
                         guard let error = error else {
-                            print("success!")
+                            self.presentAlertOnMainThread(title: "Yayy!", message: "You've successfully favorited this movie.", buttonTitle: "OK")
                             return
                         }
-                        print(error)
+                        self.presentAlertOnMainThread(title: "Oops", message: error.rawValue, buttonTitle: "OK")
                     }
                 case .failure(let error):
-                    print(error)
+                    self.presentAlertOnMainThread(title: "Oops", message: error.rawValue, buttonTitle: "OK")
                 }
             }
         }

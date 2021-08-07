@@ -10,7 +10,6 @@ import Kingfisher
 
 
 class MoviesVC: UIViewController {
-    #warning("PRESENT ERROR MESSAGES")
     #warning("search bar does not show when scrolling")
     
     enum Section { case main }
@@ -78,7 +77,7 @@ class MoviesVC: UIViewController {
                 self.totalPage = pageNum
                 self.updateUI(with: results)
             case .failure(let error):
-                print(error.localizedDescription)
+                self.presentAlertOnMainThread(title: "Oops...", message: error.rawValue, buttonTitle: "OK")
             }
             self.isNotLoadingMovies = true
         }
@@ -88,7 +87,6 @@ class MoviesVC: UIViewController {
     func updateUI(with movies: [Movie]) {
         hasMorePages = page < totalPage ? true : false
         self.movies.append(contentsOf: movies)
-        #warning("Error message here if empty array returns")
         updateData(on: self.movies)
     }
     
@@ -129,7 +127,7 @@ extension MoviesVC: UISearchResultsUpdating {
                 self.searchTotalPage = pageNum
                 self.updateSearchUI(with: results)
             case.failure(let error):
-                print(error)
+                self.presentAlertOnMainThread(title: "Oops.", message: error.rawValue, buttonTitle: "OK")
             }
         }
     }
@@ -163,7 +161,7 @@ extension MoviesVC: UICollectionViewDelegate {
                             self.searchTotalPage = pageNum
                             self.updateSearchUI(with: results)
                         case.failure(let error):
-                            print(error)
+                            self.presentAlertOnMainThread(title: "Oops...", message: error.rawValue, buttonTitle: "OK")
                         }
                     }
                 }
