@@ -10,7 +10,8 @@ import UIKit
 class FavoritesVC: UIViewController {
 
     let tableView = UITableView()
-    var favorites = [MovieDetail]()
+//    var favorites = [MovieDetail]()
+    var favorites = [Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,8 +55,7 @@ class FavoritesVC: UIViewController {
                         self.view.bringSubviewToFront(self.tableView)
                     }
                 }
-                
-            case .failure(let error):
+            case.failure(let error):
                 self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
             }
         }
@@ -70,15 +70,24 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID, for: indexPath) as! FavoriteCell
-        let favorite = favorites[indexPath.row]
-        cell.set(movie: favorite)
+        Network.shared.getMovieDetail(of: favorites[indexPath.row]) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let movie):
+                DispatchQueue.main.async {
+                    cell.set(movie: movie)
+                }
+            case .failure(let error):
+                self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movie = favorites[indexPath.row]
         let destVC = MovieDetailVC()
-        destVC.movieID = movie.id
+        destVC.movieID = movie
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
     }
@@ -90,11 +99,9 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         favorites.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .left)
         
-        PersistenceManager.updateWith(movie: favorite, actionType: .remove) { [weak self] error in
+        PersistenceManager.updateWith(movieID: favorite, actionType: .remove) { [weak self] error in
             guard let self = self else { return }
-            
             guard let error = error else { return }
-            
             self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
         }
     }

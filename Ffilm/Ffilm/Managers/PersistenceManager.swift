@@ -18,59 +18,40 @@ enum PersistenceManager {
     enum Keys {
         static let favorites =  "favorites"
     }
-    
-    static func updateWith(movie: MovieDetail, actionType: PersistenceActionType, completed: @escaping (FFError?) -> Void) {
+
+    static func updateWith(movieID: Int, actionType: PersistenceActionType, completed: @escaping (FFError?) -> Void) {
         retrieveFavorites { result in
             switch result {
-            case .success(let movies):
-                var ids = [Int]()
-                for id in movies {
-                    ids.append(id.id!)
-                }
-                var retrievedMovies = movies
-                
+            case .success(let movieIDs):
+                var retrievedIds = movieIDs
                 switch actionType {
                 case .add:
-                    if ids.contains(movie.id!){
+                    if retrievedIds.contains(movieID){
                         completed(.alreadyInFavorites)
                     } else {
-                        retrievedMovies.append(movie)
+                        retrievedIds.append(movieID)
                     }
-                    
                 case .remove:
-                    retrievedMovies.removeAll { $0.id == movie.id }
+                    retrievedIds.removeAll { $0 == movieID }
                 }
-                
-                completed(saveFavorites(favorites: retrievedMovies))
-            case .failure(let error):
+                completed(saveFavorites(favorites: retrievedIds))
+            case.failure(let error):
                 completed(error)
             }
         }
     }
     
-    static func retrieveFavorites(completed: @escaping (Result<[MovieDetail], FFError>) -> Void) {
-        guard let favoritesData = defaults.object(forKey: Keys.favorites) as? Data else {
+    static func retrieveFavorites(completed: @escaping(Result<[Int], FFError>) -> Void) {
+        guard let favoritesData = defaults.object(forKey: Keys.favorites) as? [Int] else {
             completed(.success([]))
             return
         }
-        
-        do {
-            let movies = try JSONDecoder().decode([MovieDetail].self, from: favoritesData)
-            completed(.success(movies))
-        } catch {
-            completed(.failure(.unableToFavorite))
-        }
+        completed(.success(favoritesData))
     }
     
-    static func saveFavorites(favorites: [MovieDetail]) -> FFError? {
-        
-        do {
-            let encodedFavorites = try JSONEncoder().encode(favorites)
-            defaults.setValue(encodedFavorites, forKey: Keys.favorites)
-            return nil
-        } catch {
-            return .unableToFavorite
-        }
+    static func saveFavorites(favorites: [Int]) -> FFError? {
+        defaults.set(favorites, forKey: Keys.favorites)
+        return nil
     }
     
 }
