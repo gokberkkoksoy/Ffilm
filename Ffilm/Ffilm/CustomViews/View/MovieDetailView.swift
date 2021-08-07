@@ -10,13 +10,13 @@ import Kingfisher
 
 class MovieDetailView: UIView {
 
-    let backdropImageView = FFImageView(frame: .zero)
-    let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
-    let movieInfoLabel = FFBodyLabel(textAlignment: .left)
-    let movieGenreLabel = FFBodyLabel(textAlignment: .left)
-    let taglineLabel = FFBodyLabel(textAlignment: .left)
-    let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
-    let overviewLabel = FFBodyLabel(textAlignment: .left)
+    private let backdropImageView = FFImageView(frame: .zero)
+    private let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
+    private let movieInfoLabel = FFBodyLabel(textAlignment: .left)
+    private let movieGenreLabel = FFBodyLabel(textAlignment: .left)
+    private let taglineLabel = FFBodyLabel(textAlignment: .left)
+    private let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
+    private let overviewLabel = FFBodyLabel(textAlignment: .left)
     
     var genreStr = ""
     

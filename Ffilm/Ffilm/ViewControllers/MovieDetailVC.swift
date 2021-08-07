@@ -10,18 +10,17 @@ import UIKit
 class MovieDetailVC: FFDataLoaderVC {
     
     var movieID: Int?
-    let movieDetailView = MovieDetailView(frame: .zero)
-    var unfavButton: UIBarButtonItem!
-    var favButton: UIBarButtonItem!
+    private let movieDetailView = MovieDetailView(frame: .zero)
+    private var unfavButton: UIBarButtonItem!
+    private var favButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        configureMovieDetailView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         favButton = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(favPressed))
         unfavButton = UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(unfavPressed))
-        navigationItem.leftBarButtonItem = favButton
+        configureMovieDetailView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         showLoadingView()
         getMovieDetails()
         dismissLoadingView()
@@ -45,7 +44,13 @@ class MovieDetailVC: FFDataLoaderVC {
     
     @objc private func unfavPressed() {
         navigationItem.leftBarButtonItem = favButton
-        print("unfav")
+        if let id = movieID {
+            PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else { return }
+                self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
     }
     
     @objc private func favPressed() {
@@ -64,6 +69,16 @@ class MovieDetailVC: FFDataLoaderVC {
     
     private func configureMovieDetailView(){
         view.addSubview(movieDetailView)
+        if let id = movieID {
+            PersistenceManager.retrieveFavorites { result in
+                switch result {
+                case .success(let favorites):
+                    self.navigationItem.leftBarButtonItem = favorites.contains(id) ? self.unfavButton : self.favButton
+                case .failure(_):
+                    break
+                }
+            }
+        }
         movieDetailView.pinToEdges(of: view)
     }
 

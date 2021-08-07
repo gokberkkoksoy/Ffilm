@@ -9,9 +9,8 @@ import UIKit
 
 class FavoritesVC: UIViewController {
 
-    let tableView = UITableView()
-//    var favorites = [MovieDetail]()
-    var favorites = [Int]()
+    private let tableView = UITableView()
+    private var favorites = [Int]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,23 +23,23 @@ class FavoritesVC: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    func configureViewController() {
+    private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Favorite Movies"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
-        tableView.rowHeight = 80
+        tableView.rowHeight = 160
         tableView.delegate = self
         tableView.dataSource = self
         
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseID)
     }
     
-    func getFavorites() {
+    private func getFavorites() {
         PersistenceManager.retrieveFavorites { [weak self] result in
             guard let self = self else { return }
             switch result {

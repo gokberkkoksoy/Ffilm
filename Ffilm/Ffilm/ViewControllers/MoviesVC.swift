@@ -12,19 +12,19 @@ import Kingfisher
 class MoviesVC: UIViewController {
     #warning("search bar does not show when scrolling")
     
-    enum Section { case main }
-    var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
-    var movies = [Movie]()
-    var searchedMovies = [Movie]()
-    var page = 1
-    var searchPage = 1
-    var totalPage = 0
-    var searchTotalPage = 0
-    var hasMorePages = true
-    var isNotLoadingMovies = true
-    var isSearching = false
-    var searchFilter = ""
+    private enum Section { case main }
+    private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
+    private var movies = [Movie]()
+    private var searchedMovies = [Movie]()
+    private var page = 1
+    private var searchPage = 1
+    private var totalPage = 0
+    private var searchTotalPage = 0
+    private var hasMorePages = true
+    private var isNotLoadingMovies = true
+    private var isSearching = false
+    private var searchFilter = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class MoviesVC: UIViewController {
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
     }
     
-    func configureDataSource() {
+    private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
             if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
@@ -67,7 +67,7 @@ class MoviesVC: UIViewController {
         }
     }
     
-    func getMovies(of category: String, from page: Int) {
+    private func getMovies(of category: String, from page: Int) {
         isNotLoadingMovies = false
         Network.shared.getMovies(from: category, in: page) { [weak self] response in
             guard let self = self else { return }
@@ -84,19 +84,19 @@ class MoviesVC: UIViewController {
         
     }
     
-    func updateUI(with movies: [Movie]) {
+    private func updateUI(with movies: [Movie]) {
         hasMorePages = page < totalPage ? true : false
         self.movies.append(contentsOf: movies)
         updateData(on: self.movies)
     }
     
-    func updateSearchUI(with movies: [Movie]){
+    private func updateSearchUI(with movies: [Movie]){
         hasMorePages = page < totalPage ? true : false
         self.searchedMovies.append(contentsOf: movies)
         updateData(on: self.searchedMovies)
     }
     
-    func updateData(on movies: [Movie]) {
+    private func updateData(on movies: [Movie]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
         snapshot.appendSections([.main])
         snapshot.appendItems(movies)

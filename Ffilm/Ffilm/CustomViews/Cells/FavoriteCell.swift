@@ -9,8 +9,8 @@ import UIKit
 
 class FavoriteCell: UITableViewCell {
     static let reuseID = "FavoriteCell"
-    let movieImageView = FFImageView(frame: .zero)
-    let movieTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
+    private let movieImageView = FFImageView(frame: .zero)
+    private let movieTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,16 +38,13 @@ class FavoriteCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             movieImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-//            movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            movieImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-//            movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-//            movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor, constant: 25),
-            movieImageView.heightAnchor.constraint(equalToConstant: 75),
-            movieImageView.widthAnchor.constraint(equalToConstant: 50),
+            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2 * padding),
+            movieImageView.heightAnchor.constraint(equalToConstant: 100),
+            movieImageView.widthAnchor.constraint(equalToConstant: 75),
             
             movieTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: padding),
-            movieTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            movieTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             movieTitleLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
