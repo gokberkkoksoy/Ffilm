@@ -56,7 +56,7 @@ class MovieDetailVC: FFDataLoaderVC {
                 guard let self = self else { return }
                 switch result {
                 case.success(let movie):
-                    let favorite = Movie(posterPath: movie.posterPath, title: movie.title, id: id)
+                    let favorite = MovieDetail(id: id, title: movie.title, posterPath: movie.posterPath)
                     PersistenceManager.updateWith(movie: favorite, actionType: .add) { [weak self] error in
                         guard let self = self else { return }
                         guard let error = error else {
