@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03406E199002DADB0F5B7509 /* Pods_Ffilm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7A80195A1A81B9888D9300 /* Pods_Ffilm.framework */; };
+		5E292EE826BF076000C5776F /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E292EE726BF076000C5776F /* UITableView+Ext.swift */; };
 		5E415F3726B591EB00F7FF55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F3626B591EB00F7FF55 /* AppDelegate.swift */; };
 		5E415F3926B591EB00F7FF55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F3826B591EB00F7FF55 /* SceneDelegate.swift */; };
 		5E415F3B26B591EB00F7FF55 /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F3A26B591EB00F7FF55 /* MoviesVC.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E292EE726BF076000C5776F /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		5E415F3326B591EB00F7FF55 /* Ffilm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ffilm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E415F3626B591EB00F7FF55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5E415F3826B591EB00F7FF55 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				5E415F6F26B938A100F7FF55 /* Int+Ext.swift */,
 				5E7D39FF26BD1DE000A221F8 /* String+Ext.swift */,
 				5E7D3A0B26BDA98000A221F8 /* UIViewController+Ext.swift */,
+				5E292EE726BF076000C5776F /* UITableView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				5E415F4D26B5A0EB00F7FF55 /* FavoritesVC.swift in Sources */,
 				5E415F5C26B7F27300F7FF55 /* Constants.swift in Sources */,
 				5E415F7026B938A100F7FF55 /* Int+Ext.swift in Sources */,
+				5E292EE826BF076000C5776F /* UITableView+Ext.swift in Sources */,
 				5E415F3B26B591EB00F7FF55 /* MoviesVC.swift in Sources */,
 				5E7D3A0226BD20E600A221F8 /* FFDataLoaderVC.swift in Sources */,
 				5E7D3A0A26BD72DE00A221F8 /* FFError.swift in Sources */,
