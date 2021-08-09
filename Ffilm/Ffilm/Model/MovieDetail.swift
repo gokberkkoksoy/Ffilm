@@ -21,6 +21,7 @@ struct MovieDetail: Codable, Equatable {
     var title: String?
     var runtime: Int?
     var voteAverage: Double?
+    var voteCount: Int?
     var tagline: String?
     var posterPath: String?
     
@@ -33,6 +34,7 @@ struct MovieDetail: Codable, Equatable {
         case title
         case runtime
         case voteAverage = "vote_average"
+        case voteCount = "vote_count"
         case tagline
         case posterPath = "poster_path"
         
