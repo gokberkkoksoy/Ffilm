@@ -13,6 +13,8 @@ class FavoriteCell: UITableViewCell {
     private let movieTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
     private let movieDateSymbol = UIImageView(image: UIImage(systemName: "calendar"))
     private let movieDateLabel = FFBodyLabel(textAlignment: .left)
+    private let movieRuntimeSymbol = UIImageView(image: UIImage(systemName: "clock"))
+    private let movieRuntimeLabel = FFBodyLabel(textAlignment: .left)
     
     
     
@@ -29,16 +31,18 @@ class FavoriteCell: UITableViewCell {
         if let poster = movie.posterPath {
             movieImageView.setImage(url: URL(string: NetworkConstants.baseImageURL + poster))
         } else {
-            movieImageView.image = UIImage(named: "placeholder.png")
+            movieImageView.image = UIImage(named: "notFound")
         }
         
         movieTitleLabel.text = movie.title
         movieDateLabel.text = movie.releaseDate?.convertToDate()
         movieDateSymbol.tintColor = .secondaryLabel
+        movieRuntimeSymbol.tintColor = .secondaryLabel
+        movieRuntimeLabel.text = movie.runtime?.convertToHourAndMinuteString()
     }
     
     private func configure() {
-        addSubviews(movieImageView, movieTitleLabel, movieDateSymbol, movieDateLabel)
+        addSubviews(movieImageView, movieTitleLabel, movieDateSymbol, movieDateLabel, movieRuntimeSymbol, movieRuntimeLabel)
         movieImageView.layer.cornerRadius = 5
         movieImageView.layer.masksToBounds = true
         accessoryType = .disclosureIndicator
@@ -63,7 +67,19 @@ class FavoriteCell: UITableViewCell {
             movieDateLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: padding),
             movieDateLabel.leadingAnchor.constraint(equalTo: movieDateSymbol.trailingAnchor, constant: padding),
             movieDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            movieDateLabel.heightAnchor.constraint(equalToConstant: 20)
+            movieDateLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            movieRuntimeSymbol.topAnchor.constraint(equalTo: movieDateLabel.bottomAnchor, constant: padding),
+            movieRuntimeSymbol.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 8),
+            movieRuntimeSymbol.widthAnchor.constraint(equalToConstant: 20),
+            movieRuntimeSymbol.heightAnchor.constraint(equalToConstant: 20),
+            
+            movieRuntimeLabel.topAnchor.constraint(equalTo: movieDateLabel.bottomAnchor, constant: padding),
+            movieRuntimeLabel.leadingAnchor.constraint(equalTo: movieRuntimeSymbol.trailingAnchor, constant: padding),
+            movieRuntimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            movieRuntimeLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            
         ])
     }
     

@@ -36,8 +36,8 @@ class FFDataLoaderVC: UIViewController {
         }
     }
     
-    func showEmptyFollowerListView(in view: UIView) {
-        let emptyStateView = EmptyFollowerListView()
+    func showEmptyFollowerListView(header: String, message: String, in view: UIView) {
+        let emptyStateView = EmptyFollowerListView(header: header, body: message)
         emptyStateView.frame = view.bounds
         view.addSubview(emptyStateView)
     }

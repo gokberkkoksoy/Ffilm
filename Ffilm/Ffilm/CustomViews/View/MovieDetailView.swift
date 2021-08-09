@@ -12,7 +12,11 @@ class MovieDetailView: UIView {
 
     private let backdropImageView = FFImageView(frame: .zero)
     private let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
-    private let movieInfoLabel = FFBodyLabel(textAlignment: .left)
+    private let releaseDateSymbol = UIImageView(image: UIImage(systemName: "calendar"))
+    private let releaseDateLabel = FFBodyLabel(textAlignment: .left)
+    private let runtimeSymbol = UIImageView(image: UIImage(systemName: "clock"))
+    private let runtimeLabel = FFBodyLabel(textAlignment: .left)
+//    private let movieInfoLabel = FFBodyLabel(textAlignment: .left)
     private let movieGenreLabel = FFBodyLabel(textAlignment: .left)
     private let taglineLabel = FFBodyLabel(textAlignment: .left)
     private let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
@@ -41,8 +45,9 @@ class MovieDetailView: UIView {
                 }
             }
         }
+        releaseDateLabel.text = movie.releaseDate?.convertToDate()
+        runtimeLabel.text = movie.runtime?.convertToHourAndMinuteString()
         
-        movieInfoLabel.text = (movie.releaseDate?.convertToDate() ?? "") + " • " + (movie.runtime?.convertToHourAndMinuteString() ?? "")
         movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
         overviewTitleLabel.text = "Overview"
@@ -50,7 +55,10 @@ class MovieDetailView: UIView {
     }
     
     func configure() {
-        addSubviews(backdropImageView, titleLabel, movieInfoLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
+        addSubviews(backdropImageView, titleLabel,releaseDateSymbol, releaseDateLabel, runtimeSymbol, runtimeLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
+        
+        releaseDateSymbol.tintColor = .secondaryLabel
+        runtimeSymbol.tintColor = .secondaryLabel
         NSLayoutConstraint.activate([
             backdropImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
@@ -61,11 +69,30 @@ class MovieDetailView: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             
-            movieInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            movieInfoLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            movieInfoLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            releaseDateSymbol.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            releaseDateSymbol.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            releaseDateSymbol.heightAnchor.constraint(equalToConstant: 20),
+            releaseDateSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
             
-            movieGenreLabel.topAnchor.constraint(equalTo: movieInfoLabel.bottomAnchor, constant: 8),
+            releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            releaseDateLabel.leadingAnchor.constraint(equalTo: releaseDateSymbol.trailingAnchor, constant: 8),
+            releaseDateLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            
+            runtimeSymbol.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: 8),
+            runtimeSymbol.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            runtimeSymbol.heightAnchor.constraint(equalToConstant: 20),
+            runtimeSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
+            
+            runtimeLabel.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: 8),
+            runtimeLabel.leadingAnchor.constraint(equalTo: runtimeSymbol.trailingAnchor, constant: 8),
+            runtimeLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            
+            
+//            movieInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+//            movieInfoLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
+//            movieInfoLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            
+            movieGenreLabel.topAnchor.constraint(equalTo: runtimeLabel.bottomAnchor, constant: 8),
             movieGenreLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             movieGenreLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             

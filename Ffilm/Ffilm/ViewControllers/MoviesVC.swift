@@ -67,7 +67,6 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
                 cell.movieImageView.setImage(url: url)
             } else {
                 cell.movieImageView.image = UIImage(named: "notFound")
-                cell.movieImageView.contentMode = .scaleToFill
             }
             if let id = movie.id { cell.cellId = id }
             self.configureCellState()
@@ -151,6 +150,13 @@ extension MoviesVC: UISearchResultsUpdating {
             case .success(let result):
                 self.searchedMovies.removeAll()
                 guard let pageNum = result.totalPages, let results = result.results else { return }
+//                if results.isEmpty {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                        self.showEmptyFollowerListView(header: "Sorry, we don't have what you are looking for.", message: "Maybe try to look for something else?", in: self.view)
+//                    }
+//                } else {
+//                    DispatchQueue.main.async { self.hideEmptyView() }
+//                }
                 print(results)
                 self.searchTotalPage = pageNum
                 self.updateUI(with: results)

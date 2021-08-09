@@ -59,7 +59,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     private func updateUI(with favorites: [Int]) {
         if favorites.isEmpty {
             print("sad")
-            self.showEmptyFollowerListView(in: self.view)
+            self.showEmptyFollowerListView(header: "Wow, such empty.", message: "Don't you have any favorite movies? There are countless movies in here. Just go and look for some.", in: self.view)
         } else {
             self.favorites = favorites
             DispatchQueue.main.async {

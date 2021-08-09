@@ -21,6 +21,12 @@ class EmptyFollowerListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init(header title: String, body message: String) {
+        self.init(frame: .zero)
+        messageTitleLabel.text = title
+        messageBodyLabel.text = message
+    }
+    
     private func configure() {
         backgroundColor = .systemBackground
         addSubviews(messageTitleLabel, messageBodyLabel)
@@ -30,7 +36,6 @@ class EmptyFollowerListView: UIView {
     
     private func configureMessageTitleLabel() {
         messageTitleLabel.text = "Wow, such empty."
-        
         NSLayoutConstraint.activate([
             messageTitleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
             messageTitleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),

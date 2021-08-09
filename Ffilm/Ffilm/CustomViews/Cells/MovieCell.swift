@@ -37,6 +37,7 @@ class MovieCell: UICollectionViewCell {
         movieImageView.layer.cornerRadius = 5
         movieImageView.layer.masksToBounds = true
         movieImageView.contentMode = .scaleAspectFill
+        movieImageView.image = UIImage(named: "notFound")
         let heightConstant: CGFloat = 130
         
         favoriteBackgroundView.alpha = 0.33
