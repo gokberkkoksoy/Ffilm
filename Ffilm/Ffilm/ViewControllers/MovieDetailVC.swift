@@ -13,6 +13,7 @@ class MovieDetailVC: UIViewController {
     private let movieDetailView = MovieDetailView(frame: .zero)
     private var unfavButton: UIBarButtonItem!
     private var favButton: UIBarButtonItem!
+    var delegate: UpdatableScreen!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class MovieDetailVC: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
 //        showLoadingView()
         getMovieDetails()
+//        delegate = self
 //        dismissLoadingView()
 
     }
@@ -40,7 +42,10 @@ class MovieDetailVC: UIViewController {
         }
     }
     
-    @objc private func donePressed() { navigationController?.dismiss(animated: true) }
+    @objc internal func donePressed() {
+        delegate.updateScreen()
+        navigationController?.dismiss(animated: true)
+    }
     
     @objc private func unfavPressed() {
         navigationItem.leftBarButtonItem = favButton
@@ -82,4 +87,11 @@ class MovieDetailVC: UIViewController {
         movieDetailView.pinToEdges(of: view)
     }
 
+}
+
+extension MovieDetailVC: UpdatableScreen {
+    func updateScreen() {
+        print("lol")
+    }
+    
 }

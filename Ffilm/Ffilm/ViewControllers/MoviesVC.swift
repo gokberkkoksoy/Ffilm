@@ -8,8 +8,12 @@
 import UIKit
 import Kingfisher
 
+protocol UpdatableScreen: AnyObject {
+    func updateScreen()
+}
 
-class MoviesVC: UIViewController {
+
+class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     
     private enum Section { case main }
     private var collectionView: UICollectionView!
@@ -62,7 +66,8 @@ class MoviesVC: UIViewController {
             if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
                 cell.movieImageView.setImage(url: url)
             } else {
-                cell.movieImageView.image = UIImage(named: "placeholder.png")
+                cell.movieImageView.image = UIImage(named: "notFound")
+                cell.movieImageView.contentMode = .scaleToFill
             }
             if let id = movie.id { cell.cellId = id }
             self.configureCellState()
@@ -85,6 +90,10 @@ class MoviesVC: UIViewController {
                 }
             }
         }
+    }
+    
+    func updateScreen() {
+        configureCellState()
     }
     
     private func getMovies(of category: String, from page: Int) {
@@ -157,8 +166,8 @@ extension MoviesVC: UICollectionViewDelegate {
         guard let selectedMovie = dataSource.itemIdentifier(for: indexPath), let id = selectedMovie.id else { return }
         let destVC = MovieDetailVC()
         destVC.movieID = id
+        destVC.delegate = self
         let navController = UINavigationController(rootViewController: destVC)
-        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
     }
     

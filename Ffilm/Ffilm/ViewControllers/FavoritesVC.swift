@@ -7,7 +7,11 @@
 
 import UIKit
 
-class FavoritesVC: FFDataLoaderVC {
+class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
+    func updateScreen() {
+        getFavorites()
+    }
+    
 
     private let tableView = UITableView()
     private var favorites = [Int]()
@@ -89,11 +93,12 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let movie = favorites[indexPath.row]
         let destVC = MovieDetailVC()
         destVC.movieID = movie
+        destVC.delegate = self
         let navController = UINavigationController(rootViewController: destVC)
-        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
     }
     
