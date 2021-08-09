@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoritesVC: UIViewController {
+class FavoritesVC: FFDataLoaderVC {
 
     private let tableView = UITableView()
     private var favorites = [Int]()
@@ -32,9 +32,10 @@ class FavoritesVC: UIViewController {
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
-        tableView.rowHeight = 160
+        tableView.rowHeight = 115
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.removeExcessCells()
         
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseID)
     }
@@ -44,18 +45,22 @@ class FavoritesVC: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let favorites):
-                if favorites.isEmpty {
-                    print("sad")
-                } else {
-                    self.favorites = favorites
-                    print(favorites)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.view.bringSubviewToFront(self.tableView)
-                    }
-                }
+                    self.updateUI(with: favorites)
             case.failure(let error):
                 self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
+    }
+    
+    private func updateUI(with favorites: [Int]) {
+        if favorites.isEmpty {
+            print("sad")
+            self.showEmptyFollowerListView(in: self.view)
+        } else {
+            self.favorites = favorites
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.bringSubviewToFront(self.tableView)
             }
         }
     }
@@ -88,6 +93,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         let destVC = MovieDetailVC()
         destVC.movieID = movie
         let navController = UINavigationController(rootViewController: destVC)
+        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
     }
     
@@ -99,6 +105,9 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
             guard let error = error else {
                 self.favorites.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.updateUI(with: self.favorites)
+                }
                 return
             }
             self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
