@@ -28,7 +28,7 @@ enum PersistenceManager {
                     if movieIDs.contains(movieID){
                         completed(.alreadyInFavorites)
                     } else {
-                        movieIDs.append(movieID)
+                        movieIDs.insert(movieID, at: 0)
                     }
                 case .remove:
                     movieIDs.removeAll { $0 == movieID }
