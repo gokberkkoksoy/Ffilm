@@ -33,6 +33,8 @@ class FavoriteCell: UITableViewCell {
     
     private func configure() {
         addSubviews(movieImageView, movieTitleLabel)
+        movieImageView.layer.cornerRadius = 5
+        movieImageView.layer.masksToBounds = true
         accessoryType = .disclosureIndicator
         let padding: CGFloat = 8
         

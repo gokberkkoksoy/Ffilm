@@ -10,7 +10,6 @@ import Kingfisher
 
 
 class MoviesVC: UIViewController {
-    #warning("search bar does not show when scrolling")
     
     private enum Section { case main }
     private var collectionView: UICollectionView!
@@ -25,6 +24,7 @@ class MoviesVC: UIViewController {
     private var isNotLoadingMovies = true
     private var isSearching = false
     private var searchFilter = ""
+    private var cells = [MovieCell]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,7 @@ class MoviesVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        configureCellState()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
@@ -63,7 +64,26 @@ class MoviesVC: UIViewController {
             } else {
                 cell.movieImageView.image = UIImage(named: "placeholder.png")
             }
+            if let id = movie.id { cell.cellId = id }
+            self.configureCellState()
+            self.cells.append(cell)
             return cell
+        }
+    }
+    
+    func configureCellState() {
+        for cell in cells {
+            PersistenceManager.retrieveFavorites { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let favorites):
+//                    DispatchQueue.main.async {
+                        cell.setFavorite(mode: favorites.contains(cell.cellId) ? .show : .hide)
+//                    }
+                case.failure(let error):
+                    self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                }
+            }
         }
     }
     
@@ -86,14 +106,13 @@ class MoviesVC: UIViewController {
     
     private func updateUI(with movies: [Movie]) {
         hasMorePages = page < totalPage ? true : false
-        self.movies.append(contentsOf: movies)
-        updateData(on: self.movies)
-    }
-    
-    private func updateSearchUI(with movies: [Movie]){
-        hasMorePages = page < totalPage ? true : false
-        self.searchedMovies.append(contentsOf: movies)
-        updateData(on: self.searchedMovies)
+        if isSearching {
+            self.searchedMovies.append(contentsOf: movies)
+            updateData(on: self.searchedMovies)
+        } else {
+            self.movies.append(contentsOf: movies)
+            updateData(on: self.movies)
+        }
     }
     
     private func updateData(on movies: [Movie]) {
@@ -125,7 +144,7 @@ extension MoviesVC: UISearchResultsUpdating {
                 guard let pageNum = result.totalPages, let results = result.results else { return }
                 print(results)
                 self.searchTotalPage = pageNum
-                self.updateSearchUI(with: results)
+                self.updateUI(with: results)
             case.failure(let error):
                 self.presentAlertOnMainThread(title: "Oops.", message: error.rawValue, buttonTitle: "OK")
             }
@@ -139,6 +158,7 @@ extension MoviesVC: UICollectionViewDelegate {
         let destVC = MovieDetailVC()
         destVC.movieID = id
         let navController = UINavigationController(rootViewController: destVC)
+        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
     }
     
@@ -159,7 +179,7 @@ extension MoviesVC: UICollectionViewDelegate {
                             guard let pageNum = result.totalPages, let results = result.results else { return }
                             print(results)
                             self.searchTotalPage = pageNum
-                            self.updateSearchUI(with: results)
+                            self.updateUI(with: results)
                         case.failure(let error):
                             self.presentAlertOnMainThread(title: "Oops...", message: error.rawValue, buttonTitle: "OK")
                         }
