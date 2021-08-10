@@ -38,8 +38,8 @@ class EmptyFollowerListView: UIView {
         messageTitleLabel.text = "Wow, such empty."
         NSLayoutConstraint.activate([
             messageTitleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
-            messageTitleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            messageTitleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            messageTitleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 2 * UIConstants.padding),
+            messageTitleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -2 * UIConstants.padding),
             messageTitleLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
@@ -49,8 +49,8 @@ class EmptyFollowerListView: UIView {
         
         NSLayoutConstraint.activate([
             messageBodyLabel.topAnchor.constraint(equalTo: messageTitleLabel.bottomAnchor, constant: 30),
-            messageBodyLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            messageBodyLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            messageBodyLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 2 * UIConstants.padding),
+            messageBodyLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -2 * UIConstants.padding),
             messageBodyLabel.heightAnchor.constraint(equalToConstant: 55)
         ])
     }

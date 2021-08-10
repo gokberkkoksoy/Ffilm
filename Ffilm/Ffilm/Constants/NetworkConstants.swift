@@ -19,8 +19,3 @@ struct NetworkConstants {
     static let baseMovieURL = "https://api.themoviedb.org/3/movie/"
     static let movieSearchURL = "https://api.themoviedb.org/3/search/movie/"
 }
-
-struct UIConstants {
-    static let movieCellReuseID = "MovieCell"
-    static let searchBarPlaceholder = "Search for a movie..."
-}

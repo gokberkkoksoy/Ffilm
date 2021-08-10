@@ -31,7 +31,7 @@ class FavoriteCell: UITableViewCell {
         if let poster = movie.posterPath {
             movieImageView.setImage(url: URL(string: NetworkConstants.baseImageURL + poster))
         } else {
-            movieImageView.image = UIImage(named: "notFound")
+            movieImageView.image = Images.placeholder
         }
         
         movieTitleLabel.text = movie.title
@@ -46,38 +46,37 @@ class FavoriteCell: UITableViewCell {
         movieImageView.layer.cornerRadius = 5
         movieImageView.layer.masksToBounds = true
         accessoryType = .disclosureIndicator
-        let padding: CGFloat = 8
         
         NSLayoutConstraint.activate([
             movieImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2 * padding),
+            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2 * UIConstants.padding),
             movieImageView.heightAnchor.constraint(equalToConstant: 100),
             movieImageView.widthAnchor.constraint(equalToConstant: 75),
             
             movieTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -25),
-            movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: padding),
-            movieTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: UIConstants.padding),
+            movieTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             movieTitleLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            movieDateSymbol.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: padding),
-            movieDateSymbol.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 8),
-            movieDateSymbol.widthAnchor.constraint(equalToConstant: 20),
-            movieDateSymbol.heightAnchor.constraint(equalToConstant: 20),
+            movieDateSymbol.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: UIConstants.padding),
+            movieDateSymbol.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: UIConstants.padding),
+            movieDateSymbol.widthAnchor.constraint(equalToConstant: UIConstants.sfSymbolSize),
+            movieDateSymbol.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolSize),
             
-            movieDateLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: padding),
-            movieDateLabel.leadingAnchor.constraint(equalTo: movieDateSymbol.trailingAnchor, constant: padding),
-            movieDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            movieDateLabel.heightAnchor.constraint(equalToConstant: 20),
+            movieDateLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: UIConstants.padding),
+            movieDateLabel.leadingAnchor.constraint(equalTo: movieDateSymbol.trailingAnchor, constant: UIConstants.padding),
+            movieDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
+            movieDateLabel.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolSize),
             
-            movieRuntimeSymbol.topAnchor.constraint(equalTo: movieDateLabel.bottomAnchor, constant: padding),
-            movieRuntimeSymbol.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 8),
-            movieRuntimeSymbol.widthAnchor.constraint(equalToConstant: 20),
-            movieRuntimeSymbol.heightAnchor.constraint(equalToConstant: 20),
+            movieRuntimeSymbol.topAnchor.constraint(equalTo: movieDateLabel.bottomAnchor, constant: UIConstants.padding),
+            movieRuntimeSymbol.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: UIConstants.padding),
+            movieRuntimeSymbol.widthAnchor.constraint(equalToConstant: UIConstants.sfSymbolSize),
+            movieRuntimeSymbol.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolSize),
             
-            movieRuntimeLabel.topAnchor.constraint(equalTo: movieDateLabel.bottomAnchor, constant: padding),
-            movieRuntimeLabel.leadingAnchor.constraint(equalTo: movieRuntimeSymbol.trailingAnchor, constant: padding),
-            movieRuntimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            movieRuntimeLabel.heightAnchor.constraint(equalToConstant: 20),
+            movieRuntimeLabel.topAnchor.constraint(equalTo: movieDateLabel.bottomAnchor, constant: UIConstants.padding),
+            movieRuntimeLabel.leadingAnchor.constraint(equalTo: movieRuntimeSymbol.trailingAnchor, constant: UIConstants.padding),
+            movieRuntimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
+            movieRuntimeLabel.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolSize),
             
             
         ])

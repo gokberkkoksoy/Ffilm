@@ -37,7 +37,7 @@ class MovieCell: UICollectionViewCell {
         movieImageView.layer.cornerRadius = 5
         movieImageView.layer.masksToBounds = true
         movieImageView.contentMode = .scaleAspectFill
-        movieImageView.image = UIImage(named: "notFound")
+        movieImageView.image = Images.placeholder
         let heightConstant: CGFloat = 130
         
         favoriteBackgroundView.alpha = 0.33
@@ -60,8 +60,8 @@ class MovieCell: UICollectionViewCell {
             favoriteBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             favoriteBackgroundView.bottomAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
 
-            favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIConstants.padding),
+            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             favoriteImageView.heightAnchor.constraint(equalToConstant: 30),
             favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor)
         ])

@@ -15,13 +15,13 @@ class MovieDetailView: UIView {
 
     private let backdropImageView = FFImageView(frame: .zero)
     private let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 22)
-    private let releaseDateSymbol = UIImageView(image: UIImage(systemName: "calendar"))
+    private let releaseDateSymbol = Images.SFSymbols.calendar
     private let releaseDateLabel = FFBodyLabel(textAlignment: .left)
-    private let runtimeSymbol = UIImageView(image: UIImage(systemName: "clock"))
+    private let runtimeSymbol = Images.SFSymbols.clock
     private let runtimeLabel = FFBodyLabel(textAlignment: .left)
-    private var voteSymbol = UIImageView(image: UIImage(systemName: "star.lefthalf.fill"))
+    private var voteSymbol = Images.SFSymbols.halfFillStar
     private let voteLabel = FFBodyLabel(textAlignment: .left)
-    private var statusSymbol = UIImageView(image: UIImage(systemName: "hourglass"))
+    private let statusSymbol = Images.SFSymbols.hourglass
     private let statusLabel = FFBodyLabel(textAlignment: .left)
     private let movieGenreTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
     private let movieGenreLabel = FFBodyLabel(textAlignment: .left)
@@ -45,7 +45,7 @@ class MovieDetailView: UIView {
             backdropImageView.setImage(url: url)
             backdropImageView.contentMode = .scaleAspectFill
         } else {
-            backdropImageView.image = UIImage(named: "notFound")
+            backdropImageView.image = Images.placeholder
         }
         if let releaseDate = movie.releaseDate , let title = movie.title {
             titleLabel.text = title + " (\(releaseDate.getDateYear()))"
@@ -58,25 +58,23 @@ class MovieDetailView: UIView {
         releaseDateLabel.text = movie.releaseDate?.convertToDate()
         runtimeLabel.text = movie.runtime?.convertToHourAndMinuteString()
         if let vote = movie.voteAverage {
-            voteSymbol.image = vote == 10.0 ? UIImage(systemName: "star.fill") : UIImage(systemName: "star.lefthalf.fill")
+            voteSymbol.image = vote == 10.0 ? Images.SFSymbols.fillStarImage : Images.SFSymbols.halfFillStarImage
             voteLabel.text = "\(vote)/10 (\(movie.voteCount!) votes)"
             if vote == 0.0 {
-                voteSymbol.image = UIImage(systemName: "star")
-                voteLabel.text = "This movie has not been rated yet."
+                voteSymbol.image = Images.SFSymbols.emptyStarImage
+                voteLabel.text = UIConstants.movieNotRated
             }
         }
         
         if let status = movie.status {
-            if status == "Released" {
-                statusSymbol.image = UIImage(systemName: "hourglass.tophalf.fill")
-            }
+            statusSymbol.image = status == UIConstants.releasedStatus ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
             statusLabel.text = status
         }
         
-        movieGenreTitleLabel.text = "Genres"
+        movieGenreTitleLabel.text = UIConstants.genresTitle
         movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
-        overviewTitleLabel.text = "Overview"
+        overviewTitleLabel.text = UIConstants.overviewTitle
         overviewLabel.text = movie.overview
         
     }
@@ -107,65 +105,65 @@ class MovieDetailView: UIView {
             backdropImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backdropImageView.heightAnchor.constraint(equalToConstant: 250),
             
-            titleLabel.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            titleLabel.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: 2 * UIConstants.padding),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            releaseDateSymbol.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            releaseDateSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            releaseDateSymbol.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIConstants.padding),
+            releaseDateSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             releaseDateSymbol.heightAnchor.constraint(equalToConstant: 20),
             releaseDateSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
             
-            releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            releaseDateLabel.leadingAnchor.constraint(equalTo: releaseDateSymbol.trailingAnchor, constant: 8),
-            releaseDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIConstants.padding),
+            releaseDateLabel.leadingAnchor.constraint(equalTo: releaseDateSymbol.trailingAnchor, constant: UIConstants.padding),
+            releaseDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            runtimeSymbol.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: 8),
-            runtimeSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            runtimeSymbol.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: UIConstants.padding),
+            runtimeSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             runtimeSymbol.heightAnchor.constraint(equalToConstant: 20),
             runtimeSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
             
-            runtimeLabel.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: 8),
-            runtimeLabel.leadingAnchor.constraint(equalTo: runtimeSymbol.trailingAnchor, constant: 8),
-            runtimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            runtimeLabel.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: UIConstants.padding),
+            runtimeLabel.leadingAnchor.constraint(equalTo: runtimeSymbol.trailingAnchor, constant: UIConstants.padding),
+            runtimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            voteSymbol.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: 8),
-            voteSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            voteSymbol.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: UIConstants.padding),
+            voteSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             voteSymbol.heightAnchor.constraint(equalToConstant: 20),
             voteSymbol.widthAnchor.constraint(equalTo: voteSymbol.heightAnchor),
             
-            voteLabel.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: 8),
-            voteLabel.leadingAnchor.constraint(equalTo: voteSymbol.trailingAnchor, constant: 8),
-            voteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            voteLabel.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: UIConstants.padding),
+            voteLabel.leadingAnchor.constraint(equalTo: voteSymbol.trailingAnchor, constant: UIConstants.padding),
+            voteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            statusSymbol.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: 8),
-            statusSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            statusSymbol.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: UIConstants.padding),
+            statusSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             statusSymbol.heightAnchor.constraint(equalToConstant: 20),
             statusSymbol.widthAnchor.constraint(equalTo: statusSymbol.heightAnchor),
             
-            statusLabel.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: 8),
-            statusLabel.leadingAnchor.constraint(equalTo: voteSymbol.trailingAnchor, constant: 8),
-            statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            statusLabel.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: UIConstants.padding),
+            statusLabel.leadingAnchor.constraint(equalTo: voteSymbol.trailingAnchor, constant: UIConstants.padding),
+            statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            movieGenreTitleLabel.topAnchor.constraint(equalTo: statusSymbol.bottomAnchor, constant: 24),
-            movieGenreTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            movieGenreTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            movieGenreTitleLabel.topAnchor.constraint(equalTo: statusSymbol.bottomAnchor, constant: 3 * UIConstants.padding),
+            movieGenreTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
+            movieGenreTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            movieGenreLabel.topAnchor.constraint(equalTo: movieGenreTitleLabel.bottomAnchor, constant: 8),
-            movieGenreLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            movieGenreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            movieGenreLabel.topAnchor.constraint(equalTo: movieGenreTitleLabel.bottomAnchor, constant: UIConstants.padding),
+            movieGenreLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
+            movieGenreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            taglineLabel.topAnchor.constraint(equalTo: movieGenreLabel.bottomAnchor,constant: 24),
-            taglineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            taglineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            taglineLabel.topAnchor.constraint(equalTo: movieGenreLabel.bottomAnchor,constant: 3 * UIConstants.padding),
+            taglineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
+            taglineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            overviewTitleLabel.topAnchor.constraint(equalTo: taglineLabel.bottomAnchor, constant: 24),
-            overviewTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            overviewTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            overviewTitleLabel.topAnchor.constraint(equalTo: taglineLabel.bottomAnchor, constant: 3 * UIConstants.padding),
+            overviewTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
+            overviewTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             
-            overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: 8),
-            overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: UIConstants.padding),
+            overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
+            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding)
         ])
     }
 

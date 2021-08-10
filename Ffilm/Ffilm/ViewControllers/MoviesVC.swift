@@ -66,7 +66,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
                 cell.movieImageView.setImage(url: url)
             } else {
-                cell.movieImageView.image = UIImage(named: "notFound")
+                cell.movieImageView.image = Images.placeholder
             }
             if let id = movie.id { cell.cellId = id }
             self.configureCellState()
