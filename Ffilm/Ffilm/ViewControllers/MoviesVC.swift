@@ -68,6 +68,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             } else {
                 cell.movieImageView.image = Images.placeholder
             }
+            cell.titleLabel.text = movie.title!
             if let id = movie.id { cell.cellId = id }
             self.configureCellState()
             self.cells.append(cell)

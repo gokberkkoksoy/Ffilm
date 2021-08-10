@@ -17,6 +17,8 @@ class MovieCell: UICollectionViewCell {
     let movieImageView = FFImageView(frame: .zero)
     let favoriteBackgroundView = UIView(frame: .zero)
     let favoriteImageView = UIImageView(frame: .zero)
+    let titleBackgroundView = UIView(frame: .zero)
+    let titleLabel = FFTitleLabel(textAlignment: .center, fontSize: 14)
     var cellId = 0
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,7 +35,9 @@ class MovieCell: UICollectionViewCell {
     }
     
     private func configure() {
-        addSubviews(movieImageView,favoriteBackgroundView, favoriteImageView)
+        addSubviews(movieImageView,favoriteBackgroundView, favoriteImageView, titleBackgroundView, titleLabel)
+        titleLabel.pinToEdges(of: titleBackgroundView)
+        
         movieImageView.layer.cornerRadius = 5
         movieImageView.layer.masksToBounds = true
         movieImageView.contentMode = .scaleAspectFill
@@ -47,6 +51,9 @@ class MovieCell: UICollectionViewCell {
         
         favoriteImageView.image = UIImage(systemName: "star.circle")
         favoriteImageView.tintColor = UIColor(red: 0.56, green: 0.81, blue: 0.63, alpha: 1.00)
+        
+        titleBackgroundView.alpha = 0.5
+        titleBackgroundView.backgroundColor = .black
         
         
         NSLayoutConstraint.activate([
@@ -63,7 +70,14 @@ class MovieCell: UICollectionViewCell {
             favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIConstants.padding),
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             favoriteImageView.heightAnchor.constraint(equalToConstant: 30),
-            favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor)
+            favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor),
+            
+            titleBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            titleBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleBackgroundView.heightAnchor.constraint(equalToConstant: 35),
+            
+            
         ])
     }
     
