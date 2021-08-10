@@ -63,13 +63,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
-            if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
-                cell.movieImageView.setImage(url: url)
-            } else {
-                cell.movieImageView.image = Images.placeholder
-            }
-            cell.titleLabel.text = movie.title!
-            if let id = movie.id { cell.cellId = id }
+            cell.setCell(with: movie)
             self.configureCellState()
             self.cells.append(cell)
             return cell
@@ -83,7 +77,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
                 switch result {
                 case .success(let favorites):
 //                    DispatchQueue.main.async {
-                        cell.setFavorite(mode: favorites.contains(cell.cellId) ? .show : .hide)
+                        cell.setFavoriteState(mode: favorites.contains(cell.cellId) ? .show : .hide)
 //                    }
                 case.failure(let error):
                     self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
@@ -145,7 +139,7 @@ extension MoviesVC: UISearchResultsUpdating {
         isSearching = true
         searchPage = 1
         searchFilter = filter
-        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replaceSpecialCharacters())", in: searchPage) { [weak self] response in
+        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: searchFilter.replaceSpecialCharacters(), in: searchPage) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -188,7 +182,7 @@ extension MoviesVC: UICollectionViewDelegate {
             if isSearching {
                 if searchPage < searchTotalPage {
                     searchPage += 1
-                    Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: "&query=\(searchFilter.replaceSpecialCharacters())", in: searchPage) { [weak self] response in
+                    Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: searchFilter.replaceSpecialCharacters(), in: searchPage) { [weak self] response in
                         guard let self = self else { return }
                         switch response {
                         case .success(let result):

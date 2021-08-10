@@ -18,7 +18,7 @@ class MovieCell: UICollectionViewCell {
     let favoriteBackgroundView = UIView(frame: .zero)
     let favoriteImageView = UIImageView(frame: .zero)
     let titleBackgroundView = UIView(frame: .zero)
-    let titleLabel = FFTitleLabel(textAlignment: .center, fontSize: 14)
+    let titleLabel = FFTitleLabel(textAlignment: .center, fontSize: 15)
     var cellId = 0
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,9 +29,20 @@ class MovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setFavorite(mode: ImageDisplay){
+    func setFavoriteState(mode: ImageDisplay){
         favoriteImageView.isHidden = mode == .hide ? true : false
         favoriteBackgroundView.isHidden = mode == .hide ? true : false
+    }
+    
+    func setCell(with movie: Movie){
+        if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
+            movieImageView.setImage(url: url)
+        } else {
+            movieImageView.image = Images.placeholder
+        }
+        
+        if let title = movie.title { titleLabel.text = title }
+        if let id = movie.id { cellId = id }
     }
     
     private func configure() {
@@ -54,6 +65,7 @@ class MovieCell: UICollectionViewCell {
         
         titleBackgroundView.alpha = 0.5
         titleBackgroundView.backgroundColor = .black
+        titleLabel.textColor = .white
         
         
         NSLayoutConstraint.activate([
