@@ -37,8 +37,12 @@ class MovieCell: UICollectionViewCell {
     func setCell(with movie: Movie){
         if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
             movieImageView.setImage(url: url)
+            titleBackgroundView.isHidden = true
+            titleLabel.isHidden = true
         } else {
             movieImageView.image = Images.placeholder
+            titleBackgroundView.isHidden = false
+            titleLabel.isHidden = false
         }
         
         if let title = movie.title { titleLabel.text = title }
@@ -79,7 +83,7 @@ class MovieCell: UICollectionViewCell {
             favoriteBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             favoriteBackgroundView.bottomAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
 
-            favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UIConstants.padding),
+            favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             favoriteImageView.heightAnchor.constraint(equalToConstant: 30),
             favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor),
