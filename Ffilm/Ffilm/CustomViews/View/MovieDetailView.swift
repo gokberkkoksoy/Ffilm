@@ -100,13 +100,13 @@ class MovieDetailView: UIView {
         } else {
             runtimeLabel.text = "Runtime info is not provided."
         }
-        if let vote = movie.voteAverage {
+        if let vote = movie.voteAverage, let voteCount = movie.voteCount {
             if #available(iOS 13.0, *) {
                 voteSymbol.image = vote == 10.0 ? Images.SFSymbols.fillStarImage : Images.SFSymbols.halfFillStarImage
             } else {
                 voteSymbol.image = vote == 10.0 ? Images.SFSymbols12.fillStarImage12 : Images.SFSymbols12.halfFillStarImage12
             }
-            voteLabel.text = "\(vote)/10 (\(movie.voteCount!) votes)"
+            voteLabel.text = "\(vote)/10 (\(voteCount) votes)"
             if vote == 0.0 {
                 if #available(iOS 13.0, *) {
                     voteSymbol.image = Images.SFSymbols.emptyStarImage
@@ -163,7 +163,7 @@ class MovieDetailView: UIView {
             backdropImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backdropImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            backdropImageView.heightAnchor.constraint(equalToConstant: 250),
+            backdropImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6),
             
             titleLabel.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: 2 * UIConstants.padding),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),

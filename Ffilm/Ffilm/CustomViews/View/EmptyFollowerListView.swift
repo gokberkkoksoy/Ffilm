@@ -40,7 +40,6 @@ class EmptyFollowerListView: UIView {
             messageTitleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
             messageTitleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 2 * UIConstants.padding),
             messageTitleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -2 * UIConstants.padding),
-            messageTitleLabel.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     
@@ -49,9 +48,8 @@ class EmptyFollowerListView: UIView {
         
         NSLayoutConstraint.activate([
             messageBodyLabel.topAnchor.constraint(equalTo: messageTitleLabel.bottomAnchor, constant: 30),
-            messageBodyLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 2 * UIConstants.padding),
-            messageBodyLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -2 * UIConstants.padding),
-            messageBodyLabel.heightAnchor.constraint(equalToConstant: 55)
+            messageBodyLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.padding),
+            messageBodyLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -UIConstants.padding),
         ])
     }
     
