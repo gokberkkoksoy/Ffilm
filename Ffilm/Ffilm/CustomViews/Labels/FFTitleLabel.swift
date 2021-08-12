@@ -9,6 +9,7 @@ import UIKit
 
 class FFTitleLabel: UILabel {
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -25,7 +26,7 @@ class FFTitleLabel: UILabel {
     }
     
     private func configure() {
-        textColor = .label
+        if #available(iOS 13.0, *) { textColor = .label }
         adjustsFontSizeToFitWidth = true
         numberOfLines = 0
         minimumScaleFactor = 0.9

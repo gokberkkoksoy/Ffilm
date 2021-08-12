@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieDetailVC: UIViewController {
+class MovieDetailVC: FFDataLoaderVC {
     
     var movieID: Int?
     private let movieDetailView = MovieDetailView(frame: .zero)
@@ -17,9 +17,18 @@ class MovieDetailVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        favButton = UIBarButtonItem(image: Images.SFSymbols.emptyStarImage, style: .plain, target: self, action: #selector(favPressed))
-        unfavButton = UIBarButtonItem(image: Images.SFSymbols.fillStarImage, style: .plain, target: self, action: #selector(unfavPressed))
+        showLoadingView()
+        if #available(iOS 13.0, *) { view.backgroundColor = .systemBackground } else {  view.backgroundColor = .white }
+        if #available(iOS 13.0, *) {
+            favButton = UIBarButtonItem(image: Images.SFSymbols.emptyStarImage, style: .plain, target: self, action: #selector(favPressed))
+        } else {
+            favButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(favPressed))
+        }
+        if #available(iOS 13.0, *) {
+            unfavButton = UIBarButtonItem(image: Images.SFSymbols.fillStarImage, style: .plain, target: self, action: #selector(unfavPressed))
+        } else {
+            unfavButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(unfavPressed))
+        }
         configureMovieDetailView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
 //        showLoadingView()
@@ -35,7 +44,10 @@ class MovieDetailVC: UIViewController {
             Network.shared.getMovieDetail(of: id) { response in
                 switch response {
                 case.success(let detail):
-                    DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
+                    DispatchQueue.main.async {
+                        self.movieDetailView.set(to: detail)
+                        self.dismissLoadingView()
+                    }
                 case.failure(let error):
                     print(error)
                 }

@@ -14,11 +14,20 @@ class FFDataLoaderVC: UIViewController {
     func showLoadingView() {
         containerView = UIView(frame: view.bounds)
         view.addSubview(containerView)
-        containerView.backgroundColor = .systemBackground
+        if #available(iOS 13.0, *) {
+            containerView.backgroundColor = .systemBackground
+        } else {
+            containerView.backgroundColor = .white
+        }
         containerView.alpha = 0 // initially invisible
         UIView.animate(withDuration: 0.25) { self.containerView.alpha = 0.8 }
         
-        let activityIndicator = UIActivityIndicatorView(style: .large)
+        let activityIndicator = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .gray
+        }
         containerView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         

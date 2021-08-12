@@ -11,9 +11,9 @@ class FavoriteCell: UITableViewCell {
     static let reuseID = "FavoriteCell"
     private let movieImageView = FFImageView(frame: .zero)
     private let movieTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
-    private let movieDateSymbol = UIImageView(image: UIImage(systemName: "calendar"))
+    private var movieDateSymbol = UIImageView(frame: .zero)
     private let movieDateLabel = FFBodyLabel(textAlignment: .left)
-    private let movieRuntimeSymbol = UIImageView(image: UIImage(systemName: "clock"))
+    private var movieRuntimeSymbol  = UIImageView(frame: .zero)
     private let movieRuntimeLabel = FFBodyLabel(textAlignment: .left)
     
     
@@ -36,15 +36,26 @@ class FavoriteCell: UITableViewCell {
         
         movieTitleLabel.text = movie.title
         movieDateLabel.text = movie.releaseDate?.convertToDate()
-        movieDateSymbol.tintColor = .secondaryLabel
-        movieRuntimeSymbol.tintColor = .secondaryLabel
-        movieRuntimeLabel.text = movie.runtime?.convertToHourAndMinuteString()
+        if #available(iOS 13.0, *)   {
+            movieDateSymbol.image = Images.SFSymbols.calendarImage
+            movieDateSymbol.tintColor = .secondaryLabel
+            movieRuntimeSymbol.image = Images.SFSymbols.clockImage
+            movieRuntimeSymbol.tintColor = .secondaryLabel
+        } else {
+            movieDateSymbol.image = Images.SFSymbols12.calendarImage12
+            movieDateSymbol.tintColor = .systemGray
+            movieRuntimeSymbol.image = Images.SFSymbols12.clockImage12
+            movieRuntimeSymbol.tintColor = .systemGray
+        }
+        if let runtime = movie.runtime, runtime != 0 {
+            movieRuntimeLabel.text = runtime.convertToHourAndMinuteString()
+        } else {
+            movieRuntimeLabel.text = "Runtime info is not provided."
+        }
     }
     
     private func configure() {
         addSubviews(movieImageView, movieTitleLabel, movieDateSymbol, movieDateLabel, movieRuntimeSymbol, movieRuntimeLabel)
-        movieImageView.layer.cornerRadius = 5
-        movieImageView.layer.masksToBounds = true
         accessoryType = .disclosureIndicator
         
         NSLayoutConstraint.activate([

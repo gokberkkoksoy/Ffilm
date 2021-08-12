@@ -24,7 +24,7 @@ class FFBodyLabel: UILabel {
     }
     
     private func configure() {
-        textColor = .secondaryLabel
+        if #available(iOS 13.0, *) { textColor = .secondaryLabel }
         font = UIFont.preferredFont(forTextStyle: .callout)
         adjustsFontForContentSizeCategory = true
         adjustsFontSizeToFitWidth = true

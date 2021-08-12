@@ -17,7 +17,10 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     
     private enum Section { case main }
     private var collectionView: UICollectionView!
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Movie>!
+    
+    @available(iOS 13.0, *)
+    private lazy var dataSource = UICollectionViewDiffableDataSource<Section, Movie>()
+    
     private var movies = [Movie]()
     private var searchedMovies = [Movie]()
     private var page = 1
@@ -33,9 +36,12 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .purple
+//  if you do not write this next line, when you click to the search bar and switch between tabbar items WITHOUT SEARCHING ANY MOVIE(CURSOR IS ACTIVE)
+//  view controller will disappear. on ios13+ versions this problem does not occur. only on ios 12.x
+        definesPresentationContext = true
         configureSearchController()
         configureCollectionView()
-        configureDataSource()
+        if #available(iOS 13.0, *) { configureDataSource() }
         getMovies(of: NetworkConstants.basePopularURL, from: page)
     }
     
@@ -45,10 +51,11 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     }
     
     private func configureSearchController() {
-        let searchController = UISearchController()
+        let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = UIConstants.searchBarPlaceholder
         searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
+        if #available(iOS 13.0, *){} else { navigationController?.navigationBar.isHidden = false }
         navigationItem.searchController = searchController
     }
     
@@ -56,10 +63,12 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.getThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.dataSource = self
+        if #available(iOS 13.0, *) { collectionView.backgroundColor = .systemBackground } else { collectionView.backgroundColor = .white }
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
     }
     
+    @available(iOS 13.0, *)
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
@@ -98,7 +107,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             case .success(let result):
                 guard let pageNum = result.totalPages, let results = result.results else { return }
                 self.totalPage = pageNum
-                self.updateUI(with: results)
+                self.updateUI(with: results) 
             case .failure(let error):
                 self.presentAlertOnMainThread(title: "Oops...", message: error.rawValue, buttonTitle: "OK")
             }
@@ -119,10 +128,14 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     }
     
     private func updateData(on movies: [Movie]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(movies)
-        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+        if #available(iOS 13.0, *) {
+            var snapshot = NSDiffableDataSourceSnapshot<Section, Movie>()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(movies)
+            DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+        } else {
+            DispatchQueue.main.async { self.collectionView.reloadData() }
+        }
     }
     
 }
@@ -145,13 +158,13 @@ extension MoviesVC: UISearchResultsUpdating {
             case .success(let result):
                 self.searchedMovies.removeAll()
                 guard let pageNum = result.totalPages, let results = result.results else { return }
-//                if results.isEmpty {
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                        self.showEmptyFollowerListView(header: "Sorry, we don't have what you are looking for.", message: "Maybe try to look for something else?", in: self.view)
-//                    }
-//                } else {
-//                    DispatchQueue.main.async { self.hideEmptyView() }
-//                }
+                //                if results.isEmpty {
+                //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                //                        self.showEmptyFollowerListView(header: "Sorry, we don't have what you are looking for.", message: "Maybe try to look for something else?", in: self.view)
+                //                    }
+                //                } else {
+                //                    DispatchQueue.main.async { self.hideEmptyView() }
+                //                }
                 print(results)
                 self.searchTotalPage = pageNum
                 self.updateUI(with: results)
@@ -162,9 +175,29 @@ extension MoviesVC: UISearchResultsUpdating {
     }
 }
 
-extension MoviesVC: UICollectionViewDelegate {
+extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return isSearching ? searchedMovies.count: movies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
+        cell.setCell(with: isSearching ? searchedMovies[indexPath.item] : movies[indexPath.item])
+        self.configureCellState()
+        self.cells.append(cell)
+        return cell
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedMovie = dataSource.itemIdentifier(for: indexPath), let id = selectedMovie.id else { return }
+        var movie = Movie()
+        if #available(iOS 13.0, *) {
+            guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }
+            movie = selectedMovie
+        } else {
+            let selectedMovie = isSearching ? searchedMovies[indexPath.item] : movies[indexPath.item]
+            movie = selectedMovie
+        }
+        guard let id = movie.id else { return }
         let destVC = MovieDetailVC()
         destVC.movieID = id
         destVC.delegate = self

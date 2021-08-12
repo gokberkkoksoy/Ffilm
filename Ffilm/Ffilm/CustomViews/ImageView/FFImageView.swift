@@ -8,17 +8,24 @@
 import UIKit
 
 class FFImageView: UIImageView {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configure()
     }
     
+    private func configure() {
+        layer.cornerRadius = 5
+        layer.masksToBounds = true
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func setImage(url: URL?) {
         guard let imageURL = url else { return }
-        kf.setImage(with: imageURL)
+        kf.indicatorType  = .activity
+        kf.setImage(with: imageURL, placeholder: Images.placeholder)
+        
     }
 }

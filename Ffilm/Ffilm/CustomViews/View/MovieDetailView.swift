@@ -15,13 +15,37 @@ class MovieDetailView: UIView {
 
     private let backdropImageView = FFImageView(frame: .zero)
     private let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 22)
-    private let releaseDateSymbol = Images.SFSymbols.calendar
+    private var releaseDateSymbol: UIImageView {
+        if #available(iOS 13.0, *) {
+            return Images.SFSymbols.calendar
+        } else {
+            return Images.SFSymbols12.calendar12
+        }
+    }
     private let releaseDateLabel = FFBodyLabel(textAlignment: .left)
-    private let runtimeSymbol = Images.SFSymbols.clock
+    private var runtimeSymbol: UIImageView  {
+        if #available(iOS 13.0, *) {
+            return Images.SFSymbols.clock
+        } else {
+            return Images.SFSymbols12.clock12
+        }
+    }
     private let runtimeLabel = FFBodyLabel(textAlignment: .left)
-    private var voteSymbol = Images.SFSymbols.halfFillStar
+    private var voteSymbol: UIImageView {
+        if #available(iOS 13.0, *) {
+            return Images.SFSymbols.halfFillStar
+        } else {
+            return Images.SFSymbols12.halfFillStar12
+        }
+    }
     private let voteLabel = FFBodyLabel(textAlignment: .left)
-    private let statusSymbol = Images.SFSymbols.hourglass
+    private var statusSymbol: UIImageView  {
+        if #available(iOS 13.0, *) {
+            return Images.SFSymbols.hourglass
+        } else {
+            return Images.SFSymbols12.hourglass12
+        }
+    }
     private let statusLabel = FFBodyLabel(textAlignment: .left)
     private let movieGenreTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
     private let movieGenreLabel = FFBodyLabel(textAlignment: .left)
@@ -33,6 +57,7 @@ class MovieDetailView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        hideSymbols()
         configure()
     }
     
@@ -40,6 +65,20 @@ class MovieDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func showSymbols() {
+        voteSymbol.isHidden = false
+        statusSymbol.isHidden = false
+        runtimeSymbol.isHidden = false
+        releaseDateSymbol.isHidden = false
+    }
+    
+    func hideSymbols() {
+        voteSymbol.isHidden = true
+        statusSymbol.isHidden = true
+        runtimeSymbol.isHidden = true
+        releaseDateSymbol.isHidden = true
+    }
+
     func set(to movie: MovieDetail) {
         if let backdropPath = movie.backdropPath, let url = URL(string: NetworkConstants.backdropURL + backdropPath) {
             backdropImageView.setImage(url: url)
@@ -56,18 +95,34 @@ class MovieDetailView: UIView {
             }
         }
         releaseDateLabel.text = movie.releaseDate?.convertToDate()
-        runtimeLabel.text = movie.runtime?.convertToHourAndMinuteString()
+        if let runtime = movie.runtime, runtime != 0 {
+            runtimeLabel.text = runtime.convertToHourAndMinuteString()
+        } else {
+            runtimeLabel.text = "Runtime info is not provided."
+        }
         if let vote = movie.voteAverage {
-            voteSymbol.image = vote == 10.0 ? Images.SFSymbols.fillStarImage : Images.SFSymbols.halfFillStarImage
+            if #available(iOS 13.0, *) {
+                voteSymbol.image = vote == 10.0 ? Images.SFSymbols.fillStarImage : Images.SFSymbols.halfFillStarImage
+            } else {
+                voteSymbol.image = vote == 10.0 ? Images.SFSymbols12.fillStarImage12 : Images.SFSymbols12.halfFillStarImage12
+            }
             voteLabel.text = "\(vote)/10 (\(movie.voteCount!) votes)"
             if vote == 0.0 {
-                voteSymbol.image = Images.SFSymbols.emptyStarImage
+                if #available(iOS 13.0, *) {
+                    voteSymbol.image = Images.SFSymbols.emptyStarImage
+                } else {
+                    voteSymbol.image = Images.SFSymbols12.emptyStarImage12
+                }
                 voteLabel.text = UIConstants.movieNotRated
             }
         }
         
         if let status = movie.status {
-            statusSymbol.image = status == UIConstants.releasedStatus ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
+            if #available(iOS 13.0, *) {
+                statusSymbol.image = status == UIConstants.releasedStatus ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
+            } else {
+                statusSymbol.image = status == UIConstants.releasedStatus ? Images.SFSymbols12.doneHourglassImage12 : Images.SFSymbols12.hourglassImage12
+            }
             statusLabel.text = status
         }
         
@@ -76,7 +131,7 @@ class MovieDetailView: UIView {
         taglineLabel.text = movie.tagline
         overviewTitleLabel.text = UIConstants.overviewTitle
         overviewLabel.text = movie.overview
-        
+        showSymbols()
     }
     
     func configure(){
@@ -86,11 +141,17 @@ class MovieDetailView: UIView {
         contentView.pinToEdges(of: scrollView)
         contentView.addSubviews(backdropImageView, titleLabel,releaseDateSymbol, releaseDateLabel, runtimeSymbol, runtimeLabel, voteSymbol, voteLabel,statusSymbol, statusLabel, movieGenreTitleLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
         
-        releaseDateSymbol.tintColor = .secondaryLabel
-        runtimeSymbol.tintColor = .secondaryLabel
-        voteSymbol.tintColor = .secondaryLabel
-        statusSymbol.tintColor = .secondaryLabel
-        
+        if #available(iOS 13.0, *) {
+            releaseDateSymbol.tintColor = .secondaryLabel
+            runtimeSymbol.tintColor = .secondaryLabel
+            voteSymbol.tintColor = .secondaryLabel
+            statusSymbol.tintColor = .secondaryLabel
+        } else {
+            releaseDateSymbol.tintColor = .systemGray
+            runtimeSymbol.tintColor = .systemGray
+            voteSymbol.tintColor = .systemGray
+            statusSymbol.tintColor = .systemGray
+        }
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -166,5 +227,5 @@ class MovieDetailView: UIView {
             overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding)
         ])
     }
-
+    
 }

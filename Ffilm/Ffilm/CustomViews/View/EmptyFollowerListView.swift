@@ -28,7 +28,7 @@ class EmptyFollowerListView: UIView {
     }
     
     private func configure() {
-        backgroundColor = .systemBackground
+        if #available(iOS 13.0, *) { backgroundColor = .systemBackground }
         addSubviews(messageTitleLabel, messageBodyLabel)
         configureMessageTitleLabel()
         configureMessageBodyLabel()

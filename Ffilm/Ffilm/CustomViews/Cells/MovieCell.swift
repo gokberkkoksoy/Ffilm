@@ -29,12 +29,12 @@ class MovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setFavoriteState(mode: ImageDisplay){
+    func setFavoriteState(mode: ImageDisplay) {
         favoriteImageView.isHidden = mode == .hide ? true : false
         favoriteBackgroundView.isHidden = mode == .hide ? true : false
     }
     
-    func setCell(with movie: Movie){
+    func setCell(with movie: Movie) {
         if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
             movieImageView.setImage(url: url)
             titleBackgroundView.isHidden = true
@@ -53,8 +53,6 @@ class MovieCell: UICollectionViewCell {
         addSubviews(movieImageView,favoriteBackgroundView, favoriteImageView, titleBackgroundView, titleLabel)
         titleLabel.pinToEdges(of: titleBackgroundView)
         
-        movieImageView.layer.cornerRadius = 5
-        movieImageView.layer.masksToBounds = true
         movieImageView.contentMode = .scaleAspectFill
         movieImageView.image = Images.placeholder
         let heightConstant: CGFloat = 130
@@ -64,7 +62,11 @@ class MovieCell: UICollectionViewCell {
         favoriteBackgroundView.layer.masksToBounds = true
         favoriteBackgroundView.layer.cornerRadius = 5
         
-        favoriteImageView.image = UIImage(systemName: "star.circle")
+        if #available(iOS 13.0, *) {
+            favoriteImageView.image = UIImage(systemName: "star.circle")
+        } else {
+            favoriteImageView.image = UIImage(named: "heart.circle")
+        }
         favoriteImageView.tintColor = UIColor(red: 0.56, green: 0.81, blue: 0.63, alpha: 1.00)
         
         titleBackgroundView.alpha = 0.5
@@ -91,7 +93,7 @@ class MovieCell: UICollectionViewCell {
             titleBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             titleBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleBackgroundView.heightAnchor.constraint(equalToConstant: 35),
+            titleBackgroundView.heightAnchor.constraint(equalToConstant: 35)
             
             
         ])
