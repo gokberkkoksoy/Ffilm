@@ -11,9 +11,9 @@ class FFDataLoaderVC: UIViewController {
     
     var containerView: UIView!
 
-    func showLoadingView() {
-        containerView = UIView(frame: view.bounds)
-        view.addSubview(containerView)
+    func showLoadingView(in view: UIView) {
+        containerView = UIView(frame: .zero)
+        view.addSubviews(containerView)
         if #available(iOS 13.0, *) {
             containerView.backgroundColor = .systemBackground
         } else {
@@ -31,6 +31,7 @@ class FFDataLoaderVC: UIViewController {
         containerView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         
+        containerView.pinToEdges(of: view)
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)

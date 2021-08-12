@@ -17,7 +17,7 @@ class MovieDetailVC: FFDataLoaderVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        showLoadingView()
+        showLoadingView(in: view)
         if #available(iOS 13.0, *) { view.backgroundColor = .systemBackground } else {  view.backgroundColor = .white }
         if #available(iOS 13.0, *) {
             favButton = UIBarButtonItem(image: Images.SFSymbols.emptyStarImage, style: .plain, target: self, action: #selector(favPressed))
@@ -83,7 +83,7 @@ class MovieDetailVC: FFDataLoaderVC {
     }
     
     private func configureMovieDetailView(){
-        view.addSubview(movieDetailView)
+        view.addSubviews(movieDetailView)
         if let id = movieID {
             PersistenceManager.retrieveFavorites { result in
                 switch result {
@@ -94,7 +94,14 @@ class MovieDetailVC: FFDataLoaderVC {
                 }
             }
         }
-        movieDetailView.pinToEdges(of: view)
+//        movieDetailView.pinToEdges(of: view)
+        NSLayoutConstraint.activate([
+            movieDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            movieDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            movieDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            movieDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
     }
 
 }

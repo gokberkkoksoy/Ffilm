@@ -136,7 +136,6 @@ class MovieDetailView: UIView {
     
     func configure(){
         addSubviews(scrollView)
-        scrollView.pinToEdges(of: self)
         scrollView.addSubviews(contentView)
         contentView.pinToEdges(of: scrollView)
         contentView.addSubviews(backdropImageView, titleLabel,releaseDateSymbol, releaseDateLabel, runtimeSymbol, runtimeLabel, voteSymbol, voteLabel,statusSymbol, statusLabel, movieGenreTitleLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
