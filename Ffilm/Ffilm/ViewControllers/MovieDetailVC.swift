@@ -30,7 +30,7 @@ class MovieDetailVC: FFDataLoaderVC {
             unfavButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(unfavPressed))
         }
         configureMovieDetailView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
 //        showLoadingView()
         getMovieDetails()
 //        dismissLoadingView()
@@ -58,7 +58,7 @@ class MovieDetailVC: FFDataLoaderVC {
     @objc internal func donePressed() { navigationController?.dismiss(animated: true) }
     
     @objc private func unfavPressed() {
-        navigationItem.leftBarButtonItem = favButton
+        navigationItem.rightBarButtonItem = favButton
         if let id = movieID {
             PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
@@ -69,7 +69,7 @@ class MovieDetailVC: FFDataLoaderVC {
     }
     
     @objc private func favPressed() {
-        navigationItem.leftBarButtonItem = unfavButton
+        navigationItem.rightBarButtonItem = unfavButton
         if let id = movieID {
             PersistenceManager.updateWith(movieID: id, actionType: .add) { [weak self] error in
                 guard let self = self else { return }
@@ -88,7 +88,7 @@ class MovieDetailVC: FFDataLoaderVC {
             PersistenceManager.retrieveFavorites { result in
                 switch result {
                 case .success(let favorites):
-                    self.navigationItem.leftBarButtonItem = favorites.contains(id) ? self.unfavButton : self.favButton
+                    self.navigationItem.rightBarButtonItem = favorites.contains(id) ? self.unfavButton : self.favButton
                 case .failure(_):
                     break
                 }
