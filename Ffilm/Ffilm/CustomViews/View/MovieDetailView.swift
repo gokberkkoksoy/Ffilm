@@ -157,8 +157,7 @@ class MovieDetailView: UIView {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             backdropImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -223,7 +222,8 @@ class MovieDetailView: UIView {
             
             overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: UIConstants.padding),
             overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
-            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding)
+            overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
+            overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     

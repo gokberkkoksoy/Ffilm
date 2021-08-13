@@ -9,8 +9,6 @@ import UIKit
 
 extension UIView {
     
-    static let loadingViewTag = 1938123987
-    
     func addSubviews(_ views: UIView...) {
         for view in views {
             addSubview(view)
