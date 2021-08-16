@@ -36,8 +36,8 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .purple
-//  if you do not write this next line, when you click to the search bar and switch between tabbar items WITHOUT SEARCHING ANY MOVIE(CURSOR IS ACTIVE)
-//  view controller will disappear. on ios13+ versions this problem does not occur. only on ios 12.x
+        //  if you do not write this next line, when you click to the search bar and switch between tabbar items WITHOUT SEARCHING ANY MOVIE(CURSOR IS ACTIVE)
+        //  view controller will disappear. on ios13+ versions this problem does not occur. only on ios 12.x
         definesPresentationContext = true
         configureSearchController()
         configureCollectionView()
@@ -49,7 +49,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
         configureCellState()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
+    //MARK: - CONFIGURATION METHODS
     private func configureSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -86,16 +86,16 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
                 guard let self = self else { return }
                 switch result {
                 case .success(let favorites):
-//                    DispatchQueue.main.async {
+                    DispatchQueue.main.async {
                         cell.setFavoriteState(mode: favorites.contains(cell.cellId) ? .show : .hide)
-//                    }
+                    }
                 case.failure(let error):
                     self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
                 }
             }
         }
     }
-    
+    //MARK: - PERSISTENCE METHODS
     func updateScreen() {
         configureCellState()
     }
@@ -140,7 +140,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     }
     
 }
-
+//MARK: - SEARCH BAR
 extension MoviesVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty , isNotLoadingMovies else {
@@ -159,13 +159,6 @@ extension MoviesVC: UISearchResultsUpdating {
             case .success(let result):
                 self.searchedMovies.removeAll()
                 guard let pageNum = result.totalPages, let results = result.results else { return }
-                //                if results.isEmpty {
-                //                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                //                        self.showEmptyFollowerListView(header: "Sorry, we don't have what you are looking for.", message: "Maybe try to look for something else?", in: self.view)
-                //                    }
-                //                } else {
-                //                    DispatchQueue.main.async { self.hideEmptyView() }
-                //                }
                 print(results)
                 self.searchTotalPage = pageNum
                 self.updateUI(with: results)
@@ -176,6 +169,7 @@ extension MoviesVC: UISearchResultsUpdating {
     }
 }
 
+//MARK: - COLLECTION VIEW DELEGATE-DATASOURCE
 extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return isSearching ? searchedMovies.count: movies.count
@@ -211,7 +205,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
-
+        
         if offsetY > contentHeight - height {
             if isSearching {
                 if searchPage < searchTotalPage {
