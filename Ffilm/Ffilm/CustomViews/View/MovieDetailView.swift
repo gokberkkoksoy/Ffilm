@@ -119,9 +119,9 @@ class MovieDetailView: UIView {
         
         if let status = movie.status {
             if #available(iOS 13.0, *) {
-                statusSymbol.image = status == UIConstants.released ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
+                statusSymbol.image = status == UIConstants.releasedConst ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
             } else {
-                statusSymbol.image = status == UIConstants.released ? Images.SFSymbols12.doneHourglassImage12 : Images.SFSymbols12.hourglassImage12
+                statusSymbol.image = status == UIConstants.releasedConst ? Images.SFSymbols12.doneHourglassImage12 : Images.SFSymbols12.hourglassImage12
             }
             switch status {
             case "Released":

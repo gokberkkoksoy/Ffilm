@@ -29,6 +29,7 @@ enum UIConstants {
     static let runtimeNotFound = NSLocalizedString("RuntimeNotFound", comment: "")
     
     static let released = NSLocalizedString("Released", comment: "")
+    static let releasedConst = "Released"
     static let inProduction = NSLocalizedString("InProduction", comment: "")
     static let postProduction = NSLocalizedString("PostProduction", comment: "")
     
