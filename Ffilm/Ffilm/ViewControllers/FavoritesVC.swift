@@ -29,7 +29,6 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     
     private func configureViewController() {
         if #available(iOS 13.0, *) { view.backgroundColor = .systemBackground }
-        title = "Favorite Movies"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -61,7 +60,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
             print("sad")
             self.favorites = favorites
             DispatchQueue.main.async { self.tableView.reloadData() }
-            self.showEmptyFollowerListView(header: "Wow, such empty.", message: "Don't you have any favorite movies? There are countless movies in here. Just go and look for some.", in: self.view)
+            self.showEmptyFollowerListView(header: UIConstants.emptyPageTitle, message: UIConstants.emptyPageBody, in: self.view)
         } else {
             self.favorites = favorites
             DispatchQueue.main.async {

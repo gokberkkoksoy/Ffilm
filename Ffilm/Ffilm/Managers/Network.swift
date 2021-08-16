@@ -11,8 +11,10 @@ struct Network {
     
     static let shared = Network()
     
+    var language = Bundle.main.preferredLocalizations.first == "tr" ? NetworkConstants.languageTR : NetworkConstants.languageEN
+    
     func getMovieDetail(of movie: Int,completion: @escaping (Result<MovieDetail, FFError>) -> Void) {
-        if let url = URL(string: NetworkConstants.baseMovieURL + String(movie) + NetworkConstants.apiKey + NetworkConstants.language) {
+        if let url = URL(string: NetworkConstants.baseMovieURL + String(movie) + NetworkConstants.apiKey + (language)) {
             let urlRequest = URLRequest(url: url)
             
             let dataTask = URLSession.shared.dataTask(with: urlRequest) { data, response, error in

@@ -50,7 +50,7 @@ class FavoriteCell: UITableViewCell {
         if let runtime = movie.runtime, runtime != 0 {
             movieRuntimeLabel.text = runtime.convertToHourAndMinuteString()
         } else {
-            movieRuntimeLabel.text = "Runtime info is not provided."
+            movieRuntimeLabel.text = UIConstants.runtimeNotFound
         }
     }
     

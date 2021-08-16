@@ -12,11 +12,11 @@ extension Int {
         let hour = self / 60
         let minute = self % 60
         if hour != 0 && minute != 0{
-            return "\(hour)h \(minute)m"
+            return String(format: UIConstants.hourAndMinute, arguments: [hour, minute])
         } else if hour != 0 && minute == 0 {
-            return "\(hour)h"
+            return String(format: UIConstants.hour, arguments: [hour])
         } else if hour == 0 && minute != 0 {
-            return "\(minute)m"
+            return String(format: UIConstants.minute, arguments: [minute])
         } else {
             return ""
         }

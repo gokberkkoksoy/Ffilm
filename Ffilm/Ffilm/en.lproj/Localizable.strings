@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  Ffilm
+
+  Created by Gökberk Köksoy on 16.08.2021.
+  
+*/
+
+"PopularTitle" = "Globally Popular Movies";
+"FavoriteTitle" = "Favorite Movies";
+"Genres" = "Genres";
+"Overview" = "Overview";
+"PopularTabBar" = "Popular";
+"FavoriteTabBar" = "Favorites";
+"EmptyPageTitle" = "Wow, such empty.";
+"EmptyPageBody" = "Don't you have any favorite movies? There are countless movies in here. Just go and look for some.";
+"RuntimeNotFound" = "Runtime info is not provided.";
+"RateNotFound" = "This movie has not been rated yet.";
+"SearchPlaceholder"= "Search for a movie...";
+"HourAndMinute" = "%dh %dm";
+"Hour" = "%dh";
+"Minute" = "%dm";
+"Released" = "Released";
+"InProduction" = "In Production";
+"PostProduction" = "Post Production";
+"Votes" = "%.1f/10 (%d votes)";
+"UnableToFavorite" = "There was an error favoriting this movie. Please try again.";
+"AlreadyInFavorites" = "You've already favorited this movie. You must really like it.";
+"UnableToComplete" = "Unable to complete your request. Please check your internet connection.";
+"InvalidResponse" = "Invalid response from the server. Please try again.";
+"InvalidData" = "The data received from the server was invalid. Please try again.";

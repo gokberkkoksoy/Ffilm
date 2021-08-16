@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  Ffilm
+
+  Created by Gökberk Köksoy on 16.08.2021.
+  
+*/
+
+"PopularTitle" = "Popüler Filmler";
+"FavoriteTitle" = "Favori Filmlerin";
+"Genres" = "Tür";
+"Overview" = "Özet";
+"PopularTabBar" = "Popüler";
+"FavoriteTabBar" = "Favoriler";
+"EmptyPageTitle" = "Buralar hep dutluk.";
+"EmptyPageBody" = "Sevdiğin bir film bile mi yok? İçerde tonlarca film var. Gidip birkaçına göz at.";
+"RuntimeNotFound" = "Süre bilgisi verilmemiş.";
+"RateNotFound" = "Bu filmi kimse puanlamamış.";
+"SearchPlaceholder"= "Film ara...";
+"HourAndMinute" = "%dsa %ddk";
+"Hour" = "%d sa";
+"Minute" = "%d dk";
+"Released" = "Yayınlandı";
+"InProduction" = "Yapım Aşamasında";
+"PostProduction" = "Yapım Sonrası";
+"Votes" = "%.1f/10 (%d oy)";
+"UnableToFavorite" = "Favorilere eklerken bir hata oluştu. Lütfen tekrar deneyin.";
+"AlreadyInFavorites" = "Film zaten favorilere eklenmiş. Çok sevmiş olmalısın.";
+"UnableToComplete" = "Yüklemede bir hata oluştu. Lütfen internet bağlantını kontrol et.";
+"InvalidData" = "Yüklemede bir hata oluştu. Lütfen internet bağlantını kontrol et.";
+

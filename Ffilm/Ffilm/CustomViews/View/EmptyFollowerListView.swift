@@ -35,7 +35,6 @@ class EmptyFollowerListView: UIView {
     }
     
     private func configureMessageTitleLabel() {
-        messageTitleLabel.text = "Wow, such empty."
         NSLayoutConstraint.activate([
             messageTitleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
             messageTitleLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 2 * UIConstants.padding),
@@ -44,8 +43,6 @@ class EmptyFollowerListView: UIView {
     }
     
     private func configureMessageBodyLabel() {
-        messageBodyLabel.text = "Don't you have any favorite movies? There are countless movies in here. Just go and look for some."
-        
         NSLayoutConstraint.activate([
             messageBodyLabel.topAnchor.constraint(equalTo: messageTitleLabel.bottomAnchor, constant: 30),
             messageBodyLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.padding),

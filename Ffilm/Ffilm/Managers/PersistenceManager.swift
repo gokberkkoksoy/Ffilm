@@ -34,8 +34,8 @@ enum PersistenceManager {
                     movieIDs.removeAll { $0 == movieID }
                 }
                 completed(saveFavorites(favorites: movieIDs))
-            case.failure(let error):
-                completed(error)
+            case.failure(_):
+                completed(.unableToFavorite)
             }
         }
     }
