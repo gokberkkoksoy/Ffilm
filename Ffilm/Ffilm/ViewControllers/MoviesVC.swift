@@ -17,6 +17,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     
     private enum Section { case main }
     private var collectionView: UICollectionView!
+    private let emptyView = EmptyStateView(header: UIConstants.emptySearchTitle, body: UIConstants.emptySearchBody)
     
     @available(iOS 13.0, *)
     private lazy var dataSource = UICollectionViewDiffableDataSource<Section, Movie>()
@@ -35,7 +36,6 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .purple
         //  if you do not write this next line, when you click to the search bar and switch between tabbar items WITHOUT SEARCHING ANY MOVIE(CURSOR IS ACTIVE)
         //  view controller will disappear. on ios13+ versions this problem does not occur. only on ios 12.x
         definesPresentationContext = true
@@ -81,17 +81,19 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     }
     
     func configureCellState() {
-        for cell in cells {
-            PersistenceManager.retrieveFavorites { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let favorites):
-                    DispatchQueue.main.async {
-                        cell.setFavoriteState(mode: favorites.contains(cell.cellId) ? .show : .hide)
-                    }
-                case.failure(let error):
-                    self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
-                }
+        var fav = [Int]()
+        PersistenceManager.retrieveFavorites { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let favorites):
+                fav = favorites
+            case.failure(let error):
+                self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
+        DispatchQueue.main.async {
+            for cell in self.cells {
+                cell.setFavoriteState(mode: fav.contains(cell.cellId) ? .show : .hide)
             }
         }
     }
@@ -159,6 +161,14 @@ extension MoviesVC: UISearchResultsUpdating {
             case .success(let result):
                 self.searchedMovies.removeAll()
                 guard let pageNum = result.totalPages, let results = result.results else { return }
+                DispatchQueue.main.async {
+                    if results.isEmpty{
+                        self.emptyView.frame = self.view.bounds
+                        self.view.addSubview(self.emptyView)
+                    } else {
+                        self.emptyView.removeFromSuperview()
+                    }
+                }
                 print(results)
                 self.searchTotalPage = pageNum
                 self.updateUI(with: results)

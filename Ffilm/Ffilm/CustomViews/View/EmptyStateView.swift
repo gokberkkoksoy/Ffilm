@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmptyFollowerListView: UIView {
+class EmptyStateView: UIView {
     
     let messageTitleLabel = FFTitleLabel(textAlignment: .center, fontSize: 30)
     let messageBodyLabel = FFBodyLabel(textAlignment: .center)
@@ -48,6 +48,10 @@ class EmptyFollowerListView: UIView {
             messageBodyLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UIConstants.padding),
             messageBodyLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -UIConstants.padding),
         ])
+    }
+    
+    private func remove() {
+        removeFromSuperview()
     }
     
 

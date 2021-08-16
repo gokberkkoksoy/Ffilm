@@ -14,6 +14,8 @@
 "FavoriteTabBar" = "Favorites";
 "EmptyPageTitle" = "Wow, such empty.";
 "EmptyPageBody" = "Don't you have any favorite movies? There are countless movies in here. Just go and look for some.";
+"EmptySearchTitle" = "Darn. We don't have that.";
+"EmptySearchBody" = "Try searching for another movie.";
 "RuntimeNotFound" = "Runtime info is not provided.";
 "RateNotFound" = "This movie has not been rated yet.";
 "SearchPlaceholder"= "Search for a movie...";

@@ -15,6 +15,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
 
     private let tableView = UITableView()
     private var favorites = [Int]()
+    private let emptyView =  EmptyStateView(header: UIConstants.emptyPageTitle, body: UIConstants.emptyPageBody)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     private func configureViewController() {
         if #available(iOS 13.0, *) { view.backgroundColor = .systemBackground }
         navigationController?.navigationBar.prefersLargeTitles = true
+        emptyView.frame = view.bounds
     }
     
     private func configureTableView() {
@@ -48,7 +50,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
             guard let self = self else { return }
             switch result {
             case .success(let favorites):
-                    self.updateUI(with: favorites)
+                self.updateUI(with: favorites)
             case.failure(let error):
                 self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
             }
@@ -57,12 +59,12 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     
     private func updateUI(with favorites: [Int]) {
         if favorites.isEmpty {
-            print("sad")
             self.favorites = favorites
             DispatchQueue.main.async { self.tableView.reloadData() }
-            self.showEmptyFollowerListView(header: UIConstants.emptyPageTitle, message: UIConstants.emptyPageBody, in: self.view)
+            view.addSubview(emptyView)
         } else {
             self.favorites = favorites
+            emptyView.removeFromSuperview()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.view.bringSubviewToFront(self.tableView)

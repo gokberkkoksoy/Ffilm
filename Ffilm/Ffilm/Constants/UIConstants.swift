@@ -21,6 +21,9 @@ enum UIConstants {
     static let emptyPageTitle = NSLocalizedString("EmptyPageTitle", comment: "")
     static let emptyPageBody = NSLocalizedString("EmptyPageBody", comment: "")
     
+    static let emptySearchTitle = NSLocalizedString("EmptySearchTitle", comment: "")
+    static let emptySearchBody = NSLocalizedString("EmptySearchBody", comment: "")
+    
     static let movieRate = NSLocalizedString("Votes", comment: "")
     static let movieNotRated = NSLocalizedString("RateNotFound", comment: "")
     

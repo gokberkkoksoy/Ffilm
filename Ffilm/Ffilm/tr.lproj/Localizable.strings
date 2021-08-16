@@ -14,6 +14,8 @@
 "FavoriteTabBar" = "Favoriler";
 "EmptyPageTitle" = "Buralar hep dutluk.";
 "EmptyPageBody" = "Sevdiğin bir film bile mi yok? İçerde tonlarca film var. Gidip birkaçına göz at.";
+"EmptySearchTitle" = "Tüh. O film bizde yok.";
+"EmptySearchBody" = "Başka bir film aramayı dene.";
 "RuntimeNotFound" = "Süre bilgisi verilmemiş.";
 "RateNotFound" = "Bu filmi kimse puanlamamış.";
 "SearchPlaceholder"= "Film ara...";
