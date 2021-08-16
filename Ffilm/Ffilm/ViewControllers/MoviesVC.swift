@@ -62,6 +62,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.getThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
+        collectionView.keyboardDismissMode  = .onDrag
         collectionView.delegate = self
         collectionView.dataSource = self
         if #available(iOS 13.0, *) { collectionView.backgroundColor = .systemBackground } else { collectionView.backgroundColor = .white }

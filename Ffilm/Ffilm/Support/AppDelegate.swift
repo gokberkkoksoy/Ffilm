@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

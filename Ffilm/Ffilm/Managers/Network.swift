@@ -34,7 +34,7 @@ struct Network {
         
     }
     
-    func getMovies(from url: String, with query: String = "", in page: Int, completion: @escaping (Result<MovieCategory, FFError>) -> Void) {
+    func getMovies(from url: String, with query: String = "", in page: Int, completion: @escaping (Result<MovieCategory, FFError>) -> Void){
         var queryString = ""
         if query != "" { queryString = "&query=\(query)" }
         if let url = URL(string: (queryString == "" ? NetworkConstants.basePopularURL : NetworkConstants.movieSearchURL) + NetworkConstants.apiKey + queryString + NetworkConstants.page + "\(page)") {
