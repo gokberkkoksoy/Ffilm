@@ -55,7 +55,7 @@ class MovieCell: UICollectionViewCell {
         
         movieImageView.contentMode = .scaleAspectFill
         movieImageView.image = Images.placeholder
-        let heightConstant: CGFloat = 130
+        let heightConstant: CGFloat = DeviceTypes.isiPhone8Standard ? 60 : 100
         
         favoriteBackgroundView.alpha = 0.33
         favoriteBackgroundView.backgroundColor = .black
