@@ -31,9 +31,7 @@ class MovieDetailVC: FFDataLoaderVC {
         }
         configureMovieDetailView()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
-//        showLoadingView()
         getMovieDetails()
-//        dismissLoadingView()
 
     }
     
@@ -44,18 +42,16 @@ class MovieDetailVC: FFDataLoaderVC {
             Network.shared.getMovieDetail(of: id) { response in
                 switch response {
                 case.success(let detail):
-                    DispatchQueue.main.async {
-                        self.movieDetailView.set(to: detail)
-                        self.dismissLoadingView()
-                    }
+                    DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
+                    self.dismissLoadingView()
                 case.failure(let error):
-                    print(error)
+                    self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
                 }
             }
         }
     }
     
-    @objc internal func donePressed() { navigationController?.dismiss(animated: true) }
+    @objc private func donePressed() { navigationController?.dismiss(animated: true) }
     
     @objc private func unfavPressed() {
         navigationItem.rightBarButtonItem = favButton
@@ -63,7 +59,7 @@ class MovieDetailVC: FFDataLoaderVC {
             PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else { return }
-                self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
             }
         }
     }
@@ -74,10 +70,10 @@ class MovieDetailVC: FFDataLoaderVC {
             PersistenceManager.updateWith(movieID: id, actionType: .add) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    self.presentAlertOnMainThread(title: "Yayy!", message: "You've successfully favorited this movie.", buttonTitle: "OK")
+                    self.presentAlertOnMainThread(title: UIConstants.favSuccessTitle, message: UIConstants.favSuccess, buttonTitle: UIConstants.ok, alertType: .notification)
                     return
                 }
-                self.presentAlertOnMainThread(title: "Oops", message: error.rawValue, buttonTitle: "OK")
+                self.presentAlertOnMainThread(title: UIConstants.oops, message: error.localized, buttonTitle: UIConstants.ok, alertType: .notification)
             }
         }
     }
@@ -94,7 +90,6 @@ class MovieDetailVC: FFDataLoaderVC {
                 }
             }
         }
-//        movieDetailView.pinToEdges(of: view)
         NSLayoutConstraint.activate([
             movieDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             movieDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

@@ -41,6 +41,23 @@ enum UIConstants {
     static let hour = NSLocalizedString("Hour", comment: "")
     static let minute = NSLocalizedString("Minute", comment: "")
     
+    static let somethingWentWrong = NSLocalizedString("SomethingWentWrong", comment: "")
+    static let ok = NSLocalizedString("OK", comment: "")
+    
+    static let offline = NSLocalizedString("Offline", comment: "")
+    static let checkConnection = NSLocalizedString("CheckConnection", comment: "")
+    
+    static let favSuccessTitle = NSLocalizedString("FavSuccessTitle", comment: "")
+    static let favSuccess = NSLocalizedString("FavSuccess", comment: "")
+    
+    static let oops = NSLocalizedString("Oops", comment: "")
+    
+    static let clearAll = NSLocalizedString("ClearAll", comment: "")
+    static let sure = NSLocalizedString("Sure", comment: "")
+    static let cannotUndo = NSLocalizedString("CannotUndo", comment: "")
+    static let cancel = NSLocalizedString("Cancel", comment: "")
+    static let delete = NSLocalizedString("Delete", comment: "")
+    
     static let padding: CGFloat = 8
     static let sfSymbolSize: CGFloat = 20
     static let tableViewRowHeight: CGFloat = 115

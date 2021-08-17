@@ -34,6 +34,11 @@ class EmptyStateView: UIView {
         configureMessageBodyLabel()
     }
     
+    func setLabels(header title: String, body message: String) {
+        messageTitleLabel.text = title
+        messageBodyLabel.text = message
+    }
+    
     private func configureMessageTitleLabel() {
         NSLayoutConstraint.activate([
             messageTitleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -49,14 +54,4 @@ class EmptyStateView: UIView {
             messageBodyLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -UIConstants.padding),
         ])
     }
-    
-    private func remove() {
-        removeFromSuperview()
-    }
-    
-
-    
-    
-    
-    
 }

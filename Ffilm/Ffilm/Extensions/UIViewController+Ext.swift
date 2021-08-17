@@ -7,13 +7,20 @@
 
 import UIKit
 
+enum AlertType  {
+    case error, notification
+}
+
 extension UIViewController {
-    func presentAlertOnMainThread(title: String, message: String, buttonTitle: String) {
+    func presentAlertOnMainThread(title: String, message: String, buttonTitle: String, alertType: AlertType) {
         DispatchQueue.main.async {
             let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.modalPresentationStyle = .overFullScreen
             alertVC.modalTransitionStyle = .crossDissolve
-            alertVC.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: nil))
+            alertVC.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: { [weak self] action in
+                guard let self = self else { return }
+                if alertType == .error { self.dismiss(animated: true) }
+            }))
             self.present(alertVC, animated: true)
         }
     }

@@ -28,6 +28,17 @@
 "Votes" = "%.1f/10 (%d oy)";
 "UnableToFavorite" = "Favorilere eklerken bir hata oluştu. Lütfen tekrar deneyin.";
 "AlreadyInFavorites" = "Film zaten favorilere eklenmiş. Çok sevmiş olmalısın.";
-"UnableToComplete" = "Yüklemede bir hata oluştu. Lütfen internet bağlantını kontrol et.";
-"InvalidData" = "Yüklemede bir hata oluştu. Lütfen internet bağlantını kontrol et.";
-
+"UnableToComplete" = "Lütfen internet bağlantını kontrol et.";
+"InvalidData" = "Lütfen internet bağlantını kontrol et.";
+"SomethingWentWrong" = "Bir hata oluştu";
+"OK" = "Tamam";
+"ClearAll" = "Tümünü Sil";
+"Sure" = "Emin misin?";
+"CannotUndo" = "Bu işlem geri alınamaz.";
+"Cancel" = "İptal Et";
+"Delete" = "Tümünü Sil";
+"Offline" = "İnternetinde bir sorun var.";
+"CheckConnection" = "İnternet bağlantını kontrol etmeyi dene.";
+"FavSuccessTitle" = "Favorilere eklendi.";
+"FavSuccess" = "Favoriler sayfasında görebilirsin.";
+"Oops" = "Uppss...";

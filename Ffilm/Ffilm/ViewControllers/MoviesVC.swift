@@ -17,7 +17,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     
     private enum Section { case main }
     private var collectionView: UICollectionView!
-    private let emptyView = EmptyStateView(header: UIConstants.emptySearchTitle, body: UIConstants.emptySearchBody)
+    private let emptyView = EmptyStateView(frame: .zero)
     
     @available(iOS 13.0, *)
     private lazy var dataSource = UICollectionViewDiffableDataSource<Section, Movie>()
@@ -41,6 +41,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
         definesPresentationContext = true
         configureSearchController()
         configureCollectionView()
+        emptyView.frame = view.bounds
         if #available(iOS 13.0, *) { configureDataSource() }
         getMovies(of: NetworkConstants.basePopularURL, from: page)
     }
@@ -88,7 +89,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             case .success(let favorites):
                 fav = favorites
             case.failure(let error):
-                self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
             }
         }
         DispatchQueue.main.async {
@@ -112,7 +113,8 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
                 self.totalPage = pageNum
                 self.updateUI(with: results) 
             case .failure(let error):
-                self.presentAlertOnMainThread(title: "Oops...", message: error.rawValue, buttonTitle: "OK")
+                print(error.localized)
+//                self.presentAlertOnMainThread(title: "Oops...", message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
             }
             self.isNotLoadingMovies = true
         }
@@ -150,6 +152,7 @@ extension MoviesVC: UISearchResultsUpdating {
             isSearching = false
             searchFilter = ""
             updateData(on: movies)
+            DispatchQueue.main.async { self.emptyView.removeFromSuperview() }
             return
         }
         isSearching = true
@@ -163,7 +166,7 @@ extension MoviesVC: UISearchResultsUpdating {
                 guard let pageNum = result.totalPages, let results = result.results else { return }
                 DispatchQueue.main.async {
                     if results.isEmpty{
-                        self.emptyView.frame = self.view.bounds
+                        self.emptyView.setLabels(header: UIConstants.emptySearchTitle, body: UIConstants.emptySearchBody)
                         self.view.addSubview(self.emptyView)
                     } else {
                         self.emptyView.removeFromSuperview()
@@ -173,7 +176,11 @@ extension MoviesVC: UISearchResultsUpdating {
                 self.searchTotalPage = pageNum
                 self.updateUI(with: results)
             case.failure(let error):
-                self.presentAlertOnMainThread(title: "Oops.", message: error.rawValue, buttonTitle: "OK")
+                print(error.localized)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.emptyView.setLabels(header: UIConstants.offline, body: UIConstants.checkConnection)
+                    self.view.addSubview(self.emptyView)
+                }
             }
         }
     }
@@ -225,11 +232,11 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                         switch response {
                         case .success(let result):
                             guard let pageNum = result.totalPages, let results = result.results else { return }
-                            print(results)
                             self.searchTotalPage = pageNum
                             self.updateUI(with: results)
                         case.failure(let error):
-                            self.presentAlertOnMainThread(title: "Oops...", message: error.rawValue, buttonTitle: "OK")
+                            print(error.localized)
+                            self.presentAlertOnMainThread(title: UIConstants.oops, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
                         }
                     }
                 }
