@@ -45,7 +45,7 @@ class MovieDetailVC: FFDataLoaderVC {
                     DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
                     self.dismissLoadingView()
                 case.failure(let error):
-                    self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                    self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
                 }
             }
         }
@@ -59,7 +59,7 @@ class MovieDetailVC: FFDataLoaderVC {
             PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else { return }
-                self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
         }
     }
@@ -70,10 +70,10 @@ class MovieDetailVC: FFDataLoaderVC {
             PersistenceManager.updateWith(movieID: id, actionType: .add) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    self.presentAlertOnMainThread(title: UIConstants.favSuccessTitle, message: UIConstants.favSuccess, buttonTitle: UIConstants.ok, alertType: .notification)
+                    self.presentAlertOnMainThread(title: Strings.favSuccessTitle, message: Strings.favSuccess, buttonTitle: Strings.ok, alertType: .notification)
                     return
                 }
-                self.presentAlertOnMainThread(title: UIConstants.oops, message: error.localized, buttonTitle: UIConstants.ok, alertType: .notification)
+                self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .notification)
             }
         }
     }

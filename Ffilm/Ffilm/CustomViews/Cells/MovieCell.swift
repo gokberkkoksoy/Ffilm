@@ -57,7 +57,7 @@ class MovieCell: UICollectionViewCell {
         movieImageView.image = Images.placeholder
         let heightConstant: CGFloat = DeviceTypes.isiPhone8Standard ? 60 : 100
         
-        favoriteBackgroundView.alpha = 0.33
+        favoriteBackgroundView.alpha = 0.2
         favoriteBackgroundView.backgroundColor = .black
         favoriteBackgroundView.layer.masksToBounds = true
         favoriteBackgroundView.layer.cornerRadius = 5
@@ -80,9 +80,9 @@ class MovieCell: UICollectionViewCell {
             movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor, constant: heightConstant),
             
-            favoriteBackgroundView.topAnchor.constraint(equalTo: self.topAnchor),
-            favoriteBackgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            favoriteBackgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            favoriteBackgroundView.topAnchor.constraint(equalTo: topAnchor),
+            favoriteBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            favoriteBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             favoriteBackgroundView.bottomAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
 
             favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),

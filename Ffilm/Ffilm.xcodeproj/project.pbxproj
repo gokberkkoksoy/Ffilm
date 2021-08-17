@@ -41,6 +41,7 @@
 		5EA8E77B26C2B62200C78932 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E77A26C2B62200C78932 /* UIConstants.swift */; };
 		5EA8E77D26C2BBDF00C78932 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E77C26C2BBDF00C78932 /* Images.swift */; };
 		5EA8E78526CA46CE00C78932 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EA8E78726CA46CE00C78932 /* Localizable.strings */; };
+		5EA8E78B26CC723F00C78932 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA8E78A26CC723E00C78932 /* Strings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		5EA8E78226CA41E900C78932 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		5EA8E78626CA46CE00C78932 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EA8E78826CA46D100C78932 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5EA8E78A26CC723E00C78932 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		BBFCCB371573591ECB29A631 /* Pods-Ffilm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ffilm.debug.xcconfig"; path = "Target Support Files/Pods-Ffilm/Pods-Ffilm.debug.xcconfig"; sourceTree = "<group>"; };
 		BF105871FC57ECB55C0596A9 /* Pods-Ffilm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ffilm.release.xcconfig"; path = "Target Support Files/Pods-Ffilm/Pods-Ffilm.release.xcconfig"; sourceTree = "<group>"; };
 		EE7A80195A1A81B9888D9300 /* Pods_Ffilm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ffilm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -265,6 +267,7 @@
 				5E415F5B26B7F27300F7FF55 /* NetworkConstants.swift */,
 				5EA8E77A26C2B62200C78932 /* UIConstants.swift */,
 				5EA8E77C26C2BBDF00C78932 /* Images.swift */,
+				5EA8E78A26CC723E00C78932 /* Strings.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				5E7D3A0226BD20E600A221F8 /* FFDataLoaderVC.swift in Sources */,
 				5E7D3A0A26BD72DE00A221F8 /* FFError.swift in Sources */,
 				5E415F5526B70B3100F7FF55 /* Movie.swift in Sources */,
+				5EA8E78B26CC723F00C78932 /* Strings.swift in Sources */,
 				5E415F5926B718C900F7FF55 /* UIHelper.swift in Sources */,
 				5E95C2FC26BA68D400CA4959 /* MovieDetail.swift in Sources */,
 				5E95C2FA26BA68B300CA4959 /* Genre.swift in Sources */,

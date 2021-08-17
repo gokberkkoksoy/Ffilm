@@ -54,7 +54,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     private func configureSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = UIConstants.searchBarPlaceholder
+        searchController.searchBar.placeholder = Strings.searchBarPlaceholder
         searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
         if #available(iOS 13.0, *){} else { navigationController?.navigationBar.isHidden = false }
         navigationItem.searchController = searchController
@@ -89,7 +89,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             case .success(let favorites):
                 fav = favorites
             case.failure(let error):
-                self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
         }
         DispatchQueue.main.async {
@@ -166,7 +166,7 @@ extension MoviesVC: UISearchResultsUpdating {
                 guard let pageNum = result.totalPages, let results = result.results else { return }
                 DispatchQueue.main.async {
                     if results.isEmpty{
-                        self.emptyView.setLabels(header: UIConstants.emptySearchTitle, body: UIConstants.emptySearchBody)
+                        self.emptyView.setLabels(header: Strings.emptySearchTitle, body: Strings.emptySearchBody)
                         self.view.addSubview(self.emptyView)
                     } else {
                         self.emptyView.removeFromSuperview()
@@ -178,7 +178,7 @@ extension MoviesVC: UISearchResultsUpdating {
             case.failure(let error):
                 print(error.localized)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.emptyView.setLabels(header: UIConstants.offline, body: UIConstants.checkConnection)
+                    self.emptyView.setLabels(header: Strings.offline, body: Strings.checkConnection)
                     self.view.addSubview(self.emptyView)
                 }
             }
@@ -236,7 +236,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                             self.updateUI(with: results)
                         case.failure(let error):
                             print(error.localized)
-                            self.presentAlertOnMainThread(title: UIConstants.oops, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                            self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
                         }
                     }
                 }

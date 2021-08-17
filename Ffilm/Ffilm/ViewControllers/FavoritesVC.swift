@@ -11,12 +11,12 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     
     private let tableView = UITableView()
     private var favorites = [Int]()
-    private let emptyView = EmptyStateView(header: UIConstants.emptyPageTitle, body: UIConstants.emptyPageBody)
+    private let emptyView = EmptyStateView(header: Strings.emptyPageTitle, body: Strings.emptyPageBody)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: UIConstants.clearAll, style: .done, target: self, action: #selector(clearPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.clearAll, style: .done, target: self, action: #selector(clearPressed))
         configureTableView()
     }
     
@@ -27,9 +27,9 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     }
     
     @objc private func clearPressed(){
-        let ac = UIAlertController(title: UIConstants.sure, message: UIConstants.cannotUndo, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: UIConstants.cancel, style: .cancel, handler: nil))
-        ac.addAction(UIAlertAction(title: UIConstants.delete, style: .destructive) { action in
+        let ac = UIAlertController(title: Strings.sure, message: Strings.cannotUndo, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: Strings.cancel, style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: Strings.delete, style: .destructive) { action in
             for i in (0..<self.favorites.count).reversed() {
                 self.removeFromFavorites(at: i)
             }
@@ -61,7 +61,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
             case .success(let favorites):
                 self.updateUI(with: favorites)
             case.failure(let error):
-                self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
         }
     }
@@ -100,7 +100,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
                 }
                 return
             }
-            self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+            self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
         }
     }
 
@@ -121,7 +121,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
                     cell.set(movie: movie)
                 }
             case .failure(let error):
-                self.presentAlertOnMainThread(title: UIConstants.somethingWentWrong, message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
         }
         return cell

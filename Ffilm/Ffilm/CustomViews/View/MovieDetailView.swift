@@ -97,7 +97,7 @@ class MovieDetailView: UIView {
         if let runtime = movie.runtime, runtime != 0 {
             runtimeLabel.text = runtime.convertToHourAndMinuteString()
         } else {
-            runtimeLabel.text = UIConstants.runtimeNotFound
+            runtimeLabel.text = Strings.runtimeNotFound
         }
         if let vote = movie.voteAverage, let voteCount = movie.voteCount {
             if #available(iOS 13.0, *) {
@@ -105,39 +105,39 @@ class MovieDetailView: UIView {
             } else {
                 voteSymbol.image = vote == 10.0 ? Images.SFSymbols12.fillStarImage12 : Images.SFSymbols12.halfFillStarImage12
             }
-            voteLabel.text = String(format: UIConstants.movieRate, arguments: [vote, voteCount])
+            voteLabel.text = String(format: Strings.movieRate, arguments: [vote, voteCount])
             if vote == 0.0 {
                 if #available(iOS 13.0, *) {
                     voteSymbol.image = Images.SFSymbols.emptyStarImage
                 } else {
                     voteSymbol.image = Images.SFSymbols12.emptyStarImage12
                 }
-                voteLabel.text = UIConstants.movieNotRated
+                voteLabel.text = Strings.movieNotRated
             }
         }
         
         if let status = movie.status {
             if #available(iOS 13.0, *) {
-                statusSymbol.image = status == UIConstants.releasedConst ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
+                statusSymbol.image = status == Strings.releasedConst ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
             } else {
-                statusSymbol.image = status == UIConstants.releasedConst ? Images.SFSymbols12.doneHourglassImage12 : Images.SFSymbols12.hourglassImage12
+                statusSymbol.image = status == Strings.releasedConst ? Images.SFSymbols12.doneHourglassImage12 : Images.SFSymbols12.hourglassImage12
             }
             switch status {
             case "Released":
-                statusLabel.text = UIConstants.released
+                statusLabel.text = Strings.released
             case "In Production":
-                statusLabel.text = UIConstants.inProduction
+                statusLabel.text = Strings.inProduction
             case "Post Production":
-                statusLabel.text = UIConstants.postProduction
+                statusLabel.text = Strings.postProduction
             default:
                 break
             }
         }
         
-        movieGenreTitleLabel.text = UIConstants.genresTitle
+        movieGenreTitleLabel.text = Strings.genresTitle
         movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
-        overviewTitleLabel.text = UIConstants.overviewTitle
+        overviewTitleLabel.text = Strings.overviewTitle
         overviewLabel.text = movie.overview
         showSymbols()
     }
