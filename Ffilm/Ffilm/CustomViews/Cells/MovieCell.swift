@@ -35,8 +35,8 @@ class MovieCell: UICollectionViewCell {
     }
     
     func setCell(with movie: Movie) {
-        if let posterPath = movie.posterPath, let url = URL(string: NetworkConstants.baseImageURL + posterPath) {
-            movieImageView.setImage(url: url)
+        if let posterPath = movie.posterPath {
+            movieImageView.setImage(url: URL(string: NetworkConstants.baseImageURL + posterPath))
             titleBackgroundView.isHidden = true
             titleLabel.isHidden = true
         } else {

@@ -7,5 +7,6 @@ target 'Ffilm' do
 
   # Pods for Ffilm
   pod 'Kingfisher', '~> 5.0'
+  pod 'SkeletonView'
 
 end

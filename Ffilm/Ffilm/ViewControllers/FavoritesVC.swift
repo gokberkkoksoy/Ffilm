@@ -15,17 +15,36 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
 
     private let tableView = UITableView()
     private var favorites = [Int]()
-    private let emptyView =  EmptyStateView(header: UIConstants.emptyPageTitle, body: UIConstants.emptyPageBody)
+    private let emptyView = EmptyStateView(header: UIConstants.emptyPageTitle, body: UIConstants.emptyPageBody)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(clearPressed))
         configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getFavorites()
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    @objc private func clearPressed(){
+        if favorites.isEmpty { return }
+        for i in (0..<favorites.count).reversed() {
+            PersistenceManager.updateWith(movieID: favorites[i], actionType: .remove) { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    self.favorites.remove(at: i)
+                    self.tableView.deleteRows(at: [IndexPath(row: i, section: .zero)], with: .left)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        self.updateUI(with: self.favorites)
+                    }
+                    return
+                }
+                self.presentAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+            }
+        }
     }
     
     private func configureViewController() {
@@ -60,8 +79,10 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
     private func updateUI(with favorites: [Int]) {
         if favorites.isEmpty {
             self.favorites = favorites
-            DispatchQueue.main.async { self.tableView.reloadData() }
-            view.addSubview(emptyView)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.view.addSubview(self.emptyView)
+            }
         } else {
             self.favorites = favorites
             emptyView.removeFromSuperview()
