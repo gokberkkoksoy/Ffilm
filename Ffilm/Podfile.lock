@@ -1,22 +1,18 @@
 PODS:
-  - CCBottomRefreshControl (0.5.2)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
 
 DEPENDENCIES:
-  - CCBottomRefreshControl
   - Kingfisher (~> 5.0)
 
 SPEC REPOS:
   trunk:
-    - CCBottomRefreshControl
     - Kingfisher
 
 SPEC CHECKSUMS:
-  CCBottomRefreshControl: 389780b4488321c91d18f66a6da5ef9606df6de5
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
 
-PODFILE CHECKSUM: e245f01cc2764dff071c8553a3f52d890cffa73e
+PODFILE CHECKSUM: d647e42a13925fbde65bb15a2ff4e4692da90b3a
 
 COCOAPODS: 1.9.3

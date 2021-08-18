@@ -7,9 +7,14 @@
 
 import UIKit
 
-class MovieDetailVC: FFDataLoaderVC {
+protocol ButtonDelegate: AnyObject {
+    func buttonTapped()
+}
+
+class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
 
     var movieID: Int?
+    lazy var videoURL = ""
     private let movieDetailView = MovieDetailView(frame: .zero)
     private lazy var unfavButton =  UIBarButtonItem()
     private lazy var favButton =  UIBarButtonItem()
@@ -32,7 +37,7 @@ class MovieDetailVC: FFDataLoaderVC {
         configureMovieDetailView()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         getMovieDetails()
-
+        getVideoURL()
     }
 
     override func viewWillDisappear(_ animated: Bool) { delegate.updateScreen() }
@@ -48,16 +53,41 @@ class MovieDetailVC: FFDataLoaderVC {
                     self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
                 }
             }
-//            Network.shared.getMovies(of: id) { (response: Result<MovieDetail, FFError>) in
-//                switch response {
-//                case.success(let detail):
-//                    DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
-//                    self.dismissLoadingView()
-//                case.failure(let error):
-//                    self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
-//                }
-//            }
         }
+    }
+    
+    func getVideoURL() {
+        if let id = movieID {
+            Network.shared.getMovies(id: id, isVideo: true) { (response: Result<Videos, FFError>) in
+                switch response  {
+                case .success(let result):
+                    if let videoCount = result.results?.count {
+                        if videoCount == 0 {
+                            self.movieDetailView.hideButton()
+                        } else {
+                            self.movieDetailView.showButton()
+                        }
+                    }
+                    if let results = result.results {
+                        for video in results {
+                            if video.site == Strings.youtube && video.type == Strings.trailer {
+                                if let key = video.key {
+                                    self.videoURL = "\(Strings.youtubeURL)\(key)"
+                                }
+                                break
+                            }
+                        }
+                        if self.videoURL == "" { self.movieDetailView.hideButton() }
+                    }
+                case .failure(_):
+                    self.movieDetailView.hideButton()
+                }
+            }
+        }
+    }
+    
+    func buttonTapped() {
+        if videoURL != "" { presentSafariVC(with: URL(string: videoURL)) }
     }
 
     @objc private func donePressed() { navigationController?.dismiss(animated: true) }
@@ -89,6 +119,7 @@ class MovieDetailVC: FFDataLoaderVC {
 
     private func configureMovieDetailView() {
         view.addSubviews(movieDetailView)
+        movieDetailView.buttonDelegate = self
         if let id = movieID {
             PersistenceManager.retrieveFavorites { result in
                 switch result {
@@ -105,7 +136,5 @@ class MovieDetailVC: FFDataLoaderVC {
             movieDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             movieDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-
     }
-
 }

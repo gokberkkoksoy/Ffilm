@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SafariServices
 
 class MovieDetailView: UIView {
     
@@ -53,13 +52,15 @@ class MovieDetailView: UIView {
     private let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
     private let overviewLabel = FFBodyLabel(textAlignment: .left)
     
-    private let videoButton = UIButton(frame: .zero)
+    let videoButton = UIButton(frame: .zero)
+    weak var buttonDelegate: ButtonDelegate!
     
     var genreStr = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         hideSymbols()
+        videoButton.isHidden = true
         configure()
         configureButton()
     }
@@ -81,26 +82,38 @@ class MovieDetailView: UIView {
         runtimeSymbol.isHidden = true
         releaseDateSymbol.isHidden = true
     }
+    
+    func hideButton() {
+        DispatchQueue.main.async { self.videoButton.isHidden = true }
+    }
+    
+    func showButton() {
+        DispatchQueue.main.async { self.videoButton.isHidden = false }
+    }
 
     func configureButton() {
         if #available(iOS 13.0, *) {
             videoButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
-//          give a background view with some alpha value
-            if let imageView = videoButton.imageView {
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    imageView.topAnchor.constraint(equalTo: videoButton.topAnchor),
-                    imageView.leadingAnchor.constraint(equalTo: videoButton.leadingAnchor),
-                    imageView.trailingAnchor.constraint(equalTo: videoButton.trailingAnchor),
-                    imageView.bottomAnchor.constraint(equalTo: videoButton.bottomAnchor)
-                ])
-            }
+        } else {
+//            videoButton.setImage(UIImage(named: "video.fill"), for: .normal)
+        }
+        if let imageView = videoButton.imageView {
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+            imageView.layer.masksToBounds = true
+            imageView.layer.cornerRadius = 40
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: videoButton.topAnchor),
+                imageView.leadingAnchor.constraint(equalTo: videoButton.leadingAnchor),
+                imageView.trailingAnchor.constraint(equalTo: videoButton.trailingAnchor),
+                imageView.bottomAnchor.constraint(equalTo: videoButton.bottomAnchor)
+            ])
         }
         videoButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
 
     @objc func buttonPressed() {
-        print("tap")
+        buttonDelegate.buttonTapped()
     }
 
     func set(to movie: MovieDetail) {

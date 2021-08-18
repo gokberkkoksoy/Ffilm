@@ -55,4 +55,8 @@ enum Strings {
     static let cannotUndo = NSLocalizedString("CannotUndo", comment: "")
     static let cancel = NSLocalizedString("Cancel", comment: "")
     static let delete = NSLocalizedString("Delete", comment: "")
+    
+    static let youtube = "YouTube"
+    static let trailer = "Trailer"
+    static let youtubeURL = "https://www.youtube.com/watch?v="
 }

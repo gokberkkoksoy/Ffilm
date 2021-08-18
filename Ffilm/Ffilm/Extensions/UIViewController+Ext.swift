@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 enum AlertType {
     case error, notification
@@ -22,6 +23,14 @@ extension UIViewController {
                 if alertType == .error { self.dismiss(animated: true) }
             }))
             self.present(alertVC, animated: true)
+        }
+    }
+    
+    func presentSafariVC(with url: URL?)  {
+        if let url = url {
+            let safariVC = SFSafariViewController(url: url)
+            modalPresentationStyle = .fullScreen
+            present(safariVC, animated: true)
         }
     }
 }
