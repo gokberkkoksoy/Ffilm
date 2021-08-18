@@ -113,7 +113,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID, for: indexPath) as! FavoriteCell
-        Network.shared.getMovieDetail(of: favorites[indexPath.row]) { [weak self] result in
+        Network.shared.getMovies(id: favorites[indexPath.row]) { [weak self] (result: Result<MovieDetail, FFError>) in
             guard let self = self else { return }
             switch result {
             case .success(let movie):

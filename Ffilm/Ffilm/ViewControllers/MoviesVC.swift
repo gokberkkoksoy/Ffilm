@@ -104,7 +104,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     
     private func getMovies(of category: String, from page: Int) {
         isNotLoadingMovies = false
-        Network.shared.getMovies(from: category, in: page) { [weak self] response in
+        Network.shared.getMovies(from: category, in: page) { [weak self] (response: Result<MovieCategory,FFError>) in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -157,7 +157,7 @@ extension MoviesVC: UISearchResultsUpdating {
         isSearching = true
         searchPage = 1
         searchFilter = filter
-        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: searchFilter.replaceSpecialCharacters(), in: searchPage) { [weak self] response in
+        Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: searchFilter.replaceSpecialCharacters(), in: searchPage) { [weak self] (response: Result<MovieCategory, FFError>) in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -226,7 +226,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
             if isSearching {
                 if searchPage < searchTotalPage {
                     searchPage += 1
-                    Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: searchFilter.replaceSpecialCharacters(), in: searchPage) { [weak self] response in
+                    Network.shared.getMovies(from: NetworkConstants.movieSearchURL, with: searchFilter.replaceSpecialCharacters(), in: searchPage) { [weak self] (response: Result<MovieCategory, FFError>) in
                         guard let self = self else { return }
                         switch response {
                         case .success(let result):

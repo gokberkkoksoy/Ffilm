@@ -39,7 +39,7 @@ class MovieDetailVC: FFDataLoaderVC {
 
     func getMovieDetails() {
         if let id = movieID {
-            Network.shared.getMovieDetail(of: id) { response in
+            Network.shared.getMovies(id: id) { (response: Result<MovieDetail, FFError>) in
                 switch response {
                 case.success(let detail):
                     DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
@@ -48,6 +48,15 @@ class MovieDetailVC: FFDataLoaderVC {
                     self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
                 }
             }
+//            Network.shared.getMovies(of: id) { (response: Result<MovieDetail, FFError>) in
+//                switch response {
+//                case.success(let detail):
+//                    DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
+//                    self.dismissLoadingView()
+//                case.failure(let error):
+//                    self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
+//                }
+//            }
         }
     }
 
