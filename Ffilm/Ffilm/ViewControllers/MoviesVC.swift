@@ -12,13 +12,12 @@ protocol UpdatableScreen: AnyObject {
     func updateScreen()
 }
 
-
 class MoviesVC: FFDataLoaderVC, UpdatableScreen {
-    
+
     private enum Section { case main }
     private var collectionView: UICollectionView!
     private let emptyView = EmptyStateView(frame: .zero)
-    
+
     @available(iOS 13.0, *)
     private lazy var dataSource = UICollectionViewDiffableDataSource<Section, Movie>()
     
@@ -56,7 +55,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
         searchController.searchResultsUpdater = self
         searchController.searchBar.placeholder = Strings.searchBarPlaceholder
         searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
-        if #available(iOS 13.0, *){} else { navigationController?.navigationBar.isHidden = false }
+        if #available(iOS 13.0, *) {} else { navigationController?.navigationBar.isHidden = false }
         navigationItem.searchController = searchController
     }
     
@@ -142,12 +141,12 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             DispatchQueue.main.async { self.collectionView.reloadData() }
         }
     }
-    
+
 }
 //MARK: - SEARCH BAR
 extension MoviesVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty , isNotLoadingMovies else {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty, isNotLoadingMovies else {
             searchedMovies.removeAll()
             isSearching = false
             searchFilter = ""
@@ -165,7 +164,7 @@ extension MoviesVC: UISearchResultsUpdating {
                 self.searchedMovies.removeAll()
                 guard let pageNum = result.totalPages, let results = result.results else { return }
                 DispatchQueue.main.async {
-                    if results.isEmpty{
+                    if results.isEmpty {
                         self.emptyView.setLabels(header: Strings.emptySearchTitle, body: Strings.emptySearchBody)
                         self.view.addSubview(self.emptyView)
                     } else {
@@ -191,7 +190,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return isSearching ? searchedMovies.count: movies.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
         cell.setCell(with: isSearching ? searchedMovies[indexPath.item] : movies[indexPath.item])
@@ -199,7 +198,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         self.cells.append(cell)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var movie = Movie()
         if #available(iOS 13.0, *) {
@@ -216,13 +215,13 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
     }
-    
+
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard hasMorePages, isNotLoadingMovies else { return }
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.size.height
-        
+
         if offsetY > contentHeight - height {
             if isSearching {
                 if searchPage < searchTotalPage {
@@ -249,4 +248,3 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         }
     }
 }
-

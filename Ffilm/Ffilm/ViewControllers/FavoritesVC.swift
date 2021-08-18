@@ -8,7 +8,7 @@
 import UIKit
 
 class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
-    
+
     private let tableView = UITableView()
     private var favorites = [Int]()
     private let emptyView = EmptyStateView(header: Strings.emptyPageTitle, body: Strings.emptyPageBody)
@@ -19,14 +19,14 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.clearAll, style: .done, target: self, action: #selector(clearPressed))
         configureTableView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         getFavorites()
         navigationItem.rightBarButtonItem?.isEnabled = favorites.isEmpty ? false : true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
-    @objc private func clearPressed(){
+
+    @objc private func clearPressed() {
         let ac = UIAlertController(title: Strings.sure, message: Strings.cannotUndo, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: Strings.cancel, style: .cancel, handler: nil))
         ac.addAction(UIAlertAction(title: Strings.delete, style: .destructive) { action in
@@ -36,13 +36,13 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
         })
         present(ac, animated: true)
     }
-    
+
     private func configureViewController() {
         if #available(iOS 13.0, *) { view.backgroundColor = .systemBackground }
         navigationController?.navigationBar.prefersLargeTitles = true
         emptyView.frame = view.bounds
     }
-    
+
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
@@ -50,10 +50,10 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.removeExcessCells()
-        
+
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseID)
     }
-    
+
     private func getFavorites() {
         PersistenceManager.retrieveFavorites { [weak self] result in
             guard let self = self else { return }
@@ -65,12 +65,12 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
             }
         }
     }
-    
+
     func updateScreen() {
         getFavorites()
         navigationItem.rightBarButtonItem?.isEnabled = favorites.isEmpty ? false : true
     }
-    
+
     private func updateUI(with favorites: [Int]) {
         if favorites.isEmpty {
             self.favorites = favorites
@@ -87,7 +87,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
             }
         }
     }
-    
+
     func removeFromFavorites(at index: Int) {
         PersistenceManager.updateWith(movieID: favorites[index], actionType: .remove) { [weak self] error in
             guard let self = self else { return }
@@ -110,7 +110,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favorites.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID, for: indexPath) as! FavoriteCell
         Network.shared.getMovieDetail(of: favorites[indexPath.row]) { [weak self] result in
@@ -126,7 +126,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let movie = favorites[indexPath.row]
@@ -136,11 +136,10 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         removeFromFavorites(at: indexPath.row)
     }
-    
-    
+
 }

@@ -11,8 +11,7 @@ struct MovieDetail: Codable, Equatable {
     static func == (lhs: MovieDetail, rhs: MovieDetail) -> Bool {
         return true
     }
-    
-    
+
     var backdropPath: String?
     var overview: String?
     var releaseDate: String?
@@ -39,8 +38,7 @@ struct MovieDetail: Codable, Equatable {
         case status
         case tagline
         case posterPath = "poster_path"
-        
-        
+
     }
     
 }

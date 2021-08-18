@@ -26,8 +26,8 @@ class FFTabBarController: UITabBarController {
         moviesVC.tabBarItem.tag = 0
         return UINavigationController(rootViewController: moviesVC)
     }
-    
-    func createFavoritesNC() -> UINavigationController{ 
+
+    func createFavoritesNC() -> UINavigationController {
         let favoritesVC = FavoritesVC()
         favoritesVC.title = Strings.favoritesVCTitle
         if #available(iOS 13.0, *) {

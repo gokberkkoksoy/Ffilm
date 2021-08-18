@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class MovieDetailView: UIView {
     
@@ -52,12 +53,15 @@ class MovieDetailView: UIView {
     private let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
     private let overviewLabel = FFBodyLabel(textAlignment: .left)
     
+    private let videoButton = UIButton(frame: .zero)
+    
     var genreStr = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         hideSymbols()
         configure()
+        configureButton()
     }
     
     required init?(coder: NSCoder) {
@@ -78,6 +82,27 @@ class MovieDetailView: UIView {
         releaseDateSymbol.isHidden = true
     }
 
+    func configureButton() {
+        if #available(iOS 13.0, *) {
+            videoButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
+//          give a background view with some alpha value
+            if let imageView = videoButton.imageView {
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    imageView.topAnchor.constraint(equalTo: videoButton.topAnchor),
+                    imageView.leadingAnchor.constraint(equalTo: videoButton.leadingAnchor),
+                    imageView.trailingAnchor.constraint(equalTo: videoButton.trailingAnchor),
+                    imageView.bottomAnchor.constraint(equalTo: videoButton.bottomAnchor)
+                ])
+            }
+        }
+        videoButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    }
+
+    @objc func buttonPressed() {
+        print("tap")
+    }
+
     func set(to movie: MovieDetail) {
         if let backdropPath = movie.backdropPath, let url = URL(string: NetworkConstants.backdropURL + backdropPath) {
             backdropImageView.setImage(url: url)
@@ -85,11 +110,11 @@ class MovieDetailView: UIView {
         } else {
             backdropImageView.image = Images.placeholder
         }
-        if let releaseDate = movie.releaseDate , let title = movie.title {
+        if let releaseDate = movie.releaseDate, let title = movie.title {
             titleLabel.text = title + " (\(releaseDate.getDateYear()))"
         }
         if let genres = movie.genres {
-            for (index,genre) in genres.enumerated() {
+            for (index, genre) in genres.enumerated() {
                 if let name = genre.name { genreStr += index < genres.count - 1 ? "\(name), " : "\(name)" }
             }
         }
@@ -115,7 +140,7 @@ class MovieDetailView: UIView {
                 voteLabel.text = Strings.movieNotRated
             }
         }
-        
+
         if let status = movie.status {
             if #available(iOS 13.0, *) {
                 statusSymbol.image = status == Strings.releasedConst ? Images.SFSymbols.doneHourglassImage : Images.SFSymbols.hourglassImage
@@ -133,7 +158,7 @@ class MovieDetailView: UIView {
                 break
             }
         }
-        
+
         movieGenreTitleLabel.text = Strings.genresTitle
         movieGenreLabel.text = genreStr
         taglineLabel.text = movie.tagline
@@ -141,13 +166,13 @@ class MovieDetailView: UIView {
         overviewLabel.text = movie.overview
         showSymbols()
     }
-    
-    func configure(){
+
+    func configure() {
         addSubviews(scrollView)
         scrollView.addSubviews(contentView)
         contentView.pinToEdges(of: scrollView)
-        contentView.addSubviews(backdropImageView, titleLabel,releaseDateSymbol, releaseDateLabel, runtimeSymbol, runtimeLabel, voteSymbol, voteLabel,statusSymbol, statusLabel, movieGenreTitleLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
-        
+        contentView.addSubviews(backdropImageView, videoButton, titleLabel,releaseDateSymbol, releaseDateLabel, runtimeSymbol, runtimeLabel, voteSymbol, voteLabel,statusSymbol, statusLabel, movieGenreTitleLabel, movieGenreLabel, taglineLabel, overviewTitleLabel, overviewLabel)
+
         if #available(iOS 13.0, *) {
             releaseDateSymbol.tintColor = .secondaryLabel
             runtimeSymbol.tintColor = .secondaryLabel
@@ -164,75 +189,80 @@ class MovieDetailView: UIView {
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
+
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
+
             backdropImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backdropImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backdropImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6),
-            
+
+            videoButton.centerXAnchor.constraint(equalTo: backdropImageView.centerXAnchor),
+            videoButton.centerYAnchor.constraint(equalTo: backdropImageView.centerYAnchor),
+            videoButton.widthAnchor.constraint(equalToConstant: 80),
+            videoButton.heightAnchor.constraint(equalTo: videoButton.widthAnchor),
+
             titleLabel.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: 2 * UIConstants.padding),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             releaseDateSymbol.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIConstants.padding),
             releaseDateSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             releaseDateSymbol.heightAnchor.constraint(equalToConstant: 20),
             releaseDateSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
-            
+
             releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIConstants.padding),
             releaseDateLabel.leadingAnchor.constraint(equalTo: releaseDateSymbol.trailingAnchor, constant: UIConstants.padding),
             releaseDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             runtimeSymbol.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: UIConstants.padding),
             runtimeSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             runtimeSymbol.heightAnchor.constraint(equalToConstant: 20),
             runtimeSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
-            
+
             runtimeLabel.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: UIConstants.padding),
             runtimeLabel.leadingAnchor.constraint(equalTo: runtimeSymbol.trailingAnchor, constant: UIConstants.padding),
             runtimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             voteSymbol.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: UIConstants.padding),
             voteSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             voteSymbol.heightAnchor.constraint(equalToConstant: 20),
             voteSymbol.widthAnchor.constraint(equalTo: voteSymbol.heightAnchor),
-            
+
             voteLabel.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: UIConstants.padding),
             voteLabel.leadingAnchor.constraint(equalTo: voteSymbol.trailingAnchor, constant: UIConstants.padding),
             voteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             statusSymbol.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: UIConstants.padding),
             statusSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             statusSymbol.heightAnchor.constraint(equalToConstant: 20),
             statusSymbol.widthAnchor.constraint(equalTo: statusSymbol.heightAnchor),
-            
+
             statusLabel.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: UIConstants.padding),
             statusLabel.leadingAnchor.constraint(equalTo: voteSymbol.trailingAnchor, constant: UIConstants.padding),
             statusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             movieGenreTitleLabel.topAnchor.constraint(equalTo: statusSymbol.bottomAnchor, constant: 3 * UIConstants.padding),
             movieGenreTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             movieGenreTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             movieGenreLabel.topAnchor.constraint(equalTo: movieGenreTitleLabel.bottomAnchor, constant: UIConstants.padding),
             movieGenreLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             movieGenreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             taglineLabel.topAnchor.constraint(equalTo: movieGenreLabel.bottomAnchor,constant: 3 * UIConstants.padding),
             taglineLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             taglineLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             overviewTitleLabel.topAnchor.constraint(equalTo: taglineLabel.bottomAnchor, constant: 3 * UIConstants.padding),
             overviewTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             overviewTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            
+
             overviewLabel.topAnchor.constraint(equalTo: overviewTitleLabel.bottomAnchor, constant: UIConstants.padding),
             overviewLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
             overviewLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             overviewLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
+
 }

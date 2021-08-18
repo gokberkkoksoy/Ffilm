@@ -8,14 +8,14 @@
 import UIKit
 
 extension UIView {
-    
+
     func addSubviews(_ views: UIView...) {
         for view in views {
             addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-    
+
     func pinToEdges(of superview: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

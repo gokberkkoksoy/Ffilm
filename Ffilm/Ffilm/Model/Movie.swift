@@ -12,7 +12,7 @@ struct Movie: Codable, Hashable {
     var title: String?
     var id: Int?
     let uuid = UUID()
-    
+
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case title
@@ -20,5 +20,3 @@ struct Movie: Codable, Hashable {
     }
     
 }
-
-

@@ -11,7 +11,7 @@ class EmptyStateView: UIView {
     
     let messageTitleLabel = FFTitleLabel(textAlignment: .center, fontSize: 30)
     let messageBodyLabel = FFBodyLabel(textAlignment: .center)
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -46,7 +46,7 @@ class EmptyStateView: UIView {
             messageTitleLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -2 * UIConstants.padding),
         ])
     }
-    
+
     private func configureMessageBodyLabel() {
         NSLayoutConstraint.activate([
             messageBodyLabel.topAnchor.constraint(equalTo: messageTitleLabel.bottomAnchor, constant: 30),

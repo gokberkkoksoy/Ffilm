@@ -21,11 +21,11 @@ class FFImageView: UIImageView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setImage(url: URL?) {
         guard let imageURL = url else { return }
         kf.indicatorType  = .activity
         kf.setImage(with: imageURL, placeholder: Images.placeholder)
-        
+    
     }
 }

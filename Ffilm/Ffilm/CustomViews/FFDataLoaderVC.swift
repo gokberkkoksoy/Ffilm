@@ -30,7 +30,7 @@ class FFDataLoaderVC: UIViewController {
         }
         containerView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
+
         containerView.pinToEdges(of: view)
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
@@ -38,14 +38,14 @@ class FFDataLoaderVC: UIViewController {
         ])
         activityIndicator.startAnimating()
     }
-    
+
     func dismissLoadingView() {
         DispatchQueue.main.async {
             self.containerView.removeFromSuperview()
             self.containerView = nil
         }
     }
-    
+
     func showEmptyFollowerListView(header: String, message: String, in view: UIView) {
         let emptyStateView = EmptyStateView(header: header, body: message)
         emptyStateView.frame = view.bounds

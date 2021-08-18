@@ -12,9 +12,9 @@ enum PersistenceActionType {
 }
 
 enum PersistenceManager {
-    
+
     static private let defaults = UserDefaults.standard
-    
+
     enum Keys {
         static let favorites =  "favorites"
     }
@@ -25,7 +25,7 @@ enum PersistenceManager {
             case .success(var movieIDs):
                 switch actionType {
                 case .add:
-                    if movieIDs.contains(movieID){
+                    if movieIDs.contains(movieID) {
                         completed(.alreadyInFavorites)
                     } else {
                         movieIDs.insert(movieID, at: .zero)
@@ -39,7 +39,7 @@ enum PersistenceManager {
             }
         }
     }
-    
+
     static func retrieveFavorites(completed: @escaping(Result<[Int], FFError>) -> Void) {
         guard let favoritesData = defaults.object(forKey: Keys.favorites) as? [Int] else {
             completed(.success([]))
@@ -47,10 +47,10 @@ enum PersistenceManager {
         }
         completed(.success(favoritesData))
     }
-    
+
     static func saveFavorites(favorites: [Int]) -> FFError? {
         defaults.set(favorites, forKey: Keys.favorites)
         return nil
     }
-    
+
 }

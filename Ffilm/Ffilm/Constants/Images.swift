@@ -8,9 +8,9 @@
 import UIKit
 
 enum Images {
-    
+
     static let placeholder = UIImage(named: "notFound")
-    
+
     @available(iOS 13.0, *)
     enum SFSymbols {
         static let calendar = UIImageView(image: UIImage(systemName: "calendar"))

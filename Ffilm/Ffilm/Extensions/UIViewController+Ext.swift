@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum AlertType  {
+enum AlertType {
     case error, notification
 }
 
@@ -17,7 +17,7 @@ extension UIViewController {
             let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertVC.modalPresentationStyle = .overFullScreen
             alertVC.modalTransitionStyle = .crossDissolve
-            alertVC.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: { [weak self] action in
+            alertVC.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: { [weak self] _ in
                 guard let self = self else { return }
                 if alertType == .error { self.dismiss(animated: true) }
             }))
@@ -25,5 +25,3 @@ extension UIViewController {
         }
     }
 }
-
-

@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension String  {
-    func replaceSpecialCharacters() -> String{
+extension String {
+    func replaceSpecialCharacters() -> String {
         var result = self
         result = result.replacingOccurrences(of: "ş", with: "s")
         result = result.replacingOccurrences(of: "Ş", with: "S")
@@ -25,7 +25,7 @@ extension String  {
         result = result.replacingOccurrences(of: " ", with: "-")
         return result
     }
-    
+
     func convertToDate() -> String {
         var result = ""
         let dateFormatter = DateFormatter()
@@ -36,7 +36,7 @@ extension String  {
         result = dateFormatter.string(from: date ?? Date())
         return result
     }
-    
+
     func getDateYear() -> String {
         var result = ""
         let dateFormatter = DateFormatter()

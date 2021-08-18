@@ -9,7 +9,7 @@ import UIKit
 
 enum UIConstants {
     static let movieCellReuseID = "MovieCell"
-    
+
     static let padding: CGFloat = 8
     static let sfSymbolSize: CGFloat = 20
     static let tableViewRowHeight: CGFloat = 115

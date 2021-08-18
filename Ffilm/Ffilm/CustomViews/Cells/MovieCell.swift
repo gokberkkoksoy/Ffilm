@@ -24,16 +24,16 @@ class MovieCell: UICollectionViewCell {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setFavoriteState(mode: ImageDisplay) {
         favoriteImageView.isHidden = mode == .hide ? true : false
         favoriteBackgroundView.isHidden = mode == .hide ? true : false
     }
-    
+
     func setCell(with movie: Movie) {
         if let posterPath = movie.posterPath {
             movieImageView.setImage(url: URL(string: NetworkConstants.baseImageURL + posterPath))
@@ -44,42 +44,41 @@ class MovieCell: UICollectionViewCell {
             titleBackgroundView.isHidden = false
             titleLabel.isHidden = false
         }
-        
+
         if let title = movie.title { titleLabel.text = title }
         if let id = movie.id { cellId = id }
     }
-    
+
     private func configure() {
-        addSubviews(movieImageView,favoriteBackgroundView, favoriteImageView, titleBackgroundView, titleLabel)
+        addSubviews(movieImageView, favoriteBackgroundView, favoriteImageView, titleBackgroundView, titleLabel)
         titleLabel.pinToEdges(of: titleBackgroundView)
-        
+
         movieImageView.contentMode = .scaleAspectFill
         movieImageView.image = Images.placeholder
         let heightConstant: CGFloat = DeviceTypes.isiPhone8Standard ? 60 : 100
-        
+
         favoriteBackgroundView.alpha = 0.2
         favoriteBackgroundView.backgroundColor = .black
         favoriteBackgroundView.layer.masksToBounds = true
         favoriteBackgroundView.layer.cornerRadius = 5
-        
+
         if #available(iOS 13.0, *) {
             favoriteImageView.image = UIImage(systemName: "star.circle")
         } else {
             favoriteImageView.image = UIImage(named: "heart.circle")
         }
         favoriteImageView.tintColor = UIColor(red: 0.56, green: 0.81, blue: 0.63, alpha: 1.00)
-        
+
         titleBackgroundView.alpha = 0.5
         titleBackgroundView.backgroundColor = .black
         titleLabel.textColor = .white
-        
-        
+
         NSLayoutConstraint.activate([
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor, constant: heightConstant),
-            
+
             favoriteBackgroundView.topAnchor.constraint(equalTo: topAnchor),
             favoriteBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             favoriteBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -89,14 +88,13 @@ class MovieCell: UICollectionViewCell {
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
             favoriteImageView.heightAnchor.constraint(equalToConstant: 30),
             favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor),
-            
+
             titleBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             titleBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleBackgroundView.heightAnchor.constraint(equalToConstant: 35)
-            
-            
+
         ])
     }
-    
+
 }

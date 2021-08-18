@@ -28,7 +28,7 @@
 "Votes" = "%.1f/10 (%d votes)";
 "UnableToFavorite" = "There was an error favoriting this movie. Please try again.";
 "AlreadyInFavorites" = "You've already favorited this movie. You must really like it.";
-"InvalidResponse" = "Invalid response from the server. Please try again.";
+"UnableToComplete" = "Please check your internet connection.";
 "InvalidData" = "The data received from the server was invalid. Please try again.";
 "SomethingWentWrong" = "Something went wrong";
 "OK" = "OK";

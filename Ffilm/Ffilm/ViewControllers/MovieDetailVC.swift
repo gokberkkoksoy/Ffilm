@@ -8,12 +8,12 @@
 import UIKit
 
 class MovieDetailVC: FFDataLoaderVC {
-    
+
     var movieID: Int?
     private let movieDetailView = MovieDetailView(frame: .zero)
     private lazy var unfavButton =  UIBarButtonItem()
     private lazy var favButton =  UIBarButtonItem()
-    var delegate: UpdatableScreen!
+    weak var delegate: UpdatableScreen!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +34,9 @@ class MovieDetailVC: FFDataLoaderVC {
         getMovieDetails()
 
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) { delegate.updateScreen() }
-    
+
     func getMovieDetails() {
         if let id = movieID {
             Network.shared.getMovieDetail(of: id) { response in
@@ -50,9 +50,9 @@ class MovieDetailVC: FFDataLoaderVC {
             }
         }
     }
-    
+
     @objc private func donePressed() { navigationController?.dismiss(animated: true) }
-    
+
     @objc private func unfavPressed() {
         navigationItem.rightBarButtonItem = favButton
         if let id = movieID {
@@ -63,7 +63,7 @@ class MovieDetailVC: FFDataLoaderVC {
             }
         }
     }
-    
+
     @objc private func favPressed() {
         navigationItem.rightBarButtonItem = unfavButton
         if let id = movieID {
@@ -77,8 +77,8 @@ class MovieDetailVC: FFDataLoaderVC {
             }
         }
     }
-    
-    private func configureMovieDetailView(){
+
+    private func configureMovieDetailView() {
         view.addSubviews(movieDetailView)
         if let id = movieID {
             PersistenceManager.retrieveFavorites { result in

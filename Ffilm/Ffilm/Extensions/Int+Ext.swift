@@ -11,7 +11,7 @@ extension Int {
     func convertToHourAndMinuteString() -> String {
         let hour = self / 60
         let minute = self % 60
-        if hour != 0 && minute != 0{
+        if hour != 0 && minute != 0 {
             return String(format: Strings.hourAndMinute, arguments: [hour, minute])
         } else if hour != 0 && minute == 0 {
             return String(format: Strings.hour, arguments: [hour])
