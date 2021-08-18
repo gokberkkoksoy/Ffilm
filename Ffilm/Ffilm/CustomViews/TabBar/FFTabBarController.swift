@@ -21,9 +21,9 @@ class FFTabBarController: UITabBarController {
         if #available(iOS 13.0, *) {
             moviesVC.tabBarItem =  UITabBarItem(title: Strings.popularVCTabBar, image: UIImage(systemName: "video"), selectedImage: UIImage(systemName: "video.fill"))
         } else {
-            moviesVC.tabBarItem =  UITabBarItem(tabBarSystemItem: .search, tag: 0)
+            moviesVC.tabBarItem =  UITabBarItem(tabBarSystemItem: .search, tag: .zero)
         }
-        moviesVC.tabBarItem.tag = 0
+        moviesVC.tabBarItem.tag = .zero
         return UINavigationController(rootViewController: moviesVC)
     }
 

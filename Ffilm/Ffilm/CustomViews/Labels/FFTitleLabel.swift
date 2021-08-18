@@ -28,7 +28,7 @@ class FFTitleLabel: UILabel {
     private func configure() {
         if #available(iOS 13.0, *) { textColor = .label }
         adjustsFontSizeToFitWidth = true
-        numberOfLines = 0
+        numberOfLines = .zero
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false

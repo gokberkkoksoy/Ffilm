@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FFImageView: UIImageView {
     
@@ -18,6 +19,7 @@ class FFImageView: UIImageView {
         layer.cornerRadius = 5
         layer.masksToBounds = true
     }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -26,6 +28,5 @@ class FFImageView: UIImageView {
         guard let imageURL = url else { return }
         kf.indicatorType  = .activity
         kf.setImage(with: imageURL, placeholder: Images.placeholder)
-    
     }
 }

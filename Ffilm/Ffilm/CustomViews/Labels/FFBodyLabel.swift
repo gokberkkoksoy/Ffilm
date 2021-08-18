@@ -28,8 +28,8 @@ class FFBodyLabel: UILabel {
         font = UIFont.preferredFont(forTextStyle: .callout)
         adjustsFontForContentSizeCategory = true
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0
-        numberOfLines = 0
+        minimumScaleFactor = .zero
+        numberOfLines = .zero
         lineBreakMode = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }

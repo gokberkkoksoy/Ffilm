@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 protocol UpdatableScreen: AnyObject {
     func updateScreen()
@@ -25,8 +24,8 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
     private var searchedMovies = [Movie]()
     private var page = 1
     private var searchPage = 1
-    private var totalPage = 0
-    private var searchTotalPage = 0
+    private var totalPage: Int = .zero
+    private var searchTotalPage: Int = .zero
     private var hasMorePages = true
     private var isNotLoadingMovies = true
     private var isSearching = false
@@ -113,7 +112,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
                 self.updateUI(with: results) 
             case .failure(let error):
                 print(error.localized)
-//                self.presentAlertOnMainThread(title: "Oops...", message: error.localized, buttonTitle: UIConstants.ok, alertType: .error)
+                self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
             self.isNotLoadingMovies = true
         }
