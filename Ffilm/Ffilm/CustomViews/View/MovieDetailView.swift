@@ -95,7 +95,7 @@ class MovieDetailView: UIView {
         if #available(iOS 13.0, *) {
             videoButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
         } else {
-//            videoButton.setImage(UIImage(named: "video.fill"), for: .normal)
+            videoButton.setImage(UIImage(named: "play12"), for: .normal)
         }
         if let imageView = videoButton.imageView {
             imageView.translatesAutoresizingMaskIntoConstraints = false
