@@ -18,8 +18,8 @@ class MovieCell: UICollectionViewCell {
     let favoriteBackgroundView = UIView(frame: .zero)
     let favoriteImageView = UIImageView(frame: .zero)
     let titleBackgroundView = UIView(frame: .zero)
-    let titleLabel = FFTitleLabel(textAlignment: .center, fontSize: 15)
-    var cellId = 0
+    let titleLabel = FFTitleLabel(textAlignment: .center, fontSize: UIConstants.movieCellTitleSize)
+    var cellId: Int = .zero
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -57,20 +57,18 @@ class MovieCell: UICollectionViewCell {
         movieImageView.image = Images.placeholder
         let heightConstant: CGFloat = DeviceTypes.isiPhone8Standard ? 60 : 100
 
-        favoriteBackgroundView.alpha = 0.2
-        favoriteBackgroundView.backgroundColor = .black
+        favoriteBackgroundView.backgroundColor = Colors.blackBackground
         favoriteBackgroundView.layer.masksToBounds = true
-        favoriteBackgroundView.layer.cornerRadius = 5
+        favoriteBackgroundView.layer.cornerRadius = UIConstants.imageViewCornerRadius
 
         if #available(iOS 13.0, *) {
-            favoriteImageView.image = UIImage(systemName: "star.circle")
+            favoriteImageView.image = Images.SFSymbols.movieCellFavoriteImage
+            favoriteImageView.tintColor = Colors.favoriteSymbolColor
         } else {
-            favoriteImageView.image = UIImage(named: "fav12")
+            favoriteImageView.image = Images.SFSymbols12.movieCellFavoriteImage12
         }
-        favoriteImageView.tintColor = UIColor(red: 0.56, green: 0.81, blue: 0.63, alpha: 1.00)
 
-        titleBackgroundView.alpha = 0.5
-        titleBackgroundView.backgroundColor = .black
+        titleBackgroundView.backgroundColor = Colors.movieCellTitleBackground
         titleLabel.textColor = .white
 
         NSLayoutConstraint.activate([
@@ -86,13 +84,13 @@ class MovieCell: UICollectionViewCell {
 
             favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            favoriteImageView.heightAnchor.constraint(equalToConstant: 30),
+            favoriteImageView.heightAnchor.constraint(equalToConstant: UIConstants.movieCellFavoriteImageSize),
             favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor),
 
             titleBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             titleBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleBackgroundView.heightAnchor.constraint(equalToConstant: 35)
+            titleBackgroundView.heightAnchor.constraint(equalToConstant: UIConstants.movieCellFavoriteImageBackgroundSize)
 
         ])
     }

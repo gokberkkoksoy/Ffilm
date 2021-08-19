@@ -19,7 +19,7 @@ class FFTabBarController: UITabBarController {
         let moviesVC = MoviesVC()
         moviesVC.title = Strings.popularVCTitle
         if #available(iOS 13.0, *) {
-            moviesVC.tabBarItem =  UITabBarItem(title: Strings.popularVCTabBar, image: UIImage(systemName: "video"), selectedImage: UIImage(systemName: "video.fill"))
+            moviesVC.tabBarItem =  UITabBarItem(title: Strings.popularVCTabBar, image: Images.SFSymbols.tabBarPopularImage, selectedImage: Images.SFSymbols.tabBarPopularImageFill)
         } else {
             moviesVC.tabBarItem =  UITabBarItem(tabBarSystemItem: .search, tag: .zero)
         }
@@ -31,7 +31,7 @@ class FFTabBarController: UITabBarController {
         let favoritesVC = FavoritesVC()
         favoritesVC.title = Strings.favoritesVCTitle
         if #available(iOS 13.0, *) {
-            favoritesVC.tabBarItem = UITabBarItem(title: Strings.favoritesVCTabBar, image: UIImage(systemName: "star"), selectedImage: UIImage(systemName: "star.fill"))
+            favoritesVC.tabBarItem = UITabBarItem(title: Strings.favoritesVCTabBar, image: Images.SFSymbols.tabBarFavoriteImage, selectedImage: Images.SFSymbols.tabBarFavoriteImageFill)
         } else {
             favoritesVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
         }

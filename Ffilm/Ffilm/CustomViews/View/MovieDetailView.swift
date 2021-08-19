@@ -13,7 +13,7 @@ class MovieDetailView: UIView {
     let contentView = UIView(frame: .zero)
 
     private let backdropImageView = FFImageView(frame: .zero)
-    private let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: 22)
+    private let titleLabel = FFTitleLabel(textAlignment: .left, fontSize: UIConstants.movieDetailTitleFontSize)
     private var releaseDateSymbol: UIImageView {
         if #available(iOS 13.0, *) {
             return Images.SFSymbols.calendar
@@ -46,10 +46,10 @@ class MovieDetailView: UIView {
         }
     }
     private let statusLabel = FFBodyLabel(textAlignment: .left)
-    private let movieGenreTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
+    private let movieGenreTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: UIConstants.movieDetailSubtitleFontSize)
     private let movieGenreLabel = FFBodyLabel(textAlignment: .left)
     private let taglineLabel = FFBodyLabel(textAlignment: .left)
-    private let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 18)
+    private let overviewTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: UIConstants.movieDetailSubtitleFontSize)
     private let overviewLabel = FFBodyLabel(textAlignment: .left)
     
     let videoButton = UIButton(frame: .zero)
@@ -93,15 +93,15 @@ class MovieDetailView: UIView {
 
     func configureButton() {
         if #available(iOS 13.0, *) {
-            videoButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
+            videoButton.setImage(Images.SFSymbols.videoButtonImage, for: .normal)
         } else {
-            videoButton.setImage(UIImage(named: "play12"), for: .normal)
+            videoButton.setImage(Images.SFSymbols12.videoButtonImage12, for: .normal)
         }
         if let imageView = videoButton.imageView {
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+            imageView.backgroundColor = Colors.blackBackground
             imageView.layer.masksToBounds = true
-            imageView.layer.cornerRadius = 40
+            imageView.layer.cornerRadius = UIConstants.videoButtonCornerRadius
             NSLayoutConstraint.activate([
                 imageView.topAnchor.constraint(equalTo: videoButton.topAnchor),
                 imageView.leadingAnchor.constraint(equalTo: videoButton.leadingAnchor),
@@ -208,12 +208,12 @@ class MovieDetailView: UIView {
             backdropImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backdropImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            backdropImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.6),
+            backdropImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: UIConstants.backdropImageHeightFactor),
 
             videoButton.centerXAnchor.constraint(equalTo: backdropImageView.centerXAnchor),
             videoButton.centerYAnchor.constraint(equalTo: backdropImageView.centerYAnchor),
-            videoButton.widthAnchor.constraint(equalToConstant: 80),
-            videoButton.heightAnchor.constraint(equalTo: videoButton.widthAnchor),
+            videoButton.heightAnchor.constraint(equalToConstant: UIConstants.videoButtonHeight),
+            videoButton.widthAnchor.constraint(equalTo: videoButton.heightAnchor),
 
             titleLabel.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor, constant: 2 * UIConstants.padding),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
@@ -221,7 +221,7 @@ class MovieDetailView: UIView {
 
             releaseDateSymbol.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIConstants.padding),
             releaseDateSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
-            releaseDateSymbol.heightAnchor.constraint(equalToConstant: 20),
+            releaseDateSymbol.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolHeight),
             releaseDateSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
 
             releaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: UIConstants.padding),
@@ -230,7 +230,7 @@ class MovieDetailView: UIView {
 
             runtimeSymbol.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: UIConstants.padding),
             runtimeSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
-            runtimeSymbol.heightAnchor.constraint(equalToConstant: 20),
+            runtimeSymbol.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolHeight),
             runtimeSymbol.widthAnchor.constraint(equalTo: releaseDateSymbol.heightAnchor),
 
             runtimeLabel.topAnchor.constraint(equalTo: releaseDateSymbol.bottomAnchor, constant: UIConstants.padding),
@@ -239,7 +239,7 @@ class MovieDetailView: UIView {
 
             voteSymbol.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: UIConstants.padding),
             voteSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
-            voteSymbol.heightAnchor.constraint(equalToConstant: 20),
+            voteSymbol.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolHeight),
             voteSymbol.widthAnchor.constraint(equalTo: voteSymbol.heightAnchor),
 
             voteLabel.topAnchor.constraint(equalTo: runtimeSymbol.bottomAnchor, constant: UIConstants.padding),
@@ -248,7 +248,7 @@ class MovieDetailView: UIView {
 
             statusSymbol.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: UIConstants.padding),
             statusSymbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: UIConstants.padding),
-            statusSymbol.heightAnchor.constraint(equalToConstant: 20),
+            statusSymbol.heightAnchor.constraint(equalToConstant: UIConstants.sfSymbolHeight),
             statusSymbol.widthAnchor.constraint(equalTo: statusSymbol.heightAnchor),
 
             statusLabel.topAnchor.constraint(equalTo: voteSymbol.bottomAnchor, constant: UIConstants.padding),

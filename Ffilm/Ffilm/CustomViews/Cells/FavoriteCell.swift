@@ -10,7 +10,7 @@ import UIKit
 class FavoriteCell: UITableViewCell {
     static let reuseID = "FavoriteCell"
     private let movieImageView = FFImageView(frame: .zero)
-    private let movieTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: 20)
+    private let movieTitleLabel = FFTitleLabel(textAlignment: .left, fontSize: UIConstants.movieDetailTitleFontSize)
     private var movieDateSymbol = UIImageView(frame: .zero)
     private let movieDateLabel = FFBodyLabel(textAlignment: .left)
     private var movieRuntimeSymbol  = UIImageView(frame: .zero)
@@ -45,7 +45,7 @@ class FavoriteCell: UITableViewCell {
             movieRuntimeSymbol.image = Images.SFSymbols12.clockImage12
             movieRuntimeSymbol.tintColor = .systemGray
         }
-        if let runtime = movie.runtime, runtime != 0 {
+        if let runtime = movie.runtime, runtime != .zero {
             movieRuntimeLabel.text = runtime.convertToHourAndMinuteString()
         } else {
             movieRuntimeLabel.text = Strings.runtimeNotFound
@@ -59,13 +59,13 @@ class FavoriteCell: UITableViewCell {
         NSLayoutConstraint.activate([
             movieImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2 * UIConstants.padding),
-            movieImageView.heightAnchor.constraint(equalToConstant: 100),
-            movieImageView.widthAnchor.constraint(equalToConstant: 75),
+            movieImageView.heightAnchor.constraint(equalToConstant: UIConstants.favoriteCellImageHeight),
+            movieImageView.widthAnchor.constraint(equalToConstant: UIConstants.favoriteCellImageWidth),
 
             movieTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -25),
             movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: UIConstants.padding),
             movieTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
-            movieTitleLabel.heightAnchor.constraint(equalToConstant: 30),
+            movieTitleLabel.heightAnchor.constraint(equalToConstant: UIConstants.favoriteCellTitleLabelSize),
 
             movieDateSymbol.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: UIConstants.padding),
             movieDateSymbol.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: UIConstants.padding),

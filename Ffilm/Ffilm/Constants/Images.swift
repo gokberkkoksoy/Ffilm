@@ -24,6 +24,12 @@ enum Images {
         static let halfFillStarImage = UIImage(systemName: "star.lefthalf.fill")
         static let fillStarImage = UIImage(systemName: "star.fill")
         static let emptyStarImage = UIImage(systemName: "star")
+        static let videoButtonImage = UIImage(systemName: "play.circle")
+        static let tabBarPopularImage = UIImage(systemName: "video")
+        static let tabBarPopularImageFill = UIImage(systemName: "video.fill")
+        static let tabBarFavoriteImage = UIImage(systemName: "star")
+        static let tabBarFavoriteImageFill = UIImage(systemName: "star.fill")
+        static let movieCellFavoriteImage = UIImage(systemName: "star.circle")
     }
 
     enum SFSymbols12 {
@@ -38,5 +44,7 @@ enum Images {
         static let halfFillStarImage12 = UIImage(named: "star.leadinghalf.filled")
         static let fillStarImage12 = UIImage(named: "star.fill")
         static let emptyStarImage12 = UIImage(named: "star")
+        static let videoButtonImage12 = UIImage(named: "play12")
+        static let movieCellFavoriteImage12 = UIImage(named: "fav12")
     }
 }

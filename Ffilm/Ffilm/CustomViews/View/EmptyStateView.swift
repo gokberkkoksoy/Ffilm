@@ -9,7 +9,7 @@ import UIKit
 
 class EmptyStateView: UIView {
     
-    let messageTitleLabel = FFTitleLabel(textAlignment: .center, fontSize: 30)
+    let messageTitleLabel = FFTitleLabel(textAlignment: .center, fontSize: UIConstants.emptyStateTitleSize)
     let messageBodyLabel = FFBodyLabel(textAlignment: .center)
 
     override init(frame: CGRect) {

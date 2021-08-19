@@ -13,6 +13,21 @@ enum UIConstants {
     static let padding: CGFloat = 8
     static let sfSymbolSize: CGFloat = 20
     static let tableViewRowHeight: CGFloat = 115
+    static let imageViewCornerRadius: CGFloat = 5
+    static let videoButtonCornerRadius: CGFloat = 40
+    static let videoButtonHeight: CGFloat = 80
+    static let sfSymbolHeight: CGFloat = 20
+    static let backdropImageHeightFactor: CGFloat = 0.6
+    static let movieDetailTitleFontSize: CGFloat = 22
+    static let movieDetailSubtitleFontSize: CGFloat = 18
+    static let emptyStateTitleSize: CGFloat = 30
+    static let movieCellTitleSize: CGFloat = 15
+    static let movieCellFavoriteImageSize: CGFloat = 30
+    static let movieCellFavoriteImageBackgroundSize: CGFloat = 35
+    static let favoriteCellTitleLabelSize: CGFloat = 30
+    static let favoriteCellImageWidth: CGFloat = 75
+    static let favoriteCellImageHeight: CGFloat = 100
+    
 }
 
 enum ScreenSize {

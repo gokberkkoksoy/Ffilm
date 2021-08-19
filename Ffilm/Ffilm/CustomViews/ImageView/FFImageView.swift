@@ -16,7 +16,7 @@ class FFImageView: UIImageView {
     }
     
     private func configure() {
-        layer.cornerRadius = 5
+        layer.cornerRadius = UIConstants.imageViewCornerRadius
         layer.masksToBounds = true
     }
 
