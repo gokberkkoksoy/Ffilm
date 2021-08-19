@@ -44,6 +44,11 @@ class MovieCell: UICollectionViewCell {
             titleBackgroundView.isHidden = false
             titleLabel.isHidden = false
         }
+        
+        if Bundle.main.preferredLocalizations.first == "tr"  {
+            titleBackgroundView.isHidden = false
+            titleLabel.isHidden = false
+        }
 
         if let title = movie.title { titleLabel.text = title }
         if let id = movie.id { cellId = id }

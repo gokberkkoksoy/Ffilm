@@ -28,7 +28,7 @@ struct Network {
         } else {
             var queryString = ""
             if query != "" { queryString = "&query=\(query)" }
-            url = URL(string: "\((queryString == "" ? NetworkConstants.basePopularURL : NetworkConstants.movieSearchURL))\(NetworkConstants.apiKey)\(queryString)\(NetworkConstants.page)\(page)")
+            url = URL(string: "\((queryString == "" ? NetworkConstants.basePopularURL : NetworkConstants.movieSearchURL))\(NetworkConstants.apiKey)\(queryString)\(NetworkConstants.page)\(page)\(language)")
         }
         if isVideo {
             url =  URL(string: "\(NetworkConstants.baseMovieURL)\(String(id))/videos\(NetworkConstants.apiKey)")
