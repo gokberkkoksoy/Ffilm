@@ -19,7 +19,7 @@ class FFDataLoaderVC: UIViewController {
         } else {
             containerView.backgroundColor = .white
         }
-        containerView.alpha = 0 // initially invisible
+        containerView.alpha = .zero // initially invisible
         UIView.animate(withDuration: 0.25) { self.containerView.alpha = 0.8 }
         
         let activityIndicator = UIActivityIndicatorView()
