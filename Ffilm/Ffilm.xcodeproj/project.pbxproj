@@ -14,7 +14,6 @@
 		5E415F3926B591EB00F7FF55 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F3826B591EB00F7FF55 /* SceneDelegate.swift */; };
 		5E415F3B26B591EB00F7FF55 /* MoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F3A26B591EB00F7FF55 /* MoviesVC.swift */; };
 		5E415F4026B591EE00F7FF55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E415F3F26B591EE00F7FF55 /* Assets.xcassets */; };
-		5E415F4326B591EE00F7FF55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E415F4126B591EE00F7FF55 /* LaunchScreen.storyboard */; };
 		5E415F4B26B599EE00F7FF55 /* FFTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F4A26B599EE00F7FF55 /* FFTabBarController.swift */; };
 		5E415F4D26B5A0EB00F7FF55 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */; };
 		5E415F4F26B5A6B400F7FF55 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E415F4E26B5A6B400F7FF55 /* MovieCell.swift */; };
@@ -36,6 +35,7 @@
 		5E7D3A0C26BDA98000A221F8 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7D3A0B26BDA98000A221F8 /* UIViewController+Ext.swift */; };
 		5E7D3A0E26BDAC5600A221F8 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7D3A0D26BDAC5600A221F8 /* FavoriteCell.swift */; };
 		5E88452E26CDB1AA0020C7DA /* Videos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E88452D26CDB1AA0020C7DA /* Videos.swift */; };
+		5E88453126CDE0E60020C7DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E415F4126B591EE00F7FF55 /* LaunchScreen.storyboard */; };
 		5E95C2F726BA66DF00CA4959 /* FFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95C2F626BA66DF00CA4959 /* FFImageView.swift */; };
 		5E95C2FA26BA68B300CA4959 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95C2F926BA68B300CA4959 /* Genre.swift */; };
 		5E95C2FC26BA68D400CA4959 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E95C2FB26BA68D400CA4959 /* MovieDetail.swift */; };
@@ -353,7 +353,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E415F4326B591EE00F7FF55 /* LaunchScreen.storyboard in Resources */,
+				5E88453126CDE0E60020C7DA /* LaunchScreen.storyboard in Resources */,
 				5EA8E78526CA46CE00C78932 /* Localizable.strings in Resources */,
 				5E415F4026B591EE00F7FF55 /* Assets.xcassets in Resources */,
 			);

@@ -65,7 +65,7 @@ class MovieCell: UICollectionViewCell {
         if #available(iOS 13.0, *) {
             favoriteImageView.image = UIImage(systemName: "star.circle")
         } else {
-            favoriteImageView.image = UIImage(named: "heart.circle")
+            favoriteImageView.image = UIImage(named: "fav12")
         }
         favoriteImageView.tintColor = UIColor(red: 0.56, green: 0.81, blue: 0.63, alpha: 1.00)
 
