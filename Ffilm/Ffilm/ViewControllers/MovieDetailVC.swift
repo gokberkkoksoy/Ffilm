@@ -22,6 +22,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        removeSearchController()
         showLoadingView(in: view)
         if #available(iOS 13.0, *) { view.backgroundColor = .systemBackground } else {  view.backgroundColor = .white }
         if #available(iOS 13.0, *) {
@@ -72,7 +73,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
                         for video in results {
                             if video.site == Strings.youtube && video.type == Strings.trailer {
                                 if let key = video.key {
-                                    self.videoURL = "\(Strings.youtubeURL)\(key)"
+                                    self.videoURL = "\(NetworkConstants.youtubeURL)\(key)"
                                 }
                                 break
                             }

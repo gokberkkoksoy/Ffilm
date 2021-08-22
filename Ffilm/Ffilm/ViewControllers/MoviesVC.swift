@@ -11,7 +11,9 @@ protocol UpdatableScreen: AnyObject {
     func updateScreen()
 }
 
-class MoviesVC: FFDataLoaderVC, UpdatableScreen {
+class MoviesVC: FFDataLoaderVC {
+    
+    #warning("Fix favorite image showing logic")
 
     private enum Section { case main }
     private var collectionView: UICollectionView!
@@ -97,7 +99,7 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
         }
     }
     //MARK: - PERSISTENCE METHODS
-    func updateScreen() {
+    override func updateScreen() {
         configureCellState()
     }
     
@@ -140,11 +142,8 @@ class MoviesVC: FFDataLoaderVC, UpdatableScreen {
             DispatchQueue.main.async { self.collectionView.reloadData() }
         }
     }
-
-}
 //MARK: - SEARCH BAR
-extension MoviesVC: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+    override func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty, isNotLoadingMovies else {
             searchedMovies.removeAll()
             isSearching = false
@@ -170,11 +169,9 @@ extension MoviesVC: UISearchResultsUpdating {
                         self.emptyView.removeFromSuperview()
                     }
                 }
-                print(results)
                 self.searchTotalPage = pageNum
                 self.updateUI(with: results)
-            case.failure(let error):
-                print(error.localized)
+            case.failure(_):
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     self.emptyView.setLabels(header: Strings.offline, body: Strings.checkConnection)
                     self.view.addSubview(self.emptyView)
@@ -182,8 +179,8 @@ extension MoviesVC: UISearchResultsUpdating {
             }
         }
     }
-}
 
+}
 //MARK: - COLLECTION VIEW DELEGATE-DATASOURCE
 extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

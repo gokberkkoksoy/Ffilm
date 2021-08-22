@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
+class FavoritesVC: FFDataLoaderVC {
 
     private let tableView = UITableView()
     private var favorites = [Int]()
@@ -66,7 +66,7 @@ class FavoritesVC: FFDataLoaderVC, UpdatableScreen {
         }
     }
 
-    func updateScreen() {
+    override func updateScreen() {
         getFavorites()
         navigationItem.rightBarButtonItem?.isEnabled = favorites.isEmpty ? false : true
     }
@@ -117,9 +117,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
             guard let self = self else { return }
             switch result {
             case .success(let movie):
-                DispatchQueue.main.async {
-                    cell.set(movie: movie)
-                }
+                DispatchQueue.main.async { cell.set(movie: movie) }
             case .failure(let error):
                 self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }

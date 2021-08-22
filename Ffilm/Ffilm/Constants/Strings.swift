@@ -58,5 +58,4 @@ enum Strings {
     
     static let youtube = "YouTube"
     static let trailer = "Trailer"
-    static let youtubeURL = "https://www.youtube.com/watch?v="
 }

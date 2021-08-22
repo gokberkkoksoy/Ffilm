@@ -173,8 +173,10 @@
 		5E415F5D26B7F8E600F7FF55 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5E415F6126B7F95900F7FF55 /* TabBar */,
 				5E415F3A26B591EB00F7FF55 /* MoviesVC.swift */,
 				5E415F4C26B5A0EB00F7FF55 /* FavoritesVC.swift */,
+				5E7D3A0126BD20E600A221F8 /* FFDataLoaderVC.swift */,
 				5E415F6226B843FC00F7FF55 /* MovieDetailVC.swift */,
 			);
 			path = ViewControllers;
@@ -186,10 +188,8 @@
 				5E95C2F826BA686000CA4959 /* ImageView */,
 				5E415F6726B9304800F7FF55 /* View */,
 				5E415F6426B899EB00F7FF55 /* Labels */,
-				5E415F6126B7F95900F7FF55 /* TabBar */,
 				5E415F6026B7F95200F7FF55 /* Cells */,
 				5E415F5F26B7F91800F7FF55 /* LaunchScreen */,
-				5E7D3A0126BD20E600A221F8 /* FFDataLoaderVC.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";

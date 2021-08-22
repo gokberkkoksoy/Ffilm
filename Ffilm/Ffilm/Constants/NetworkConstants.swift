@@ -19,4 +19,5 @@ struct NetworkConstants {
     static let backdropURL = "https://image.tmdb.org/t/p/original"
     static let baseMovieURL = "https://api.themoviedb.org/3/movie/"
     static let movieSearchURL = "https://api.themoviedb.org/3/search/movie/"
+    static let youtubeURL = "https://www.youtube.com/watch?v="
 }

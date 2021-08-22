@@ -7,9 +7,26 @@
 
 import UIKit
 
-class FFDataLoaderVC: UIViewController {
-    
+class FFDataLoaderVC: UIViewController, UISearchResultsUpdating, UpdatableScreen {
     var containerView: UIView!
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureSearchController()
+    }
+    
+    private func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = Strings.searchBarPlaceholder
+        searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
+        if #available(iOS 13.0, *) {} else { navigationController?.navigationBar.isHidden = false }
+        navigationItem.searchController = searchController
+    }
+    
+    func removeSearchController() {
+        navigationItem.searchController = nil
+    }
 
     func showLoadingView(in view: UIView) {
         containerView = UIView(frame: .zero)
@@ -51,5 +68,8 @@ class FFDataLoaderVC: UIViewController {
         emptyStateView.frame = view.bounds
         view.addSubview(emptyStateView)
     }
+    
+    func updateScreen() {}
+    func updateSearchResults(for searchController: UISearchController) {}
 
 }
