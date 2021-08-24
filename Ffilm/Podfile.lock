@@ -2,17 +2,25 @@ PODS:
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
+  - SPAlert (3.3.1)
+  - SPIndicator (1.3.1)
 
 DEPENDENCIES:
   - Kingfisher (~> 5.0)
+  - SPAlert
+  - SPIndicator
 
 SPEC REPOS:
   trunk:
     - Kingfisher
+    - SPAlert
+    - SPIndicator
 
 SPEC CHECKSUMS:
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
+  SPAlert: 7028b585168153d9619192d4debe060b25071b0f
+  SPIndicator: 9e495ac1f8c66fec184ecaeb864c25db253ed953
 
-PODFILE CHECKSUM: d647e42a13925fbde65bb15a2ff4e4692da90b3a
+PODFILE CHECKSUM: 03a3924acad7ba07e86da0f9c77006c63262bf90
 
 COCOAPODS: 1.9.3

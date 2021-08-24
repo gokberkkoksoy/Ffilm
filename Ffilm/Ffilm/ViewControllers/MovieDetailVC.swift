@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 protocol ButtonDelegate: AnyObject {
     func buttonTapped()
@@ -18,6 +19,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
     private let movieDetailView = MovieDetailView(frame: .zero)
     private lazy var unfavButton =  UIBarButtonItem()
     private lazy var favButton =  UIBarButtonItem()
+    private var isLoaded = false
     weak var delegate: UpdatableScreen!
 
     override func viewDidLoad() {
@@ -48,10 +50,14 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
             Network.shared.getMovies(id: id) { (response: Result<MovieDetail, FFError>) in
                 switch response {
                 case.success(let detail):
+                    self.isLoaded = true
                     DispatchQueue.main.async { self.movieDetailView.set(to: detail) }
                     self.dismissLoadingView()
-                case.failure(let error):
-                    self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
+                case.failure(_):
+                    self.isLoaded = false
+                    self.presentErrorAlert(title: "You are not connected to internet.") {
+                        self.dismiss(animated: true)
+                    }
                 }
             }
         }
@@ -94,23 +100,34 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
     @objc private func donePressed() { navigationController?.dismiss(animated: true) }
 
     @objc private func unfavPressed() {
+        if isLoaded == false {
+            self.dismiss(animated: true)
+            return
+        }
         navigationItem.rightBarButtonItem = favButton
         if let id = movieID {
             PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
-                guard let error = error else { return }
+                guard let error = error else {
+                    self.presentAlert(title: "Movie removed from favorites!", type: .warning)
+                    return
+                }
                 self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
         }
     }
 
     @objc private func favPressed() {
+        if isLoaded == false {
+            self.dismiss(animated: true)
+            return
+        }
         navigationItem.rightBarButtonItem = unfavButton
         if let id = movieID {
             PersistenceManager.updateWith(movieID: id, actionType: .add) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    self.presentAlertOnMainThread(title: Strings.favSuccessTitle, message: Strings.favSuccess, buttonTitle: Strings.ok, alertType: .notification)
+                    self.presentAlert(title: "Movie added to favorites!", type: .notification)
                     return
                 }
                 self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .notification)

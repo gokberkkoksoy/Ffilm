@@ -7,10 +7,7 @@
 
 import Foundation
 
-struct MovieDetail: Codable, Equatable {
-    static func == (lhs: MovieDetail, rhs: MovieDetail) -> Bool {
-        return true
-    }
+struct MovieDetail: Codable {
 
     var backdropPath: String?
     var overview: String?

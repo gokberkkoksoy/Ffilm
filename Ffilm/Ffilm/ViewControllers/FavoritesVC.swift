@@ -10,7 +10,9 @@ import UIKit
 class FavoritesVC: FFDataLoaderVC {
 
     private let tableView = UITableView()
-    private var favorites = [Int]()
+    private var favorites = [MovieDetail]()
+    private var favStorage = [MovieDetail]()
+    private var filteredFavorites = [MovieDetail]()
     private let emptyView = EmptyStateView(header: Strings.emptyPageTitle, body: Strings.emptyPageBody)
 
     override func viewDidLoad() {
@@ -22,7 +24,6 @@ class FavoritesVC: FFDataLoaderVC {
 
     override func viewWillAppear(_ animated: Bool) {
         getFavorites()
-        navigationItem.rightBarButtonItem?.isEnabled = favorites.isEmpty ? false : true
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
@@ -43,23 +44,63 @@ class FavoritesVC: FFDataLoaderVC {
         emptyView.frame = view.bounds
     }
 
+    private func updateUI(with favorites: [MovieDetail]) {
+            if favorites.isEmpty {
+                self.favorites = favorites
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.view.addSubview(self.emptyView)
+                }
+            } else {
+                self.favorites = favorites
+                DispatchQueue.main.async {
+                    self.emptyView.removeFromSuperview()
+                    self.tableView.reloadData()
+                    self.view.bringSubviewToFront(self.tableView)
+                }
+            }
+    }
+
     private func configureTableView() {
-        view.addSubview(tableView)
-        tableView.frame = view.bounds
+        view.addSubviews(tableView)
         tableView.rowHeight = UIConstants.tableViewRowHeight
+        tableView.keyboardDismissMode = .onDrag
         tableView.delegate = self
         tableView.dataSource = self
         tableView.removeExcessCells()
 
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseID)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
     private func getFavorites() {
         PersistenceManager.retrieveFavorites { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let favorites):
-                self.updateUI(with: favorites)
+            case .success(let storedFavorites):
+                DispatchQueue.main.async { self.navigationItem.rightBarButtonItem?.isEnabled = storedFavorites.isEmpty ? false : true }
+                self.favorites.removeAll()
+                self.favStorage.removeAll()
+                storedFavorites.forEach {
+                    Network.shared.getMovies(id: $0) { [weak self] (result: Result<MovieDetail, FFError>) in
+                        guard let self = self else { return }
+                        switch result {
+                        case .success(let movieDetail):
+                            self.favorites.append(movieDetail)
+                            self.favStorage.append(movieDetail)
+                            self.updateUI(with: self.favorites)
+                        case .failure(let error):
+                            self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
+                        }
+                    }
+                }
+                self.updateUI(with: self.favorites)
             case.failure(let error):
                 self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
             }
@@ -68,28 +109,10 @@ class FavoritesVC: FFDataLoaderVC {
 
     override func updateScreen() {
         getFavorites()
-        navigationItem.rightBarButtonItem?.isEnabled = favorites.isEmpty ? false : true
-    }
-
-    private func updateUI(with favorites: [Int]) {
-        if favorites.isEmpty {
-            self.favorites = favorites
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.addSubview(self.emptyView)
-            }
-        } else {
-            self.favorites = favorites
-            emptyView.removeFromSuperview()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
-        }
     }
 
     func removeFromFavorites(at index: Int) {
-        PersistenceManager.updateWith(movieID: favorites[index], actionType: .remove) { [weak self] error in
+        PersistenceManager.updateWith(movieID: favorites[index].id ?? 0 , actionType: .remove) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else {
                 self.favorites.remove(at: index)
@@ -103,6 +126,28 @@ class FavoritesVC: FFDataLoaderVC {
             self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
         }
     }
+    
+    override func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text?.lowercased(), !filter.isEmpty else {
+            filteredFavorites.removeAll()
+            updateUI(with: favStorage)
+            DispatchQueue.main.async { self.emptyView.removeFromSuperview() }
+            return
+        }
+        filteredFavorites = favStorage.filter {
+            if let movieTitle = $0.title?.lowercased() { return movieTitle.contains(filter) }
+            return false
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.updateUI(with: self.filteredFavorites) }
+        if filteredFavorites.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+//                change messages here
+                self.view.addSubview(self.emptyView)
+            }
+        } else {
+            self.view.bringSubviewToFront(self.tableView)
+        }
+    }
 
 }
 
@@ -113,15 +158,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID, for: indexPath) as! FavoriteCell
-        Network.shared.getMovies(id: favorites[indexPath.row]) { [weak self] (result: Result<MovieDetail, FFError>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let movie):
-                DispatchQueue.main.async { cell.set(movie: movie) }
-            case .failure(let error):
-                self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
-            }
-        }
+        DispatchQueue.main.async { cell.set(movie: self.favorites[indexPath.row]) }
         return cell
     }
 
@@ -129,7 +166,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let movie = favorites[indexPath.row]
         let destVC = MovieDetailVC()
-        destVC.movieID = movie
+        destVC.movieID = movie.id ?? 0
         destVC.delegate = self
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
@@ -137,7 +174,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        removeFromFavorites(at: indexPath.row)
+        self.removeFromFavorites(at: indexPath.row)
     }
 
 }

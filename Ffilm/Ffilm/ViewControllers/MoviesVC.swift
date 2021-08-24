@@ -15,7 +15,6 @@ class MoviesVC: FFDataLoaderVC {
     
     #warning("Fix favorite image showing logic")
 
-    private enum Section { case main }
     private var collectionView: UICollectionView!
     private let emptyView = EmptyStateView(frame: .zero)
 
@@ -113,8 +112,9 @@ class MoviesVC: FFDataLoaderVC {
                 self.totalPage = pageNum
                 self.updateUI(with: results) 
             case .failure(let error):
-                print(error.localized)
-                self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
+                print(error.localized, " page")
+                self.presentIndicator(with: error.localized)
+            
             }
             self.isNotLoadingMovies = true
         }
@@ -231,7 +231,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                             self.updateUI(with: results)
                         case.failure(let error):
                             print(error.localized)
-                            self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
+                            self.presentIndicator(with: error.localized)
                         }
                     }
                 }

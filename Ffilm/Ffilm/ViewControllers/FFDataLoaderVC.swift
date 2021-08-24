@@ -11,6 +11,8 @@ class FFDataLoaderVC: UIViewController, UISearchResultsUpdating, UpdatableScreen
     var containerView: UIView!
     let searchController = UISearchController(searchResultsController: nil)
     
+    enum Section { case main }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
