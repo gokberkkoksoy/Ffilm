@@ -15,7 +15,7 @@ protocol ButtonDelegate: AnyObject {
 class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
 
     var movieID: Int?
-    lazy var videoURL = ""
+    lazy var videoURL = String()
     private let movieDetailView = MovieDetailView(frame: .zero)
     private lazy var unfavButton =  UIBarButtonItem()
     private lazy var favButton =  UIBarButtonItem()
@@ -69,7 +69,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
                 switch response  {
                 case .success(let result):
                     if let videoCount = result.results?.count {
-                        if videoCount == 0 {
+                        if videoCount == .zero {
                             self.movieDetailView.hideButton()
                         } else {
                             self.movieDetailView.showButton()

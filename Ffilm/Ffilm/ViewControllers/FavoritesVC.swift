@@ -112,7 +112,7 @@ class FavoritesVC: FFDataLoaderVC {
     }
 
     func removeFromFavorites(at index: Int) {
-        PersistenceManager.updateWith(movieID: favorites[index].id ?? 0 , actionType: .remove) { [weak self] error in
+        PersistenceManager.updateWith(movieID: favorites[index].id ?? .zero , actionType: .remove) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else {
                 self.favorites.remove(at: index)
@@ -166,7 +166,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let movie = favorites[indexPath.row]
         let destVC = MovieDetailVC()
-        destVC.movieID = movie.id ?? 0
+        destVC.movieID = movie.id ?? .zero
         destVC.delegate = self
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)

@@ -112,7 +112,6 @@ class MoviesVC: FFDataLoaderVC {
                 self.totalPage = pageNum
                 self.updateUI(with: results) 
             case .failure(let error):
-                print(error.localized, " page")
                 self.presentIndicator(with: error.localized)
             
             }
@@ -147,7 +146,7 @@ class MoviesVC: FFDataLoaderVC {
         guard let filter = searchController.searchBar.text, !filter.isEmpty, isNotLoadingMovies else {
             searchedMovies.removeAll()
             isSearching = false
-            searchFilter = ""
+            searchFilter.removeAll()
             updateData(on: movies)
             DispatchQueue.main.async { self.emptyView.removeFromSuperview() }
             return
@@ -184,7 +183,7 @@ class MoviesVC: FFDataLoaderVC {
 //MARK: - COLLECTION VIEW DELEGATE-DATASOURCE
 extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isSearching ? searchedMovies.count: movies.count
+        return isSearching ? searchedMovies.count : movies.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -230,7 +229,6 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
                             self.searchTotalPage = pageNum
                             self.updateUI(with: results)
                         case.failure(let error):
-                            print(error.localized)
                             self.presentIndicator(with: error.localized)
                         }
                     }
