@@ -112,6 +112,7 @@ class FavoritesVC: FFDataLoaderVC {
     }
 
     func removeFromFavorites(at index: Int) {
+        NotificationCenter.default.post(name: Strings.Notifications.favoriteStateChanged, object: nil)
         PersistenceManager.updateWith(movieID: favorites[index].id ?? .zero , actionType: .remove) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else {

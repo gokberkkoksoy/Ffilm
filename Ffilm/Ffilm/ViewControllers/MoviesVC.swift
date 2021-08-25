@@ -13,8 +13,6 @@ protocol UpdatableScreen: AnyObject {
 
 class MoviesVC: FFDataLoaderVC {
     
-    #warning("Fix favorite image showing logic")
-
     private var collectionView: UICollectionView!
     private let emptyView = EmptyStateView(frame: .zero)
 
@@ -30,8 +28,9 @@ class MoviesVC: FFDataLoaderVC {
     private var hasMorePages = true
     private var isNotLoadingMovies = true
     private var isSearching = false
-    private var searchFilter = ""
-    private var cells = [MovieCell]()
+    private var searchFilter = String()
+    private var favorites = [Int]()
+    private lazy var selectedMovieIndexPath = IndexPath()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +41,13 @@ class MoviesVC: FFDataLoaderVC {
         configureCollectionView()
         emptyView.frame = view.bounds
         if #available(iOS 13.0, *) { configureDataSource() }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.cellFavoriteStateChanged), name: Strings.Notifications.favoriteStateChanged, object: nil)
         getMovies(of: NetworkConstants.basePopularURL, from: page)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureCellState()
+        collectionView.reloadData()
+        getFavorites()
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     //MARK: - CONFIGURATION METHODS
@@ -57,6 +58,12 @@ class MoviesVC: FFDataLoaderVC {
         searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
         if #available(iOS 13.0, *) {} else { navigationController?.navigationBar.isHidden = false }
         navigationItem.searchController = searchController
+    }
+    
+    @objc func cellFavoriteStateChanged() {
+        getFavorites()
+        guard let cell = collectionView.cellForItem(at: selectedMovieIndexPath) as? MovieCell else { return }
+        cell.toggleState()
     }
     
     private func configureCollectionView() {
@@ -74,32 +81,26 @@ class MoviesVC: FFDataLoaderVC {
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, movie in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
             cell.setCell(with: movie)
-            self.configureCellState()
-            self.cells.append(cell)
+            self.getFavorites()
+            cell.setFavoriteState(mode: self.favorites.contains(cell.cellId) ? .show : .hide)
             return cell
         }
     }
     
-    func configureCellState() {
-        var fav = [Int]()
+    func getFavorites() {
         PersistenceManager.retrieveFavorites { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let favorites):
-                fav = favorites
+                self.favorites = favorites
             case.failure(let error):
                 self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
-            }
-        }
-        DispatchQueue.main.async {
-            for cell in self.cells {
-                cell.setFavoriteState(mode: fav.contains(cell.cellId) ? .show : .hide)
             }
         }
     }
     //MARK: - PERSISTENCE METHODS
     override func updateScreen() {
-        configureCellState()
+        getFavorites()
     }
     
     private func getMovies(of category: String, from page: Int) {
@@ -113,7 +114,6 @@ class MoviesVC: FFDataLoaderVC {
                 self.updateUI(with: results) 
             case .failure(let error):
                 self.presentIndicator(with: error.localized)
-            
             }
             self.isNotLoadingMovies = true
         }
@@ -178,7 +178,10 @@ class MoviesVC: FFDataLoaderVC {
             }
         }
     }
-
+    
+    deinit {
+      NotificationCenter.default.removeObserver(self, name: Notification.Name("NotificationIdentifier"), object: nil)
+    }
 }
 //MARK: - COLLECTION VIEW DELEGATE-DATASOURCE
 extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -189,12 +192,13 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
         cell.setCell(with: isSearching ? searchedMovies[indexPath.item] : movies[indexPath.item])
-        self.configureCellState()
-        self.cells.append(cell)
+        getFavorites()
+        cell.setFavoriteState(mode: self.favorites.contains(cell.cellId) ? .show : .hide)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedMovieIndexPath = indexPath
         var movie = Movie()
         if #available(iOS 13.0, *) {
             guard let selectedMovie = dataSource.itemIdentifier(for: indexPath) else { return }

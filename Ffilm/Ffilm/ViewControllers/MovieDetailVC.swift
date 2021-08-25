@@ -105,6 +105,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
             return
         }
         navigationItem.rightBarButtonItem = favButton
+        NotificationCenter.default.post(name: Strings.Notifications.favoriteStateChanged, object: nil)
         if let id = movieID {
             PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
@@ -123,6 +124,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
             return
         }
         navigationItem.rightBarButtonItem = unfavButton
+        NotificationCenter.default.post(name: Strings.Notifications.favoriteStateChanged, object: nil)
         if let id = movieID {
             PersistenceManager.updateWith(movieID: id, actionType: .add) { [weak self] error in
                 guard let self = self else { return }

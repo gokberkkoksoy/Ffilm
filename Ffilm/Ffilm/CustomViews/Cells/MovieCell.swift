@@ -33,6 +33,11 @@ class MovieCell: UICollectionViewCell {
         favoriteImageView.isHidden = mode == .hide ? true : false
         favoriteBackgroundView.isHidden = mode == .hide ? true : false
     }
+    
+    func toggleState(){
+        favoriteBackgroundView.isHidden.toggle()
+        favoriteImageView.isHidden.toggle()
+    }
 
     func setCell(with movie: Movie) {
         if let posterPath = movie.posterPath {

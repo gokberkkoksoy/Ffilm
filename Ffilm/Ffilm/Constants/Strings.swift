@@ -58,4 +58,8 @@ enum Strings {
     
     static let youtube = "YouTube"
     static let trailer = "Trailer"
+    
+    enum Notifications {
+        static let favoriteStateChanged = Notification.Name("CellFavoriteStateChanged")
+    }
 }
