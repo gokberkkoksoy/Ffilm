@@ -180,7 +180,7 @@ class MoviesVC: FFDataLoaderVC {
     }
     
     deinit {
-      NotificationCenter.default.removeObserver(self, name: Notification.Name("NotificationIdentifier"), object: nil)
+      NotificationCenter.default.removeObserver(self, name: Strings.Notifications.favoriteStateChanged, object: nil)
     }
 }
 //MARK: - COLLECTION VIEW DELEGATE-DATASOURCE
