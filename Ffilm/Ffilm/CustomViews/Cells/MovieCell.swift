@@ -15,7 +15,6 @@ class MovieCell: UICollectionViewCell {
     static let reuseID = UIConstants.movieCellReuseID
     
     let movieImageView = FFImageView(frame: .zero)
-    let favoriteBackgroundView = UIView(frame: .zero)
     let favoriteImageView = UIImageView(frame: .zero)
     let titleBackgroundView = UIView(frame: .zero)
     let titleLabel = FFTitleLabel(textAlignment: .center, fontSize: UIConstants.movieCellTitleSize)
@@ -31,11 +30,9 @@ class MovieCell: UICollectionViewCell {
 
     func setFavoriteState(mode: ImageDisplay) {
         favoriteImageView.isHidden = mode == .hide ? true : false
-        favoriteBackgroundView.isHidden = mode == .hide ? true : false
     }
     
     func toggleState(){
-        favoriteBackgroundView.isHidden.toggle()
         favoriteImageView.isHidden.toggle()
     }
 
@@ -60,19 +57,18 @@ class MovieCell: UICollectionViewCell {
     }
 
     private func configure() {
-        addSubviews(movieImageView, favoriteBackgroundView, favoriteImageView, titleBackgroundView, titleLabel)
+        addSubviews(movieImageView, favoriteImageView, titleBackgroundView, titleLabel)
         titleLabel.pinToEdges(of: titleBackgroundView)
 
         movieImageView.contentMode = .scaleAspectFill
         movieImageView.image = Images.placeholder
         let heightConstant: CGFloat = DeviceTypes.isiPhone8Standard ? 60 : 100
 
-        favoriteBackgroundView.backgroundColor = Colors.blackBackground
-        favoriteBackgroundView.layer.masksToBounds = true
-        favoriteBackgroundView.layer.cornerRadius = UIConstants.imageViewCornerRadius
-
         if #available(iOS 13.0, *) {
             favoriteImageView.image = Images.SFSymbols.movieCellFavoriteImage
+            favoriteImageView.backgroundColor = Colors.blackBackground
+            favoriteImageView.layer.masksToBounds = true
+            favoriteImageView.layer.cornerRadius = UIConstants.movieCellFavoriteImageSize / 2
             favoriteImageView.tintColor = Colors.favoriteSymbolColor
         } else {
             favoriteImageView.image = Images.SFSymbols12.movieCellFavoriteImage12
@@ -87,13 +83,8 @@ class MovieCell: UICollectionViewCell {
             movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor, constant: heightConstant),
 
-            favoriteBackgroundView.topAnchor.constraint(equalTo: topAnchor),
-            favoriteBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            favoriteBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            favoriteBackgroundView.bottomAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
-
             favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -UIConstants.padding),
+            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             favoriteImageView.heightAnchor.constraint(equalToConstant: UIConstants.movieCellFavoriteImageSize),
             favoriteImageView.widthAnchor.constraint(equalTo: favoriteImageView.heightAnchor),
 
@@ -101,8 +92,6 @@ class MovieCell: UICollectionViewCell {
             titleBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             titleBackgroundView.heightAnchor.constraint(equalToConstant: UIConstants.movieCellFavoriteImageBackgroundSize)
-
         ])
     }
-
 }
