@@ -110,7 +110,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
             PersistenceManager.updateWith(movieID: id, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    self.presentAlert(title: "Movie removed from favorites!", type: .warning)
+                    self.presentAlert(title: Strings.favRemove, type: .warning)
                     return
                 }
                 self.presentAlertOnMainThread(title: Strings.somethingWentWrong, message: error.localized, buttonTitle: Strings.ok, alertType: .error)
@@ -129,7 +129,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
             PersistenceManager.updateWith(movieID: id, actionType: .add) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    self.presentAlert(title: "Movie added to favorites!", type: .notification)
+                    self.presentAlert(title: Strings.favSuccess, type: .notification)
                     return
                 }
                 self.presentAlertOnMainThread(title: Strings.oops, message: error.localized, buttonTitle: Strings.ok, alertType: .notification)

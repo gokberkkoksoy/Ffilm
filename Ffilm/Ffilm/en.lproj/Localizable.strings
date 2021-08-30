@@ -40,6 +40,6 @@
 "Delete" = "Delete";
 "Offline" = "You appear to be offline.";
 "CheckConnection" = "Please check your internet connection.";
-"FavSuccessTitle" = "Yayy!";
-"FavSuccess" = "You've successfully favorited this movie.";
+"FavSuccess" = "Movie added to favorites!";
+"FavRemove"  = "Movie removed from favorites!";
 "Oops" = "Oops...";

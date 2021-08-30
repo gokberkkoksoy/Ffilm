@@ -40,6 +40,6 @@
 "Delete" = "Tümünü Sil";
 "Offline" = "İnternetinde bir sorun var.";
 "CheckConnection" = "İnternet bağlantını kontrol etmeyi dene.";
-"FavSuccessTitle" = "Favorilere eklendi.";
-"FavSuccess" = "Favoriler sayfasında görebilirsin.";
+"FavSuccess" = "Favorilere eklendi!";
+"FavRemove" = "Favorilerden kaldırıldı!";
 "Oops" = "Uppss...";
