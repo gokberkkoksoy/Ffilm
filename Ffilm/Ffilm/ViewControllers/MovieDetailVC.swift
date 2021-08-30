@@ -55,7 +55,7 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
                     self.dismissLoadingView()
                 case.failure(_):
                     self.isLoaded = false
-                    self.presentErrorAlert(title: "You are not connected to internet.") {
+                    self.presentErrorAlert(title: Strings.notConnected) {
                         self.dismiss(animated: true)
                     }
                 }

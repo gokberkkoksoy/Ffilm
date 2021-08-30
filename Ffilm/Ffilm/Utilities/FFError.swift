@@ -21,7 +21,7 @@ enum FFError: String, Error {
         case .alreadyInFavorites:
             return NSLocalizedString("AlreadyInFavorites", comment: "")
         case .unableToComplete:
-            return NSLocalizedString("UnableToComplete", comment: "")
+            return NSLocalizedString("CheckConnection", comment: "")
         case  .invalidResponse:
             return NSLocalizedString("InvalidResponse", comment: "")
         case .invalidData:

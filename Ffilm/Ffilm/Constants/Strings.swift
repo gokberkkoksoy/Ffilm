@@ -45,6 +45,7 @@ enum Strings {
 
     static let offline = NSLocalizedString("Offline", comment: "")
     static let checkConnection = NSLocalizedString("CheckConnection", comment: "")
+    static let notConnected = NSLocalizedString("NotConnected", comment: "")
 
     static let favSuccess = NSLocalizedString("FavSuccess", comment: "")
     static let favRemove = NSLocalizedString("FavRemove", comment: "")

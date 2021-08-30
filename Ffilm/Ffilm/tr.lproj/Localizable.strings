@@ -29,7 +29,6 @@
 "Votes" = "%.1f/10 (%d oy)";
 "UnableToFavorite" = "Favorilere eklerken bir hata oluştu. Lütfen tekrar deneyin.";
 "AlreadyInFavorites" = "Film zaten favorilere eklenmiş. Çok sevmiş olmalısın.";
-"UnableToComplete" = "Lütfen internet bağlantını kontrol et.";
 "InvalidData" = "Lütfen internet bağlantını kontrol et.";
 "SomethingWentWrong" = "Bir hata oluştu";
 "OK" = "Tamam";
@@ -43,3 +42,4 @@
 "FavSuccess" = "Favorilere eklendi!";
 "FavRemove" = "Favorilerden kaldırıldı!";
 "Oops" = "Uppss...";
+"NotConnected" = "İnternete bağlı değilsin.";
