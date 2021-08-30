@@ -20,6 +20,7 @@ class FavoritesVC: FFDataLoaderVC {
         configureViewController()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: Strings.clearAll, style: .done, target: self, action: #selector(clearPressed))
         configureTableView()
+        setSearchControllerPlaceholder(with: Strings.favoriteSearchPlaceholder)
     }
 
     override func viewWillAppear(_ animated: Bool) {

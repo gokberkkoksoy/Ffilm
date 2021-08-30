@@ -37,7 +37,7 @@ class MoviesVC: FFDataLoaderVC {
         //  if you do not write this next line, when you click to the search bar and switch between tabbar items WITHOUT SEARCHING ANY MOVIE(CURSOR IS ACTIVE)
         //  view controller will disappear. on ios13+ versions this problem does not occur. only on ios 12.x
         definesPresentationContext = true
-        configureSearchController()
+        setSearchControllerPlaceholder(with: Strings.searchBarPlaceholder)
         configureCollectionView()
         emptyView.frame = view.bounds
         if #available(iOS 13.0, *) { configureDataSource() }
@@ -51,21 +51,6 @@ class MoviesVC: FFDataLoaderVC {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     //MARK: - CONFIGURATION METHODS
-    private func configureSearchController() {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = Strings.searchBarPlaceholder
-        searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
-        if #available(iOS 13.0, *) {} else { navigationController?.navigationBar.isHidden = false }
-        navigationItem.searchController = searchController
-    }
-    
-    @objc func cellFavoriteStateChanged() {
-        getFavorites()
-        guard let cell = collectionView.cellForItem(at: selectedMovieIndexPath) as? MovieCell else { return }
-        cell.toggleState()
-    }
-    
     private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.getThreeColumnFlowLayout(in: view))
         view.addSubview(collectionView)
@@ -101,6 +86,12 @@ class MoviesVC: FFDataLoaderVC {
     //MARK: - PERSISTENCE METHODS
     override func updateScreen() {
         getFavorites()
+    }
+    
+    @objc func cellFavoriteStateChanged() {
+        getFavorites()
+        guard let cell = collectionView.cellForItem(at: selectedMovieIndexPath) as? MovieCell else { return }
+        cell.toggleState()
     }
     
     private func getMovies(of category: String, from page: Int) {
@@ -214,7 +205,7 @@ extension MoviesVC: UICollectionViewDelegate, UICollectionViewDataSource {
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
     }
-
+//MARK: - PAGINATION
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard hasMorePages, isNotLoadingMovies else { return }
         let offsetY = scrollView.contentOffset.y

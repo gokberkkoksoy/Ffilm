@@ -18,7 +18,8 @@
 "EmptySearchBody" = "Try searching for another movie.";
 "RuntimeNotFound" = "Runtime info is not provided.";
 "RateNotFound" = "This movie has not been rated yet.";
-"SearchPlaceholder"= "Search for a movie...";
+"SearchPlaceholder" = "Search for a movie...";
+"SearchFavPlaceholder" = "Search in favorites...";
 "HourAndMinute" = "%dh %dm";
 "Hour" = "%dh";
 "Minute" = "%dm";

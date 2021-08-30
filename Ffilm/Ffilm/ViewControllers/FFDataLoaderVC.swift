@@ -20,10 +20,13 @@ class FFDataLoaderVC: UIViewController, UISearchResultsUpdating, UpdatableScreen
     
     private func configureSearchController() {
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = Strings.searchBarPlaceholder
         searchController.obscuresBackgroundDuringPresentation = false // false -> does not faint the screen
         if #available(iOS 13.0, *) {} else { navigationController?.navigationBar.isHidden = false }
         navigationItem.searchController = searchController
+    }
+    
+    func setSearchControllerPlaceholder(with text: String) {
+        searchController.searchBar.placeholder = text
     }
     
     func removeSearchController() {

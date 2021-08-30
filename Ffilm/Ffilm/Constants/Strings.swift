@@ -15,6 +15,7 @@ enum Strings {
     static let popularVCTabBar = NSLocalizedString("PopularTabBar", comment: "")
 
     static let searchBarPlaceholder = NSLocalizedString("SearchPlaceholder", comment: "")
+    static let favoriteSearchPlaceholder = NSLocalizedString("SearchFavPlaceholder", comment: "")
 
     static let emptyPageTitle = NSLocalizedString("EmptyPageTitle", comment: "")
     static let emptyPageBody = NSLocalizedString("EmptyPageBody", comment: "")

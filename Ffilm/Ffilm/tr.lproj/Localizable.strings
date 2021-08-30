@@ -18,7 +18,8 @@
 "EmptySearchBody" = "Başka bir film aramayı dene.";
 "RuntimeNotFound" = "Süre bilgisi verilmemiş.";
 "RateNotFound" = "Bu filmi kimse puanlamamış.";
-"SearchPlaceholder"= "Film ara...";
+"SearchPlaceholder" = "Film ara...";
+"SearchFavPlaceholder" = "Favorilerde ara...";
 "HourAndMinute" = "%dsa %ddk";
 "Hour" = "%d sa";
 "Minute" = "%d dk";
