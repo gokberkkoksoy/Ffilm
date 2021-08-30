@@ -43,3 +43,6 @@
 "FavRemove"  = "Movie removed from favorites!";
 "Oops" = "Oops...";
 "NotConnected" = "You are not connected to internet.";
+"NotFoundInFavoritesTitle" = "We cannot found it in your favorites.";
+"NotFoundInFavoritesBody" = "Make sure you typed the movie name correctly or favorited it.";
+

@@ -43,3 +43,5 @@
 "FavRemove" = "Favorilerden kaldırıldı!";
 "Oops" = "Uppss...";
 "NotConnected" = "İnternete bağlı değilsin.";
+"NotFoundInFavoritesTitle" = "Favorilerinde böyle bir film yok.";
+"NotFoundInFavoritesBody" = "Filmi favorilere eklediğini ya da filmin adını doğru yazdığını kontrol et.";

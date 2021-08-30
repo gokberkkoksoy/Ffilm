@@ -14,6 +14,7 @@ class FavoritesVC: FFDataLoaderVC {
     private var favStorage = [MovieDetail]()
     private var filteredFavorites = [MovieDetail]()
     private let emptyView = EmptyStateView(header: Strings.emptyPageTitle, body: Strings.emptyPageBody)
+    private var isSearching = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,9 @@ class FavoritesVC: FFDataLoaderVC {
     private func updateUI(with favorites: [MovieDetail]) {
             if favorites.isEmpty {
                 self.favorites = favorites
+                if isSearching == false {
+                    self.emptyView.setLabels(header: Strings.emptyPageTitle, body: Strings.emptyPageBody)
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     self.view.addSubview(self.emptyView)
@@ -118,6 +122,7 @@ class FavoritesVC: FFDataLoaderVC {
             guard let self = self else { return }
             guard let error = error else {
                 self.favorites.remove(at: index)
+                self.favStorage.remove(at: index)
                 self.tableView.deleteRows(at: [IndexPath(row: index, section: .zero)], with: .left)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                     self.navigationItem.rightBarButtonItem?.isEnabled = self.favorites.isEmpty ? false : true
@@ -131,19 +136,23 @@ class FavoritesVC: FFDataLoaderVC {
     
     override func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text?.lowercased(), !filter.isEmpty else {
+            isSearching = false
             filteredFavorites.removeAll()
             updateUI(with: favStorage)
-            DispatchQueue.main.async { self.emptyView.removeFromSuperview() }
+            if !favStorage.isEmpty {
+                DispatchQueue.main.async { self.emptyView.removeFromSuperview() }
+            }
             return
         }
+        isSearching = true
         filteredFavorites = favStorage.filter {
             if let movieTitle = $0.title?.lowercased() { return movieTitle.contains(filter) }
             return false
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.updateUI(with: self.filteredFavorites) }
         if filteredFavorites.isEmpty {
+            emptyView.setLabels(header: Strings.notFoundInFavoritesTitle, body: Strings.notFoundInFavoritesBody)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-//                change messages here
                 self.view.addSubview(self.emptyView)
             }
         } else {
