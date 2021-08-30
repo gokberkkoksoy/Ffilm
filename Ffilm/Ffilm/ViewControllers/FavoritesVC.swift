@@ -149,7 +149,7 @@ class FavoritesVC: FFDataLoaderVC {
             if let movieTitle = $0.title?.lowercased() { return movieTitle.contains(filter) }
             return false
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { self.updateUI(with: self.filteredFavorites) }
+        self.updateUI(with: self.filteredFavorites)
         if filteredFavorites.isEmpty {
             emptyView.setLabels(header: Strings.notFoundInFavoritesTitle, body: Strings.notFoundInFavoritesBody)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
