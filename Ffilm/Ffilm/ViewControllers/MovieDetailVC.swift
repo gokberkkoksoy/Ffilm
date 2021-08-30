@@ -71,8 +71,6 @@ class MovieDetailVC: FFDataLoaderVC, ButtonDelegate {
                     if let videoCount = result.results?.count {
                         if videoCount == .zero {
                             self.movieDetailView.hideButton()
-                        } else {
-                            self.movieDetailView.showButton()
                         }
                     }
                     if let results = result.results {

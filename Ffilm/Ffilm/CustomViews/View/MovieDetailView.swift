@@ -74,6 +74,7 @@ class MovieDetailView: UIView {
         statusSymbol.isHidden = false
         runtimeSymbol.isHidden = false
         releaseDateSymbol.isHidden = false
+        showButton()
     }
     
     func hideSymbols() {
@@ -81,6 +82,7 @@ class MovieDetailView: UIView {
         statusSymbol.isHidden = true
         runtimeSymbol.isHidden = true
         releaseDateSymbol.isHidden = true
+        hideButton()
     }
     
     func hideButton() {
