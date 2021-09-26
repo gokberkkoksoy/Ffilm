@@ -17,7 +17,13 @@ class MoviesVC: FFDataLoaderVC {
     private let emptyView = EmptyStateView(frame: .zero)
 
     @available(iOS 13.0, *)
-    private lazy var dataSource = UICollectionViewDiffableDataSource<Section, Movie>()
+    private lazy var dataSource = UICollectionViewDiffableDataSource<Section, Movie>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
+        cell.setCell(with: self.isSearching ? self.searchedMovies[indexPath.item] : self.movies[indexPath.item])
+        self.getFavorites()
+        cell.setFavoriteState(mode: self.favorites.contains(cell.cellId) ? .show : .hide)
+        return cell
+    }
     
     private var movies = [Movie]()
     private var searchedMovies = [Movie]()

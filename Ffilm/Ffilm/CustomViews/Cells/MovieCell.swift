@@ -78,10 +78,10 @@ class MovieCell: UICollectionViewCell {
         titleLabel.textColor = .white
 
         NSLayoutConstraint.activate([
-            movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            movieImageView.heightAnchor.constraint(equalTo: movieImageView.widthAnchor, constant: heightConstant),
+            movieImageView.topAnchor.constraint(equalTo: topAnchor),
+            movieImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            movieImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            movieImageView.heightAnchor.constraint(equalTo: widthAnchor, constant: heightConstant),
 
             favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
